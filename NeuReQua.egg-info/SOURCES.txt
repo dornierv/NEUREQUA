@@ -1,0 +1,9 @@
+LICENSE
+README.md
+setup.py
+NEUREQUA/__init__.py
+NeuReQua.egg-info/PKG-INFO
+NeuReQua.egg-info/SOURCES.txt
+NeuReQua.egg-info/dependency_links.txt
+NeuReQua.egg-info/requires.txt
+NeuReQua.egg-info/top_level.txt
