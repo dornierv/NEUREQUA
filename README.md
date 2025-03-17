@@ -9,7 +9,11 @@ With NeuReQua you can:
 - Analyze functional response during your cognitive task and identify artifacted channels and/or trials
 
 
+## Installation 
 
+```bash
+ pip install NeuReQua
+```
 
 If you have any suggestion feel free to contact me
 
