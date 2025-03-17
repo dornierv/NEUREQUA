@@ -8,7 +8,7 @@ setup(
     author='Vincent Dornier',
     author_email='vincent.dornier@cnrs.fr',
     license='MIT',
-    packages=['neurequa'],
+    packages=['NEUREQUA'],
     install_requires=['neo',
                       'numpy',  
                       'scipy',
@@ -16,7 +16,7 @@ setup(
                       'seaborn',
                       'mne',
                       'pandas',
-                      'dhn_med_py=1.1.3'                   
+                      'dhn_med_py==1.1.3'                   
                       ],
 
     classifiers=[
