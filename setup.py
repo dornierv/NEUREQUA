@@ -22,7 +22,7 @@ setup(
     classifiers=[
         'Development Status :: 1 - Planning',
         'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: BSD License',  
+        'License :: OSI Approved :: MIT License',  
         'Programming Language :: Python :: 3.12',
     ],
 )
