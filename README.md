@@ -11,8 +11,12 @@ With NeuReQua you can:
 
 ## Installation 
 
+Download Quality_Notebook.ipynb
+
+and then type the following line in your command window
+
 ```bash
- pip install NeuReQua
+ pip install neurequa
 ```
 
 If you have any suggestion feel free to contact me
