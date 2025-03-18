@@ -1,14 +1,14 @@
 from setuptools import setup
 
 setup(
-    name='NeuReQua',
-    version='0.1.1',    
+    name='neurequa',
+    version='0.1.1.5',    
     description='Python package to monitor micro-recording quality in humans',
     url='https://github.com/dornierv/NEUREQUA',
     author='Vincent Dornier',
     author_email='vincent.dornier@cnrs.fr',
     license='MIT',
-    packages=['NEUREQUA'],
+    packages=['neurequa'],
     install_requires=['neo',
                       'numpy',  
                       'scipy',
@@ -16,13 +16,13 @@ setup(
                       'seaborn',
                       'mne',
                       'pandas',
-                      'dhn_med_py==1.1.3'                   
+                      'openpyxl'                   
                       ],
 
     classifiers=[
         'Development Status :: 1 - Planning',
         'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: BSD License',  
+        'License :: OSI Approved :: MIT License',  
         'Programming Language :: Python :: 3.12',
     ],
 )
