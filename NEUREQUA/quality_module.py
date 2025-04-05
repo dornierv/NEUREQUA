@@ -655,6 +655,8 @@ def tblprep(path,electrodes,sub,sess) :
         tbl['kurtosis'] ='DefaultValue'
         tbl['region'] = 'DefaultValue'
         tbl['SNR'] = 'DefaultValue'
+        tbl['Artefact'] = 'DefaultValue'
+        tbl['Hurst'] = 'DefaultValue'
     
     #find the first empty line
     if len(tbl) == 0:
@@ -732,7 +734,7 @@ def rms_signal_filtered (data,path,electrodes,sub,sess,fr_low,fr_high,sr) :
     return tbl
 
     
-def plot_rms (pathtbl,savingpath,sub,sess,electrodes,save=1):
+def plot_rms(pathtbl,savingpath,sub,sess,save=1):
     tbl = pd.read_excel(pathtbl)
     rmstbl = tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess), ['sub', 'run', 'electrodes', 'RMS']]
         
@@ -1419,7 +1421,7 @@ def kurtosis(data,chRegions,path,pathtbl,sub,sess,save=1):
 
 
 
-def hurst_component(data,chRegions,path,save=1):
+def hurst_component(data,chRegions,path,pathtbl,sub,sess,save=1):
     """
     Compute the Hurst component
     You can see Tuyisenge et al. (2018) for a detail of the algorithm
@@ -1437,6 +1439,14 @@ def hurst_component(data,chRegions,path,save=1):
     path : string
         Path where you want to store the plots
     
+    pathtbl: string
+        Path where is store your excel file saving results
+
+    sub: String
+        String "sub-XX" where XX is the number of the subject analyzed
+    
+    sess: String
+        Name of the session you are analyzing
     
     Returns
     ---------------------------
@@ -1478,6 +1488,21 @@ def hurst_component(data,chRegions,path,save=1):
         hurst.append(np.sqrt(np.log(amplitude_range/std_channel)))
 
 
+
+    #open the excel table
+    tbl = pd.read_excel(pathtbl)
+
+
+    #creat a datframe with electrode names and
+    hurst_df = pd.DataFrame()
+    hurst_df['electrodes'] = chRegions
+    hurst_df['Hurst'] = hurst
+    #write the correlation in the table
+    for i in range (0, len(hurst_df)):   
+        tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == hurst_df.iloc[i, 0]), 'Hurst'] = hurst_df.iloc[i, 1]
+  
+    #save table
+    tbl.to_excel(pathtbl, index=False)
     # Plot the results
     matplotlib.rcParams.update({'font.size': 11})
 

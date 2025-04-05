@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='neurequa',
-    version='0.1.1.5',    
+    version='0.1.1.7',    
     description='Python package to monitor micro-recording quality in humans',
     url='https://github.com/dornierv/NEUREQUA',
     author='Vincent Dornier',

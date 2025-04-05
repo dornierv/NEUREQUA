@@ -2,6 +2,7 @@ import numpy as np
 import scipy
 import scipy.stats as stats
 import seaborn as sb
+import pandas as pd
 
 from scipy.signal import filtfilt, bessel
 import matplotlib.pyplot as plt
@@ -467,7 +468,7 @@ def detect_subtle_artifacts(chTraces, chGoodInds, tetInds, chRegs, SR=20000, ver
     
     Parameters:
     - chTraces (ndarray): EEG/LFP data array.
-    - chGoodInds (list): List of good channel indices.
+    - chGoodInds (array): Array of good channel indices.
     - tetInds (list): List of tetrode indices.
     - chRegs (list): Array mapping channels to regions.
     - SR (int): Sampling rate (default=20000 Hz).
@@ -708,4 +709,42 @@ def plot_detected_events(chTraces, chRegs, SR, badWinArray, badWini, ignoreCh=[]
 
     
     
+def ratio_artefact(data,badWins_final,path,sub,sess):
+    """
+    Parameters
+    ---------------------------
+    data : 2-D array
+        2-D array with format nChannels x nSamples containing your recording
+    
+    badWins_final: Array
+        Output of the function get_timeWinsIntersect
 
+    path: String
+        Path where your excel table is stored
+    
+    sub: String
+        Identifiant of your subject
+
+    sess: String
+        Name of the current session you are analyzing
+    """
+
+    bad_sample = 0
+
+    for i in range(len(badWins_final)):
+        bad_sample = bad_sample + (badWins_final[i][1]-badWins_final[i][0])
+
+
+    percentageRecording = (bad_sample / data.shape[1])*100
+
+    #open the table
+    tbl = pd.read_excel(path)
+
+    #write in the table
+    tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess), 'Artefact'] = percentageRecording
+
+    #save the table
+    tbl.to_excel(path, index=False)
+
+
+    print(f"Your recording contains: {percentageRecording} % of artefacts")
