@@ -13,7 +13,7 @@ import scipy.stats as stats
 import matplotlib
 
 
-def load_raw_data(path,dtype,length,*args):
+def load_raw_data(path,dtype,length,time='Random',*args):
     """
     Load data from the raw files (e.g., .ncs for Neuralynx)
 
@@ -35,6 +35,11 @@ def load_raw_data(path,dtype,length,*args):
     length: int or 'all'
         If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal
         If you specify 'all' it will take the entire recording (can be slower, depends on your computational power)
+    
+        
+    time: string or tuple
+        By default take randomly portion of signal corresponding to length
+        It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording
     
     
     Returns
@@ -92,6 +97,7 @@ def load_raw_data(path,dtype,length,*args):
 
         # Get the signal from all channels
         signals_proxy = segment.analogsignals[0]
+
     
     else:
         print("File format not supported, you can load .ncs, .nsX, .med for now")
@@ -138,15 +144,19 @@ def load_raw_data(path,dtype,length,*args):
             last_sample = int(signals_proxy.duration*sampling_rate)
             
 
-            idx_max_random = int(last_sample - (sampling_rate*60*length)) # (sr*60*lenght) correspond to the length of your subselection
+            idx_max_random = int(last_sample - (sampling_rate*60*length)) # (sr*60*length) correspond to the length of your subselection
 
 
             # Here randomly select the starting index of the 5 minutes
-            idx_time = int(random.random()*idx_max_random)
 
+            if time == 'Random':
+                idx_time = int(random.random()*idx_max_random)
+
+                signal_crop = signals_proxy.time_slice(t_start=idx_time/sampling_rate,t_stop=(idx_time/sampling_rate)+length*60)
             
-
-            signal_crop = signals_proxy.time_slice(t_start=idx_time/sampling_rate,t_stop=(idx_time/sampling_rate)+length*60)
+            else:
+                # Crop signal from the portion of interest
+                signal_crop = signals_proxy.time_slice(t_start=time[0]*60,t_stop=(time[1]*60)) # transform time in seconds
 
             data = signal_crop.rescale("V").magnitude.T
             sfreq = signal_crop.sampling_rate.magnitude
@@ -166,11 +176,16 @@ def load_raw_data(path,dtype,length,*args):
         
         
         else:
-            # Select randomly the first sample 
-            idx_time = random_time(raw_data,raw_data.info['sfreq'],length)
-            sampling_rate = raw_data.info['sfreq']
-            # Crop the signal between 1st sample and last sample (last sample - 1st sample = length)
-            raw_interest = raw_data.crop(tmin=idx_time/sampling_rate,tmax=(idx_time/sampling_rate)+length*60)
+
+            if time == 'Random':
+                # Select randomly the first sample 
+                idx_time = random_time(raw_data,raw_data.info['sfreq'],length)
+                sampling_rate = raw_data.info['sfreq']
+                # Crop the signal between 1st sample and last sample (last sample - 1st sample = length)
+                raw_interest = raw_data.crop(tmin=idx_time/sampling_rate,tmax=(idx_time/sampling_rate)+length*60)
+            
+            else:
+                raw_interest = raw_data.crop(tmin=time[0]*60,tmax=time[1]*60)
 
             # Load data in memory
             data_sig = raw_interest.get_data()
