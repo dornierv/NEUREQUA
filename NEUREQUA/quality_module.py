@@ -507,7 +507,7 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
 
 
 
-def plot_noise(data,sr,num_channel,name_channels,path,save=1,fr_low=300,fr_high=3000): #
+def plot_noise(data,sr,chRegions,path,save=1,fr_low=300,fr_high=3000): #
     '''
     This function will plot the raw signal filtered between 300 and 300 Hz for 1 second randomly choosed in the 5 minutes window
     So we can have an idea of the level of noise during our recording
@@ -515,17 +515,14 @@ def plot_noise(data,sr,num_channel,name_channels,path,save=1,fr_low=300,fr_high=
 
     Parameters 
     ---------------------------
-    data : array
-        Data from one particular channel
+    data: array
+        Matrix with your data with shape nChannels x nSamples
 
     sr : int
         sampling rate of the signal
     
-    num_channel : int
-        Number of the channel in your recording, used to save figure
-    
-    name_channels : string
-        String containing the name of the channel you want to plot
+    chRegions : string
+        Array of string containing name of each channels
     
     path : string
         String containing the path where you want to save the figures
@@ -553,7 +550,7 @@ def plot_noise(data,sr,num_channel,name_channels,path,save=1,fr_low=300,fr_high=
 
 
     # Select 1s of data
-    idx_max_random = int(len(data) - (sr)) # Select the index so the beginning is at least 1s before the end of the recording
+    idx_max_random = int(data.shape[1] - (sr)) # Select the index so the beginning is at least 1s before the end of the recording
 
     
     # Here randomly select the starting index of the second
@@ -564,21 +561,23 @@ def plot_noise(data,sr,num_channel,name_channels,path,save=1,fr_low=300,fr_high=
     # Design our filter
     sos = sig.butter(3,[fr_low,fr_high],'bandpass',fs=sr,output='sos')
 
-    # Filter the data
-    data_filtered = sig.sosfilt(sos,data)
 
+    for iCh in range(data.shape[0]):
+        # Filter the data
+        data_filtered = sig.sosfilt(sos,data[iCh])
+        
 
-    # Plot the data
-    plt.figure(figsize=(12,5))
-    plt.plot(np.linspace(0,1,sr),data_filtered[idx_debut:idx_debut+sr])
-    plt.ylabel('µV')
-    plt.xlabel('Time (s)')
-    plt.title('Noise level - channel : '+ name_channels + ' (n° : '+str(num_channel)+')')
+        # Plot the data
+        plt.figure(figsize=(12,5))
+        plt.plot(np.linspace(0,1,sr),data_filtered[idx_debut:idx_debut+sr])
+        plt.ylabel('µV')
+        plt.xlabel('Time (s)')
+        plt.title('Noise level - channel : '+ chRegions[iCh] + ' (n° : '+str(iCh)+')')
 
-    if save==1:
-        plt.savefig(path+'Noise_level_channel'+str(num_channel)+'.jpg')
-    
-    plt.close()
+        if save==1:
+            plt.savefig(path+'Noise_level_channel_'+chRegions[iCh]+'.jpg')
+        
+        plt.close()
 
     
 
