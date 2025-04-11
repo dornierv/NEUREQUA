@@ -199,7 +199,7 @@ def splitCharNum(string) :
         string containing only the numbers from the input (e.g., '1')
     """
     import re
-    char,number=re.findall(r'[A-Za-z]+|\d+', string)
+    char,number=re.findall(r'[A-Za-z-_]+|\d+', string)
     return char,number
 
 
