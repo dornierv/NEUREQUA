@@ -775,6 +775,21 @@ def plot_rms(pathtbl,savingpath,sub,sess,save=1):
         plt.savefig(savingpath+'RMS_AllMicro.jpg')
 
 
+def plot_rms_filter(pathtbl,savingpath,sub,sess,save=1):
+    tbl = pd.read_excel(pathtbl)
+    rmstbl = tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess), ['sub', 'run', 'electrodes', 'RMS_filter']]
+        
+    plt.rcParams.update({'font.size': 11})
+    plt.figure(figsize=(20,5))
+    plt.title('RMS (300-3000) for each channel')
+    plt.xticks(rotation = 45)
+
+    sb.lineplot(x='electrodes', y='RMS_filter', data=rmstbl)    
+    
+    if save==1:
+        plt.savefig(savingpath+'RMS_Filter_AllMicro.jpg')
+
+
 
 def correlation_coefficient(data,chRegions,path,pathtbl,sub,sess,probe_type,save=1):
     '''
