@@ -13,7 +13,7 @@ import scipy.stats as stats
 import matplotlib
 
 
-def load_raw_data(path,dtype,length,time='Random',analog='ainp1',*args):
+def load_raw_data(path,dtype,length,time='Random',analog=False,*args):
     """
     Load data from the raw files (e.g., .ncs for Neuralynx)
 
@@ -41,8 +41,8 @@ def load_raw_data(path,dtype,length,time='Random',analog='ainp1',*args):
         By default take randomly portion of signal corresponding to length
         It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording
     
-    analog: string (optional)
-        Reference channel used in blackrock recording system (default value : ainp1)
+    analog: string (optional) (Default: False)
+        Reference channel used in blackrock recording system if exist
     
     
     Returns
@@ -62,8 +62,9 @@ def load_raw_data(path,dtype,length,time='Random',analog='ainp1',*args):
     # Load 'ns5' from Blackrock    
     elif dtype=='nsX':
         raw_data = mne.io.read_raw_nsx(path)
-        # Exclude the reference channel
-        raw_data.drop_channels(analog)
+        if analog:
+            # Exclude the reference channel
+            raw_data.drop_channels(analog)
     elif dtype=='dat':
         # Here not sure everyone is using int16 but for us it is ok
         data_type = np.int16
