@@ -13,11 +13,28 @@ With NeuReQua you can:
 
 Download Quality_Notebook.ipynb
 
-and then type the following line in your command window
+Open anaconda prompt
+
+(Optional) Create a new environment neurequa with:
+
+```bash
+ conda create --name neurequa
+```
+
+Then do 
+
+```bash
+ conda activate neurequa
+```
+
+And then 
+
 
 ```bash
  pip install neurequa
 ```
+Now neurequa and all libraries needed shoul be installed
+
 
 If you have any suggestion feel free to contact me
 
