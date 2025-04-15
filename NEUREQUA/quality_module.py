@@ -567,8 +567,10 @@ def plot_noise(data,sr,chRegions,path,save=1,fr_low=300,fr_high=3000): #
     
 
     # Design our filter
-    sos = sig.butter(3,[fr_low,fr_high],'bandpass',fs=sr,output='sos')
-
+    try:
+        sos = sig.butter(3,[fr_low,fr_high],'bandpass',fs=sr,output='sos')
+    except:
+        sos = sig.butter(3,[fr_low,(sr/2)-1],'bandpass',fs=sr,output='sos')
 
     for iCh in range(data.shape[0]):
         # Filter the data
@@ -784,7 +786,6 @@ def plot_rms_filter(pathtbl,savingpath,sub,sess,save=1):
     plt.title('RMS (300-3000) for each channel')
     plt.xticks(rotation = 45)
 
-    sb.lineplot(x='electrodes', y='RMS_filter', data=rmstbl)    
     
     if save==1:
         plt.savefig(savingpath+'RMS_Filter_AllMicro.jpg')
