@@ -804,7 +804,9 @@ def plot_rms_filter(pathtbl,savingpath,sub,sess,save=1):
     plt.title('RMS (300-3000) for each channel')
     plt.xticks(rotation = 45)
 
-    
+    sb.lineplot(x='electrodes', y='RMS_filter', data=rmstbl) 
+
+
     if save==1:
         plt.savefig(savingpath+'RMS_Filter_AllMicro.jpg')
 
