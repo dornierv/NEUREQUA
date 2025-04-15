@@ -515,7 +515,7 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
 
 
 
-def plot_noise(data,sr,chRegions,path,save=1,fr_low=300,fr_high=3000): #
+def plot_noise(data,sr,chRegions,path,save=1,limit='auto',fr_low=300,fr_high=3000): #
     '''
     This function will plot the raw signal filtered between 300 and 300 Hz for 1 second randomly choosed in the 5 minutes window
     So we can have an idea of the level of noise during our recording
@@ -572,22 +572,34 @@ def plot_noise(data,sr,chRegions,path,save=1,fr_low=300,fr_high=3000): #
     except:
         sos = sig.butter(3,[fr_low,(sr/2)-1],'bandpass',fs=sr,output='sos')
 
+
+    data_filtered = list()
     for iCh in range(data.shape[0]):
         # Filter the data
-        data_filtered = sig.sosfilt(sos,data[iCh])
-        
+        data_filtered.append(sig.sosfilt(sos,data[iCh]))
 
+    # Get the max value 
+    limit_min = np.min(data_filtered)
+    limit_max = np.max(data_filtered)
+
+    # Plot results
+    for iCh in range(data.shape[0]):
         # Plot the data
         plt.figure(figsize=(12,5))
-        plt.plot(np.linspace(0,1,sr),data_filtered[idx_debut:idx_debut+sr])
+        plt.plot(np.linspace(0,1,sr),data_filtered[iCh][idx_debut:idx_debut+sr])
         plt.ylabel('µV')
         plt.xlabel('Time (s)')
         plt.title('Noise level - channel : '+ chRegions[iCh] + ' (n° : '+str(iCh)+')')
+
+        if limit != 'auto':
+            plt.ylim((limit_min,limit_max))
 
         if save==1:
             plt.savefig(path+'Noise_level_channel_'+chRegions[iCh]+'.jpg')
         
         plt.close()
+
+
 
     
 
