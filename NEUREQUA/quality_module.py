@@ -499,7 +499,7 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
     plt.savefig(saveFolder + 'PSD_All_Channels_0_600Hz_'+bsnm+'_'+session+'.png', dpi=300)
 
 
-    plt.show()
+    
 
 
 
