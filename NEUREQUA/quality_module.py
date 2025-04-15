@@ -31,6 +31,7 @@ def load_raw_data(path,dtype,length,time='Random',analog=False,*args):
         For Neuralynx data : 'ncs'
         For Blackrock data : 'nsX'
         For Dark Horse Neuro data : 'med'
+        edf is also supported
 
     length: int or 'all'
         If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal
@@ -65,6 +66,8 @@ def load_raw_data(path,dtype,length,time='Random',analog=False,*args):
         if analog:
             # Exclude the reference channel
             raw_data.drop_channels(analog)
+    elif dtype=='edf':
+        raw_data = mne.io.read_raw_edf(path)
     elif dtype=='dat':
         # Here not sure everyone is using int16 but for us it is ok
         data_type = np.int16
@@ -104,8 +107,9 @@ def load_raw_data(path,dtype,length,time='Random',analog=False,*args):
 
     
     else:
-        print("File format not supported, you can load .ncs, .nsX, .med for now")
+        print("File format not supported, you can load .ncs, .nsX, .med, .edf for now")
         print("Contact us to add new file format")
+        print("dtype must be either ncs, nsX, med, edf")
 
 
         
@@ -218,7 +222,7 @@ def splitCharNum(string) :
         string containing only the numbers from the input (e.g., '1')
     """
     import re
-    char,number=re.findall(r'[A-Za-z-_\']+|\d+', string)
+    char,number=re.findall(r'[A-Za-z-_\'\s]+|\d+', string)
     return char,number
 
 
@@ -699,7 +703,7 @@ def tblprep(path,electrodes,sub,sess) :
 def rms_signal (data,path,electrodes,sub,sess) :
     '''
     here we take the 5 minutes of signal that were randomly choosed before
-    This function will calculate the RMS (root mean square) for 1 second randomly choosed in the 5 minutes window
+    This function will calculate the RMS (root mean square) for the  time window
 
     data : data from one particular channel
 
@@ -720,12 +724,13 @@ def rms_signal (data,path,electrodes,sub,sess) :
     return tbl
 
 
-def rms_signal_filtered (data,path,electrodes,sub,sess,fr_low,fr_high,sr) :
+def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr) :
     '''
     here we take the 5 minutes of signal that were randomly choosed before
     This function will calculate the RMS (root mean square) for 1 second randomly choosed in the 5 minutes window
 
-    data : data from one particular channel
+    data : 2-D Matrice
+        2-D Matrice containing all your data with shape nChannels x nSamples
 
     sr : sampling rate of the signal
     '''
@@ -733,23 +738,26 @@ def rms_signal_filtered (data,path,electrodes,sub,sess,fr_low,fr_high,sr) :
     # Design our filter
     sos = sig.butter(3,[fr_low,fr_high],'bandpass',fs=sr,output='sos')
 
-    # Filter the data
-    data_filtered = sig.sosfilt(sos,data)
+    for iChannels in range(int(data.shape[0])):
+        electrodes = chRegions[iChannels]
+
+        # Filter the data
+        data_filtered = sig.sosfilt(sos,data[iChannels])
 
 
-    # Calculate the Root Mean Square (RMS) on the whole data
-    rms = np.sqrt(np.mean(data_filtered**2)) 
+        # Calculate the Root Mean Square (RMS) on the whole data
+        rms = np.sqrt(np.mean(data_filtered**2)) 
     
-    #open the table
-    tbl = pd.read_excel(path)
+        #open the table
+        tbl = pd.read_excel(path)
 
-    #write in the table
-    tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == electrodes), 'RMS_filter'] = rms
+        #write in the table
+        tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == electrodes), 'RMS_filter'] = rms
 
-    #save the table
-    tbl.to_excel(path, index=False)
+        #save the table
+        tbl.to_excel(path, index=False)
 
-    return tbl
+    
 
     
 def plot_rms(pathtbl,savingpath,sub,sess,save=1):
