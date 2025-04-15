@@ -68,6 +68,12 @@ def load_raw_data(path,dtype,length,time='Random',analog=False,*args):
             raw_data.drop_channels(analog)
     elif dtype=='edf':
         raw_data = mne.io.read_raw_edf(path)
+
+        # This line if for Benoit, to get automatic in the futur
+        try:
+            raw_data.drop_channels('trigger')
+        except:
+            print('No trigger channels to drop')
     elif dtype=='dat':
         # Here not sure everyone is using int16 but for us it is ok
         data_type = np.int16
