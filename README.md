@@ -1,5 +1,8 @@
 # NeuReQua: Neuronal Recording Quality Check
 
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/neurequa?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/neurequa)
+
+
 🧠 NeuReQua is a Python library designed to help you monitoring your signal quality acquired with micro-electrodes
 
 With NeuReQua you can:
