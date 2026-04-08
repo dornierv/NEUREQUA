@@ -517,6 +517,7 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
 
     #plt.ylim((min(min_pwr)-1,max(max_pwr)+1))
     ax1.legend(loc='center left',labels=chRegs,bbox_to_anchor=(1.01,0.5),fontsize='xx-small')
+    plt.show()
     plt.savefig(saveFolder + 'PSD_All_Channels_0_600Hz_'+bsnm+'_'+session+'.png', dpi=300)
 
     plt.close()
@@ -731,14 +732,15 @@ def tblprep(path,electrodes,sub,sess) :
         while i < len(tbl) and pd.notna(tbl.iloc[i, 0]) and tbl.iloc[i, 0] != "":
             i = i + 1
             
-    #write sub, session and electrode names 
-    for j in range(i,i+len(electrodes)): 
-        x = j - i
-        tbl = pd.concat([tbl, pd.DataFrame([{'sub': sub, 'run': sess,'electrodes': electrodes[x]}])], ignore_index=True)
+    #write sub, session and electrode names if they not already exist
+    if len(tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess)]) == 0: 
+        for j in range(i,i+len(electrodes)): 
+            x = j - i
+            tbl = pd.concat([tbl, pd.DataFrame([{'sub': sub, 'run': sess,'electrodes': electrodes[x]}])], ignore_index=True)
 
         
-    #save and replace the old file
-    tbl.to_excel(path, index=False)
+        #save and replace the old file
+        tbl.to_excel(path, index=False)
 
   
 
