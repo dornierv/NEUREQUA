@@ -58,7 +58,7 @@ def load_raw_data(path,dtype,length,time='Random',analog=False,*args):
     
     # Load 'ncs' from Neuralynx
     if dtype=='ncs':
-        # Exclude files containing 'sub' because correspond to macro-electrodes
+        # Exclude files containing 'sub' because correspond to macro-electrodes 
         raw_data = mne.io.read_raw_neuralynx(path,exclude_fname_patterns=list(['*'+'_sub.ncs']))
     # Load 'ns5' from Blackrock    
     elif dtype=='nsX':
@@ -364,7 +364,7 @@ def random_time(data,sampling_rate,length):
 
 
 
-def p_welch(data,sr,sr_down,fr_low,fr_high):
+def p_welch(data,chRegions,sub,sess,sr,sr_down,fr_low,fr_high,saveFolder,probe_type='Dixi'):
     """
     Compute the power spectrum of your signal in order to identify frequencies present in your signal
     Here we use the welch's method to compute the power spectrum
@@ -400,23 +400,25 @@ def p_welch(data,sr,sr_down,fr_low,fr_high):
     ds_factor = int(sr/sr_down) # Calcule downsample factor by dividing sampling rate (of the original signal) by the sampling rate desired in output
 
     #data_ds = sig.resample(data,int(data.shape[0]/ds_factor))
+    pxx_log = []
+    for iCh in range(data.shape[0]):
     
-    # Compute welch method to estimate PSD
-    f, pxx = sig.welch(data, fs=sr, nperseg=4096)
+        # Compute welch method to estimate PSD
+        f, pxx = sig.welch(data[iCh], fs=sr, nperseg=4096)
 
 
-    # Get the index from fr_low to fr_high Hz to plot the results
-    idx_fr_lim = find_nearest(f,fr_high)
-    idx_debut = find_nearest(f,fr_low)
+        # Get the index from fr_low to fr_high Hz to plot the results
+        idx_fr_lim = find_nearest(f,fr_high)
+        idx_debut = find_nearest(f,fr_low)
 
-    pxx_log = 10*np.log10(pxx[idx_debut:idx_fr_lim])
-    f_plot = f[idx_debut:idx_fr_lim]
+        pxx_log.append(10*np.log10(pxx[idx_debut:idx_fr_lim]))
+        f_plot = f[idx_debut:idx_fr_lim]
     #pxx_log = pxx[idx_debut:idx_fr_lim]
 
 
-    
+    plot_all_chan(f_plot,data.shape[0],chRegions,pxx_log,sub,sess,probe_type,saveFolder)
 
-    return pxx_log,f_plot
+ 
 
 
 
@@ -476,6 +478,9 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
     min_pwr = []
     max_pwr = []
 
+    # Plot the PSD of the micro-wire with according alpha transparency
+    fig, ax1 = plt.subplots(1,1,layout='constrained')
+
     # Here we loop on all channel and plot the PSD corresponding to each channel
     for i in range(0,nCh):
         # Determine wich micro-wire of the tetrode it is (1st, 2nd, 3rd, 4th)
@@ -484,8 +489,8 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
         elif probe_type == 'Ad-tech':
             modulo_ch = i%8
 
-        # Plot the PSD of the micro-wire with according alpha transparency
-        plt.plot(f,psd[i],color=colors[iGroup],alpha=transparency[modulo_ch])
+        
+        ax1.plot(f,psd[i],color=colors[iGroup],alpha=transparency[modulo_ch])
 
 
         # Keep min and max to automatically adjust the limit of the plot
@@ -502,22 +507,36 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
 
 
     # Legend and save plot
-    plt.ylabel('10 * log10(Power)')
+    ax1.set_ylabel('10 * log10(Power)')
     #plt.ylabel('PSD [V**2/Hz]')
-    plt.xlabel('Frequency (Hz)')
-    plt.title('Power Spectrum (Welch ''s method) - '+bsnm+' - '+session)
+    ax1.set_xlabel('Frequency (Hz)')
+    ax1.set_title('Power Spectrum (Welch ''s method) - '+bsnm+' - '+session)
+    
+
 
 
     #plt.ylim((min(min_pwr)-1,max(max_pwr)+1))
-    plt.legend(loc='center left',labels=chRegs,bbox_to_anchor=(1,0.5),fontsize=3)
+    ax1.legend(loc='center left',labels=chRegs,bbox_to_anchor=(1.01,0.5),fontsize='xx-small')
     plt.savefig(saveFolder + 'PSD_All_Channels_0_600Hz_'+bsnm+'_'+session+'.png', dpi=300)
+
+    plt.close()
 
 
     
 
 
 
+def plot_tetrode(metrics,chRegions):
+    # List of colors, each tetrode will be in the same color but with different transparency
+    colors = ['black','red','orangered','saddlebrown','gold','olive','chartreuse','turquoise','darkslategray','dodgerblue','midnightblue','slateblue','darkviolet','violet','magenta','crimson']
+    
+    
+    for iTetrode in range(int(len(chRegions)/4)):
+        metrics_tetrode = [metrics[iTetrode*4],metrics[(iTetrode*4)+1],metrics[(iTetrode*4)+2],metrics[(iTetrode*4)+3]]
 
+
+        
+        plt.plot(chRegions[iTetrode*4:iTetrode*4+4],metrics_tetrode,color=colors[iTetrode])
 
 
 
@@ -591,14 +610,17 @@ def plot_noise(data,sr,chRegions,path,save=1,limit='auto',fr_low=300,fr_high=300
     # Plot results
     for iCh in range(data.shape[0]):
         # Plot the data
-        plt.figure(figsize=(12,5))
-        plt.plot(np.linspace(0,1,sr),data_filtered[iCh][idx_debut:idx_debut+sr])
-        plt.ylabel('µV')
-        plt.xlabel('Time (s)')
-        plt.title('Noise level - channel : '+ chRegions[iCh] + ' (n° : '+str(iCh)+')')
+        fig, ax1 = plt.subplots(1,1,layout='constrained',figsize=(12,5))
+        
+        ax1.plot(np.linspace(0,1,sr),data_filtered[iCh][idx_debut:idx_debut+sr]*1000000,color='cornflowerblue')
+        ax1.set_ylabel('µV',color='grey',fontsize=15)
+        ax1.tick_params(axis='y',color='grey',labelsize=12)
+        ax1.set_xlabel('Time (s)',fontsize=15)
+        ax1.tick_params(axis='x',labelsize=12)
+        ax1.set_title('Noise level - channel : '+ chRegions[iCh] + ' (n° : '+str(iCh)+')',fontsize=18)
 
         if limit != 'auto':
-            plt.ylim((limit_min,limit_max))
+            ax1.set_ylim((limit_min,limit_max))
 
         if save==1:
             plt.savefig(path+'Noise_level_channel_'+chRegions[iCh]+'.jpg')
@@ -744,7 +766,7 @@ def rms_signal (data,path,electrodes,sub,sess) :
     return tbl
 
 
-def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr) :
+def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFolder) :
     '''
     here we take the 5 minutes of signal that were randomly choosed before
     This function will calculate the RMS (root mean square) for 1 second randomly choosed in the 5 minutes window
@@ -758,6 +780,9 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr) :
     # Design our filter
     sos = sig.butter(3,[fr_low,fr_high],'bandpass',fs=sr,output='sos')
 
+    # Initialize the list
+    rms = list()
+
     for iChannels in range(int(data.shape[0])):
         electrodes = chRegions[iChannels]
 
@@ -766,16 +791,31 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr) :
 
 
         # Calculate the Root Mean Square (RMS) on the whole data
-        rms = np.sqrt(np.mean(data_filtered**2)) 
+        rms.append(np.sqrt(np.mean(data_filtered**2)))
     
-        #open the table
-        tbl = pd.read_excel(path)
+    #open the table
+    tbl = pd.read_excel(path)
 
-        #write in the table
-        tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == electrodes), 'RMS_filter'] = rms
+    #write in the table
+    #write the correlation in the table
+    #creat a datframe with electrode names and rms values
+    rms_df = pd.DataFrame()
+    rms_df['electrodes'] = chRegions
+    rms_df['RMS_filter'] = rms
 
-        #save the table
-        tbl.to_excel(path, index=False)
+    #write the correlation in the table
+    for i in range (0, len(rms_df)):   
+        tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == rms_df.iloc[i, 0]), 'RMS_filter'] = rms_df.iloc[i, 1]
+        
+
+
+
+    
+
+    #save the table
+    tbl.to_excel(path, index=False)
+    
+    plot_rms_filter(path,saveFolder,sub,sess,save=1)
 
     
 
@@ -801,10 +841,15 @@ def plot_rms_filter(pathtbl,savingpath,sub,sess,save=1):
         
     plt.rcParams.update({'font.size': 11})
     plt.figure(figsize=(20,5))
-    plt.title('RMS (300-3000) for each channel')
+    plt.title('RMS (filtered signal) for each channel')
     plt.xticks(rotation = 45)
+    plt.ylabel('RMS (300 - 3000 Hz) [Volts]')
 
-    sb.lineplot(x='electrodes', y='RMS_filter', data=rmstbl) 
+    #sb.lineplot(x='electrodes', y='RMS_filter', data=rmstbl)
+
+    RMS_filter = rmstbl['RMS_filter']
+    chRegions = rmstbl['electrodes']
+    plot_tetrode(RMS_filter,chRegions) 
 
 
     if save==1:
@@ -926,14 +971,17 @@ def correlation_coefficient(data,chRegions,path,pathtbl,sub,sess,probe_type,save
     # Plot the results
     matplotlib.rcParams.update({'font.size': 11})
 
-    
     plt.figure(figsize=(20,5))
+    plot_tetrode(mean_corr,chRegions)
+    
+    
     plt.title('Correlation coefficient with neighbouring channels')
     plt.xticks(rotation = 45)
-    plt.plot(chRegions,mean_corr)
 
     if save==1:
         plt.savefig(path+'Correlation_Coefficient_AllMicroChannels.jpg')
+
+    return mean_corr
 
 
 
@@ -1082,10 +1130,12 @@ def variance_normalized(data,chRegions,path,pathtbl,sub,sess,probe_type,save=1):
 
     plt.figure(figsize=(20,5))
 
+    plot_tetrode(variance,chRegions)
+
     plt.title('Variance normalized by neighbouring mico-channels')
 
     plt.xticks(rotation = 45)
-    plt.plot(chRegions,variance)  
+    
 
     if save==1:
         plt.savefig(path+'Variance_Normalized_AllChannels.jpg')
@@ -1235,9 +1285,10 @@ def deviation(data,chRegions,path,pathtbl,sub,sess,probe_type, save=1):
 
 
     plt.figure(figsize=(20,5))
+    plot_tetrode(deviation,chRegions)
     plt.title('Deviation Z-Score')
     plt.xticks(rotation = 45)
-    plt.plot(chRegions,deviation)  
+     
 
     if save==1:
         plt.savefig(path+'Deviation_Zscore_AllChannels.jpg')
@@ -1322,9 +1373,10 @@ def variance(data,chRegions,path,pathtbl,sub,sess,save=1):
 
 
     plt.figure(figsize=(20,5))
+    plot_tetrode(variance,chRegions)
     plt.title('Variance')
     plt.xticks(rotation = 45)
-    plt.plot(chRegions,variance)  
+    
 
     if save==1:
         plt.savefig(path+'Variance_AllChannels.jpg')
@@ -1389,9 +1441,10 @@ def signaltonoise(a,chRegions,path,pathtbl,sub,sess, save=1, axis=1, ddof=0):
 
 
     plt.figure(figsize=(20,5))
+    plot_tetrode(s2n,chRegions)
     plt.title('SNR')
     plt.xticks(rotation = 45)
-    plt.plot(chRegions,s2n)  
+     
 
     if save==1:
         plt.savefig(path+'SNR_AllChannels.jpg')
@@ -1473,9 +1526,10 @@ def kurtosis(data,chRegions,path,pathtbl,sub,sess,save=1):
 
 
     plt.figure(figsize=(20,5))
+    plot_tetrode(kurtosis_channel,chRegions)
     plt.title('Kurtosis on all channels')
     plt.xticks(rotation = 45)
-    plt.plot(chRegions,kurtosis_channel)  
+    #plt.plot(chRegions,kurtosis_channel)  
 
     if save==1:
         plt.savefig(path+'Kurtosis_AllChannels.jpg')
@@ -1570,9 +1624,10 @@ def hurst_component(data,chRegions,path,pathtbl,sub,sess,save=1):
 
 
     plt.figure(figsize=(20,5))
+    plot_tetrode(hurst,chRegions)
     plt.title('Hurst exponent (in EEG ~ 0.7)')
     plt.xticks(rotation = 45)
-    plt.plot(chRegions,hurst)  
+    #plt.plot(chRegions,hurst)  
 
     if save==1:
         plt.savefig(path+'Hurst_Exponent_AllChannels.jpg')
