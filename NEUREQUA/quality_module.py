@@ -386,6 +386,12 @@ def p_welch(data,chRegions,sub,sess,sr,sr_down,fr_low,fr_high,saveFolder,probe_t
     fr_high : int 
         The highest frequency from which we compute the power spectrum
     
+    saveFolder: string
+        Path where you want to save the output figure
+    
+    probe_type: string (Default=Dixi)
+        String containing the model of your electrodes, it can be either 'Dixi' or 'Ad-tech'
+    
     
     Returns
     ---------------------------
@@ -843,15 +849,21 @@ def plot_rms_filter(pathtbl,savingpath,sub,sess,save=1):
         
     plt.rcParams.update({'font.size': 11})
     plt.figure(figsize=(20,5))
-    plt.title('RMS (filtered signal) for each channel')
+    plt.title('RMS (filtered signal) for each channel',fontsize=18)
     plt.xticks(rotation = 45)
-    plt.ylabel('RMS (300 - 3000 Hz) [Volts]')
+    plt.ylabel('RMS (300 - 3000 Hz) [Volts]',fontsize=15)
+
+
 
     #sb.lineplot(x='electrodes', y='RMS_filter', data=rmstbl)
 
     RMS_filter = rmstbl['RMS_filter']
     chRegions = rmstbl['electrodes']
     plot_tetrode(RMS_filter,chRegions) 
+
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
 
 
     if save==1:
@@ -975,10 +987,15 @@ def correlation_coefficient(data,chRegions,path,pathtbl,sub,sess,probe_type,save
 
     plt.figure(figsize=(20,5))
     plot_tetrode(mean_corr,chRegions)
+
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
     
     
-    plt.title('Correlation coefficient with neighbouring channels')
+    plt.title('Correlation coefficient with neighbouring channels',fontsize=18)
     plt.xticks(rotation = 45)
+    plt.ylabel('Pearson (r-value)',fontsize=15)
 
     if save==1:
         plt.savefig(path+'Correlation_Coefficient_AllMicroChannels.jpg')
@@ -1134,7 +1151,12 @@ def variance_normalized(data,chRegions,path,pathtbl,sub,sess,probe_type,save=1):
 
     plot_tetrode(variance,chRegions)
 
-    plt.title('Variance normalized by neighbouring mico-channels')
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+    plt.title('Variance normalized by neighbouring mico-channels',fontsize=18)
+    plt.ylabel('')
 
     plt.xticks(rotation = 45)
     
