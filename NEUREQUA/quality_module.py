@@ -534,6 +534,9 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
 
 
 def plot_tetrode(metrics,chRegions):
+    '''
+    Function used to plot the metrics value of each tetrodes grouped by colors
+    '''
     # List of colors, each tetrode will be in the same color but with different transparency
     colors = ['black','red','orangered','saddlebrown','gold','olive','chartreuse','turquoise','darkslategray','dodgerblue','midnightblue','slateblue','darkviolet','violet','magenta','crimson']
     
@@ -621,10 +624,14 @@ def plot_noise(data,sr,chRegions,path,save=1,limit='auto',fr_low=300,fr_high=300
         
         ax1.plot(np.linspace(0,1,sr),data_filtered[iCh][idx_debut:idx_debut+sr]*1000000,color='cornflowerblue')
         ax1.set_ylabel('µV',color='grey',fontsize=15)
-        ax1.tick_params(axis='y',color='grey',labelsize=12)
+        ax1.tick_params(axis='y',colors='grey',labelsize=12)
         ax1.set_xlabel('Time (s)',fontsize=15)
         ax1.tick_params(axis='x',labelsize=12)
         ax1.set_title('Noise level - channel : '+ chRegions[iCh] + ' (n° : '+str(iCh)+')',fontsize=18)
+
+        # Remove axis lines on top and right part of the box
+        ax1.spines['top'].set_visible(False)
+        ax1.spines['right'].set_visible(False)
 
         if limit != 'auto':
             ax1.set_ylim((limit_min,limit_max))
@@ -699,16 +706,35 @@ def plot_raw(data,sr,num_channel,path,save=1):
 
 def tblprep(path,electrodes,sub,sess) :
     '''
-    here we prep the excel file where all RMS for a patient is stored
-    path: path to an existing excel file
-    electrodes: electrode names 
-    sub: patient number
-    sess: session number 
+    Here we prep the excel file where all metrics values will be stored
+    You can either create a file for each session or patient by changing the name of path
+    But you could also keep the same file and then store values to create a database.
+
+    Parameters 
+    ---------------------------
+
+    path: string
+        Path where you want to store the excel file containing the metrics or an existing file to store values
+    
+    electrodes: array of string
+        Array containing the name of your electrodes (automatically extracted from your recording)
+
+    sub: string
+        Name of the subject analyzed 
+    
+    sess: string
+        Name of the session analyzed
+    
+        
+    Outputs 
+    ---------------------------
+    It creates an excel file where metrics will be stored
     '''
     
     #open the preexisting excel file
     import os.path as path_os
     
+    # It is an existing excel load it
     if path_os.exists(path):
         tbl = pd.read_excel(path, header=0)
     else:
@@ -752,10 +778,10 @@ def tblprep(path,electrodes,sub,sess) :
 
 def rms_signal (data,path,electrodes,sub,sess) :
     '''
-    here we take the 5 minutes of signal that were randomly choosed before
+    Here we take the 5 minutes of signal that were randomly choosed before
     This function will calculate the RMS (root mean square) for the  time window
 
-    data : data from one particular channel
+    data: data from one particular channel
 
     sr : sampling rate of the signal
     '''
@@ -776,13 +802,43 @@ def rms_signal (data,path,electrodes,sub,sess) :
 
 def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFolder) :
     '''
-    here we take the 5 minutes of signal that were randomly choosed before
+    Here we take the 5 minutes of signal that were randomly choosed before
     This function will calculate the RMS (root mean square) for 1 second randomly choosed in the 5 minutes window
 
-    data : 2-D Matrice
-        2-D Matrice containing all your data with shape nChannels x nSamples
+    Parameters 
+    ---------------------------
 
-    sr : sampling rate of the signal
+    data: 2-D Matrice
+        2-D Matrice containing all your data with shape nChannels x nSamples
+    
+    path: string
+        Path where is the excel file you created earlier
+    
+    chRegions: array of string
+        Name of the electrodes in your recordings
+    
+    sub: string
+        Name of the subject analyzed 
+    
+    sess: string
+        Name of the session analyzed
+    
+    fr_low: int
+        Low frequency to filter the data (e.g., 300)
+    
+    fr_high: int
+        High frequency to filter the data (e.g., 3000)
+
+    sr: int
+        Sampling rate of the signal of your recording system
+    
+    saveFolder: string
+        Path where you want to store the outputes figure
+    
+    Outputs 
+    ---------------------------
+    Figure with the values of RMS of your signal filtered
+
     '''
     # Band-pass filter between two frequencies
     # Design our filter
@@ -792,7 +848,6 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFold
     rms = list()
 
     for iChannels in range(int(data.shape[0])):
-        electrodes = chRegions[iChannels]
 
         # Filter the data
         data_filtered = sig.sosfilt(sos,data[iChannels])
@@ -816,13 +871,10 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFold
         tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == rms_df.iloc[i, 0]), 'RMS_filter'] = rms_df.iloc[i, 1]
         
 
-
-
-    
-
     #save the table
     tbl.to_excel(path, index=False)
     
+    # Plot the values
     plot_rms_filter(path,saveFolder,sub,sess,save=1)
 
     
@@ -1156,7 +1208,7 @@ def variance_normalized(data,chRegions,path,pathtbl,sub,sess,probe_type,save=1):
     ax.spines['right'].set_visible(False)
 
     plt.title('Variance normalized by neighbouring mico-channels',fontsize=18)
-    plt.ylabel('')
+    plt.ylabel('Variance normalized',fontsize=15)
 
     plt.xticks(rotation = 45)
     
@@ -1310,8 +1362,17 @@ def deviation(data,chRegions,path,pathtbl,sub,sess,probe_type, save=1):
 
     plt.figure(figsize=(20,5))
     plot_tetrode(deviation,chRegions)
-    plt.title('Deviation Z-Score')
+
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+    ax.set_title('Deviation - Electrical drift',fontsize=18)
+    ax.set_ylabel('Deviation',fontsize=15)
+
     plt.xticks(rotation = 45)
+    
+
      
 
     if save==1:
@@ -1398,8 +1459,16 @@ def variance(data,chRegions,path,pathtbl,sub,sess,save=1):
 
     plt.figure(figsize=(20,5))
     plot_tetrode(variance,chRegions)
-    plt.title('Variance')
+
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+    ax.set_title('Variance - Artifact',fontsize=18)
+    ax.set_ylabel('Variance',fontsize=15)
+
     plt.xticks(rotation = 45)
+    
     
 
     if save==1:
@@ -1551,9 +1620,18 @@ def kurtosis(data,chRegions,path,pathtbl,sub,sess,save=1):
 
     plt.figure(figsize=(20,5))
     plot_tetrode(kurtosis_channel,chRegions)
-    plt.title('Kurtosis on all channels')
+
+
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+    ax.set_title('Kurtosis - Outliers in dataset',fontsize=18)
+    ax.set_ylabel('Kurtosis',fontsize=15)
+
     plt.xticks(rotation = 45)
-    #plt.plot(chRegions,kurtosis_channel)  
+    
+ 
 
     if save==1:
         plt.savefig(path+'Kurtosis_AllChannels.jpg')
@@ -1599,6 +1677,8 @@ def hurst_component(data,chRegions,path,pathtbl,sub,sess,save=1):
 
         # Create a new directory because it does not exist
         os.makedirs(path)
+    
+    # Initialize list to store results
     hurst = list() 
 
 
@@ -1649,9 +1729,18 @@ def hurst_component(data,chRegions,path,pathtbl,sub,sess,save=1):
 
     plt.figure(figsize=(20,5))
     plot_tetrode(hurst,chRegions)
-    plt.title('Hurst exponent (in EEG ~ 0.7)')
+
+
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+    ax.set_title('Hurst exponent - Memory of time series',fontsize=18)
+    ax.set_ylabel('H values',fontsize=15)
+
     plt.xticks(rotation = 45)
-    #plt.plot(chRegions,hurst)  
+
+  
 
     if save==1:
         plt.savefig(path+'Hurst_Exponent_AllChannels.jpg')
