@@ -70,14 +70,16 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
         if analog:
             # Exclude the reference channel
             raw_data.drop_channels(analog)
+    # Load edf data files
     elif dtype=='edf':
         raw_data = mne.io.read_raw_edf(path)
 
-        # This line if for Benoit, to get automatic in the futur
+        # If there is a trigger channels in the edf we want to exclude it
         try:
             raw_data.drop_channels('trigger')
         except:
             print('No trigger channels to drop')
+    # Pas sur qu'on doive garder ça....
     elif dtype=='dat':
         # Here not sure everyone is using int16 but for us it is ok
         data_type = np.int16
@@ -144,10 +146,15 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
             info = mne.create_info(ch_names=ch_names, ch_types=ch_types, sfreq=sfreq)
             raw_data = mne.io.RawArray(data, info)
 
+            # Specify tmin=0 so it starts at the beginning of the recording
             raw_interest = raw_data.crop(tmin=0)
 
+            # Load data into memory
             data_sig = raw_interest.get_data()
+
+        # For all other file format easier to load data
         else:
+
             raw_interest = raw_data.crop(tmin=0)
 
             data_sig = raw_interest.get_data()
@@ -162,11 +169,10 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
             last_sample = int(signals_proxy.duration*sampling_rate)
             
 
-            idx_max_random = int(last_sample - (sampling_rate*60*length)) # (sr*60*length) correspond to the length of your subselection
+            idx_max_random = int(last_sample - (sampling_rate*60*length)) # (sampling_rate*60*length) correspond to the length of your subselection
 
 
             # Here randomly select the starting index of the 5 minutes
-
             if time == 'Random':
                 idx_time = int(random.random()*idx_max_random)
 
@@ -216,7 +222,8 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
 
 def splitCharNum(string) :
     """
-    Separate a string containing characters and numbers in two objects
+    Separate a string containing characters and numbers in two objects 
+    (One with characters and one with numbers)
 
     Parameters
     ---------------------------
@@ -288,21 +295,23 @@ def reorder_data(Regions,data):
     data_ok : array
         Matrix with shape nChannels x nSamples but re-organize to match the order of channel labels
     '''
+    # Extract the label of the electrode
     chChar=np.array([splitCharNum(reg)[0] for reg in Regions])
-    chNumber=np.array([splitCharNum(reg)[1] for reg in Regions])
-    regInds=np.array([chChar==char for char in get_unique_unsorted(chChar)])
-    
 
+    # Extract the number of the channels recording
+    chNumber=np.array([splitCharNum(reg)[1] for reg in Regions])
+
+    # Get the index to put them in the right order
+    regInds=np.array([chChar==char for char in get_unique_unsorted(chChar)])
     argsortChRegs=np.concatenate([np.where(regInds[regi])[0][np.argsort(np.array(chNumber[regInds[regi]], int))]\
          for regi in range(regInds.shape[0])])
     
 
+    # Re-order the names and lfps in right order
     Regions_ok = Regions[argsortChRegs]
     data_ok = data[argsortChRegs]
 
     return Regions_ok,data_ok    
-
-
 
 
 
@@ -325,8 +334,12 @@ def find_nearest(array, value):
     idx : int
         Will return the index  in array closest to value (e.g., 2)
     """
+    # Make sure it is an array
     array = np.asarray(array)
+
+    # Get the index where closest from value
     idx = (np.abs(array - value)).argmin()
+
     return idx
 
 
@@ -376,13 +389,22 @@ def p_welch(data,chRegions,sub,sess,sr,sr_down,fr_low,fr_high,saveFolder,probe_t
     Parameters
     ---------------------------
     data : array
-        Matrix containing data of one channel containing nSamples
+        Matrice containing data of all channels containing nSamples
+
+    chRegions: Numpy array
+        Array containing the labels of all the electrodes in the recording
+    
+    sub: string
+        ID of the patient you are analyzing
+    
+    sess: string
+        Name of the session you are analyzing
     
     sr : int
         Sampling rate of your recording (e.g., 32768)
     
     sr_down : int
-        Sampling rate downsample to get signal in lower frequencies (e.g., 8192 Hz)
+        Sampling rate downsampled, so the one you want (e.g., 8192 Hz)
     
     fr_low : int
         The lowest frequency from which we compute the power spectrum
@@ -409,8 +431,18 @@ def p_welch(data,chRegions,sub,sess,sr,sr_down,fr_low,fr_high,saveFolder,probe_t
     # Dowsample from sr to fs in order to speed up computing
     ds_factor = int(sr/sr_down) # Calcule downsample factor by dividing sampling rate (of the original signal) by the sampling rate desired in output
 
-    #data_ds = sig.resample(data,int(data.shape[0]/ds_factor))
+    # Downsample based on ds_factor
+    if ds_factor != 1:
+        data_ds = sig.resample(data,int(data.shape[0]/ds_factor))
+
+        # Store the down sampled data into data
+        data = data_ds
+
+
+    # Initialize the list where to store the power values
     pxx_log = []
+
+    # Loop over all channels in your recording
     for iCh in range(data.shape[0]):
     
         # Compute welch method to estimate PSD
@@ -421,11 +453,11 @@ def p_welch(data,chRegions,sub,sess,sr,sr_down,fr_low,fr_high,saveFolder,probe_t
         idx_fr_lim = find_nearest(f,fr_high)
         idx_debut = find_nearest(f,fr_low)
 
+        # Store values of the power spectrum
         pxx_log.append(10*np.log10(pxx[idx_debut:idx_fr_lim]))
         f_plot = f[idx_debut:idx_fr_lim]
-    #pxx_log = pxx[idx_debut:idx_fr_lim]
 
-
+    # Do the plot part
     plot_all_chan(f_plot,data.shape[0],chRegions,pxx_log,sub,sess,probe_type,saveFolder)
 
  
@@ -476,6 +508,7 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
     # List of colors, each tetrode will be in the same color but with different transparency
     colors = ['black','red','orangered','saddlebrown','gold','olive','chartreuse','turquoise','darkslategray','dodgerblue','midnightblue','slateblue','darkviolet','violet','magenta','crimson']
     
+    # Get different alpha levels for each wire
     if probe_type == 'Dixi':
         transparency = [0.4,0.6,0.8,1]
     elif probe_type == 'Ad-tech':
@@ -485,6 +518,7 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
     # Initialize to zero the current tetrode (so it takes the first one)
     iGroup = 0
 
+    # Initialize the lists where we will store values
     min_pwr = []
     max_pwr = []
 
@@ -518,19 +552,17 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
 
     # Legend and save plot
     ax1.set_ylabel('10 * log10(Power)')
-    #plt.ylabel('PSD [V**2/Hz]')
     ax1.set_xlabel('Frequency (Hz)')
     ax1.set_title('Power Spectrum (Welch ''s method) - '+bsnm+' - '+session)
-    
-
-
-
-    #plt.ylim((min(min_pwr)-1,max(max_pwr)+1))
     ax1.legend(loc='center left',labels=chRegs,bbox_to_anchor=(1.01,0.5),fontsize='xx-small')
+
+    # Save the figure in the right folder
     plt.savefig(saveFolder + 'PSD_All_Channels_0_600Hz_'+bsnm+'_'+session+'.png', dpi=300)
 
+    # Display the figure in the notebook
     plt.show()
 
+    # Close it
     plt.close()
 
 
@@ -545,17 +577,19 @@ def plot_tetrode(metrics,chRegions):
     # List of colors, each tetrode will be in the same color but with different transparency
     colors = ['black','red','orangered','saddlebrown','gold','olive','chartreuse','turquoise','darkslategray','dodgerblue','midnightblue','slateblue','darkviolet','violet','magenta','crimson']
     
-    
+    # Loop over all tetrodes in your recording
     for iTetrode in range(int(len(chRegions)/4)):
+
+        # Extract the metrics of the tetrode analyzed
         metrics_tetrode = [metrics[iTetrode*4],metrics[(iTetrode*4)+1],metrics[(iTetrode*4)+2],metrics[(iTetrode*4)+3]]
 
 
-        
+        # Plot each tetrode with the same color
         plt.plot(chRegions[iTetrode*4:iTetrode*4+4],metrics_tetrode,color=colors[iTetrode])
 
 
 
-def plot_noise(data,sr,chRegions,path,save=1,limit='auto',fr_low=300,fr_high=3000): #
+def plot_noise(data,sr,chRegions,path,save=1,limit='auto',fr_low=300,fr_high=3000): 
     '''
     This function will plot the raw signal filtered between 300 and 300 Hz for 1 second randomly choosed in the 5 minutes window
     So we can have an idea of the level of noise during our recording
@@ -577,6 +611,10 @@ def plot_noise(data,sr,chRegions,path,save=1,limit='auto',fr_low=300,fr_high=300
     
     save : int, default = 1
         If you don't want to save figure put save = 0
+
+    limit: string
+        Default value is 'auto' so matplotlib handes the limit but otherwise it is the min and max of your data
+        Could be useful to better see the level of noise in your recording
     
     fr_low : int, default = 300
         The lowest frequency for your band pass filter 
@@ -606,16 +644,18 @@ def plot_noise(data,sr,chRegions,path,save=1,limit='auto',fr_low=300,fr_high=300
     
     
 
-    # Design our filter
+    # Design our butterworth
     try:
         sos = sig.butter(3,[fr_low,fr_high],'bandpass',fs=sr,output='sos')
     except:
         sos = sig.butter(3,[fr_low,(sr/2)-1],'bandpass',fs=sr,output='sos')
 
-
+    # Initialize the list where to store data filtered between 300 and 3000 Hz
     data_filtered = list()
+
+    # Loop over all the channels
     for iCh in range(data.shape[0]):
-        # Filter the data
+        # Filter the data and store them in the list
         data_filtered.append(sig.sosfilt(sos,data[iCh]))
 
     # Get the max value 
@@ -669,7 +709,8 @@ def plot_raw(data,sr,num_channel,path,save=1):
     path : string
         Path where you want to store your figure in output
     
-    save : Boolean, default = 1 else put save = 0
+    save : Boolean 
+        Default = 1 else put save = 0
 
     Returns
     ---------------------------
@@ -748,7 +789,6 @@ def tblprep(path,electrodes,sub,sess) :
         tbl['sub'] = 'DefaultValue'
         tbl['run'] = 'DefaultValue'
         tbl['electrodes'] = 'DefaultValue'
-        tbl['RMS'] = 'DefaultValue'
         tbl['RMS_filter'] = 'DefaultValue'
         tbl['variance'] = 'DefaultValue'
         tbl['variance_norm'] = 'DefaultValue'
@@ -781,28 +821,6 @@ def tblprep(path,electrodes,sub,sess) :
 
   
 
-def rms_signal (data,path,electrodes,sub,sess) :
-    '''
-    Here we take the 5 minutes of signal that were randomly choosed before
-    This function will calculate the RMS (root mean square) for the  time window
-
-    data: data from one particular channel
-
-    sr : sampling rate of the signal
-    '''
-    # Calculate the Root Mean Square (RMS) on the whole data
-    rms = np.sqrt(np.mean(data**2)) 
-    
-    #open the table
-    tbl = pd.read_excel(path)
-
-    #write in the table
-    tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == electrodes), 'RMS'] = rms
-
-    #save the table
-    tbl.to_excel(path, index=False)
-
-    return tbl
 
 
 def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFolder) :
