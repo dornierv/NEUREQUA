@@ -870,6 +870,7 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFold
     # Initialize the list
     rms = list()
 
+    # Loop over the channels in the recording
     for iChannels in range(int(data.shape[0])):
 
         # Filter the data
@@ -902,20 +903,7 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFold
 
     
 
-    
-def plot_rms(pathtbl,savingpath,sub,sess,save=1):
-    tbl = pd.read_excel(pathtbl)
-    rmstbl = tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess), ['sub', 'run', 'electrodes', 'RMS']]
-        
-    plt.rcParams.update({'font.size': 11})
-    plt.figure(figsize=(20,5),layout='constrained')
-    plt.title('RMS for each channel')
-    plt.xticks(rotation = 45)
 
-    sb.lineplot(x='electrodes', y='RMS', data=rmstbl)    
-    
-    if save==1:
-        plt.savefig(savingpath+'RMS_AllMicro.jpg')
 
 
 def plot_rms_filter(pathtbl,savingpath,sub,sess,save=1):
