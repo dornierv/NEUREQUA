@@ -523,8 +523,9 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
 
     #plt.ylim((min(min_pwr)-1,max(max_pwr)+1))
     ax1.legend(loc='center left',labels=chRegs,bbox_to_anchor=(1.01,0.5),fontsize='xx-small')
-    plt.show()
     plt.savefig(saveFolder + 'PSD_All_Channels_0_600Hz_'+bsnm+'_'+session+'.png', dpi=300)
+
+    plt.show()
 
     plt.close()
 
@@ -885,7 +886,7 @@ def plot_rms(pathtbl,savingpath,sub,sess,save=1):
     rmstbl = tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess), ['sub', 'run', 'electrodes', 'RMS']]
         
     plt.rcParams.update({'font.size': 11})
-    plt.figure(figsize=(20,5))
+    plt.figure(figsize=(20,5),layout='constrained')
     plt.title('RMS for each channel')
     plt.xticks(rotation = 45)
 
@@ -1037,7 +1038,7 @@ def correlation_coefficient(data,chRegions,path,pathtbl,sub,sess,probe_type,save
     # Plot the results
     matplotlib.rcParams.update({'font.size': 11})
 
-    plt.figure(figsize=(20,5))
+    plt.figure(figsize=(20,5),layout='constrained')
     plot_tetrode(mean_corr,chRegions)
 
     ax = plt.gca()
@@ -1199,7 +1200,7 @@ def variance_normalized(data,chRegions,path,pathtbl,sub,sess,probe_type,save=1):
     matplotlib.rcParams.update({'font.size': 11})
 
 
-    plt.figure(figsize=(20,5))
+    plt.figure(figsize=(20,5),layout='constrained')
 
     plot_tetrode(variance,chRegions)
 
@@ -1360,7 +1361,7 @@ def deviation(data,chRegions,path,pathtbl,sub,sess,probe_type, save=1):
     matplotlib.rcParams.update({'font.size': 11})
 
 
-    plt.figure(figsize=(20,5))
+    plt.figure(figsize=(20,5),layout='constrained')
     plot_tetrode(deviation,chRegions)
 
     ax = plt.gca()
@@ -1457,7 +1458,7 @@ def variance(data,chRegions,path,pathtbl,sub,sess,save=1):
     matplotlib.rcParams.update({'font.size': 11})
 
 
-    plt.figure(figsize=(20,5))
+    plt.figure(figsize=(20,5),layout='constrained')
     plot_tetrode(variance,chRegions)
 
     ax = plt.gca()
@@ -1533,7 +1534,7 @@ def signaltonoise(a,chRegions,path,pathtbl,sub,sess, save=1, axis=1, ddof=0):
     matplotlib.rcParams.update({'font.size': 11})
 
 
-    plt.figure(figsize=(20,5))
+    plt.figure(figsize=(20,5), layout='constrained')
     plot_tetrode(s2n,chRegions)
     plt.title('SNR')
     plt.xticks(rotation = 45)
@@ -1618,7 +1619,7 @@ def kurtosis(data,chRegions,path,pathtbl,sub,sess,save=1):
     matplotlib.rcParams.update({'font.size': 11})
 
 
-    plt.figure(figsize=(20,5))
+    plt.figure(figsize=(20,5),layout='constrained')
     plot_tetrode(kurtosis_channel,chRegions)
 
 
@@ -1727,7 +1728,7 @@ def hurst_component(data,chRegions,path,pathtbl,sub,sess,save=1):
     matplotlib.rcParams.update({'font.size': 11})
 
 
-    plt.figure(figsize=(20,5))
+    plt.figure(figsize=(20,5),layout='constrained')
     plot_tetrode(hurst,chRegions)
 
 
