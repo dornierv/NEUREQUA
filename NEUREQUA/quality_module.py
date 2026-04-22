@@ -13,7 +13,7 @@ import scipy.stats as stats
 import matplotlib
 
 
-def load_raw_data(path,dtype,length,time='Random',analog=False,*args):
+def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,*args):
     """
     Load data from the raw files (e.g., .ncs for Neuralynx)
 
@@ -31,11 +31,15 @@ def load_raw_data(path,dtype,length,time='Random',analog=False,*args):
         For Neuralynx data : 'ncs'
         For Blackrock data : 'nsX'
         For Dark Horse Neuro data : 'med'
-        edf is also supported
+        edf is also supported : 'edf'
 
     length: int or 'all'
         If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal
-        If you specify 'all' it will take the entire recording (can be slower, depends on your computational power)
+        If you specify 'all' it will take the entire recording (can be slower, depends on your computational resources)
+    
+    pattern2exclude: string
+        Pattern that enables us to not take into account the macrocontacts 
+        (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be '_sub.ncs')
     
         
     time: string or tuple
@@ -43,7 +47,7 @@ def load_raw_data(path,dtype,length,time='Random',analog=False,*args):
         It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording
     
     analog: string (optional) (Default: False)
-        Reference channel used in blackrock recording system if exist
+        Reference channel used in blackrock recording system if it exists
     
     
     Returns
@@ -58,8 +62,8 @@ def load_raw_data(path,dtype,length,time='Random',analog=False,*args):
     
     # Load 'ncs' from Neuralynx
     if dtype=='ncs':
-        # Exclude files containing 'sub' because correspond to macro-electrodes 
-        raw_data = mne.io.read_raw_neuralynx(path,exclude_fname_patterns=list(['*'+'_sub.ncs']))
+        # Exclude files containing 'sub' because correspond to macro-electrodes - TO adapt with a pattern in arguments of the fucntions
+        raw_data = mne.io.read_raw_neuralynx(path,exclude_fname_patterns=list(['*'+pattern2exclude]))
     # Load 'ns5' from Blackrock    
     elif dtype=='nsX':
         raw_data = mne.io.read_raw_nsx(path)
