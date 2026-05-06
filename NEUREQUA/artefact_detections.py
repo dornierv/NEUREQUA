@@ -119,7 +119,7 @@ thresh_dt1	float	Z-score threshold for first subtle artifact detector
 extend_final_com_ms	int	Window merge threshold (ms)
 
 
-Made by Adrien Causse
+Made by Adrien A. Causse
 """
 
 
@@ -816,6 +816,9 @@ def plot_chTraces(chTraces, sr, chInds = None, t_sample = None, chCols = None, w
         
 
 def plot_detected_events(chTraces, chRegs, SR, badWinArray, badWini, ignoreCh=[], win_s=2, lw=1, hspace=-7000, extend_final_com_ms=200):
+    '''
+    Functions used to plot the artifacts detected
+    '''
     
     tetWins=get_timeWins4TimeVect(np.arange(0, len(chRegs)+4, 4))
     chCols_tet=np.row_stack([[col]*4 for col in sb.color_palette('Dark2', len(tetWins))])

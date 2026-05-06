@@ -907,6 +907,16 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFold
 
 
 def plot_rms_filter(pathtbl,savingpath,sub,sess,save=1):
+    '''
+    This function is used to plot the Root-mean square value of each channels
+
+    Parameters 
+    ---------------------------
+
+    
+    
+    
+    '''
     tbl = pd.read_excel(pathtbl)
     rmstbl = tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess), ['sub', 'run', 'electrodes', 'RMS_filter']]
         
