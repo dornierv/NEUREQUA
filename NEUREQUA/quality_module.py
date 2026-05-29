@@ -428,12 +428,10 @@ def p_welch(data,chRegions,sub,sess,sr,sr_down,fr_low,fr_high,saveFolder,probe_t
         Array containing the values of frequency associate with each power spectrum value (will be useful for the plot)
     """
 
-    # Dowsample from sr to fs in order to speed up computing
-    ds_factor = int(sr/sr_down) # Calcule downsample factor by dividing sampling rate (of the original signal) by the sampling rate desired in output
-
-    # Downsample based on ds_factor
-    if ds_factor != 1:
-        data_ds = sig.resample(data,int(data.shape[0]/ds_factor))
+    
+    # Downsample based on sr_down
+    if sr_down != 1:
+        data_ds = sig.decimate(data,sr_down)
 
         # Store the down sampled data into data
         data = data_ds
@@ -457,8 +455,15 @@ def p_welch(data,chRegions,sub,sess,sr,sr_down,fr_low,fr_high,saveFolder,probe_t
         pxx_log.append(10*np.log10(pxx[idx_debut:idx_fr_lim]))
         f_plot = f[idx_debut:idx_fr_lim]
 
+    
+
+
     # Do the plot part
     plot_all_chan(f_plot,data.shape[0],chRegions,pxx_log,sub,sess,probe_type,saveFolder)
+
+    return pxx_log
+
+    
 
  
 
@@ -554,7 +559,7 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
     ax1.set_ylabel('10 * log10(Power)')
     ax1.set_xlabel('Frequency (Hz)')
     ax1.set_title('Power Spectrum (Welch ''s method) - '+bsnm+' - '+session)
-    ax1.legend(loc='center left',labels=chRegs,bbox_to_anchor=(1.01,0.5),fontsize='xx-small')
+    ax1.legend(loc='center left',labels=chRegs,bbox_to_anchor=(1.01,0.5),fontsize=4)
 
     # Save the figure in the right folder
     plt.savefig(saveFolder + 'PSD_All_Channels_0_600Hz_'+bsnm+'_'+session+'.png', dpi=300)
