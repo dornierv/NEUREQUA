@@ -12,6 +12,15 @@ import pandas as pd
 import scipy.stats as stats
 import matplotlib
 
+def ensure_dir(path: str) -> None:
+    """
+    Create the directory if it does not exist
+    """
+
+    isExist = os.path.exists(path)
+    if not isExist:
+        os.makedirs(path)
+
 
 def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,*args):
     """
@@ -351,18 +360,18 @@ def random_time(data,sampling_rate,length):
     
     Parameters
     ---------------------------
-    data : The raw object of data (Raw object from MNE)
+    data: The raw object of data (Raw object from MNE)
     
     sampling rate : int
         The sampling rate of your recording (e.g., 32768)
     
-    length : int
+    length: int
         Length in minute of the signal you want to analyze
     
         
     Returns 
     ---------------------------
-    idx_debut : int
+    start_idx: int
         Correspond to the first sample of the signal, the beginning of the recording you want
         to analyze
     """
@@ -375,9 +384,9 @@ def random_time(data,sampling_rate,length):
 
 
     # Here randomly select the starting index of the 5 minutes
-    idx_debut = int(random.random()*idx_max_random)
+    start_idx = int(random.random()*idx_max_random)
 
-    return idx_debut
+    return start_idx
 
 
 
@@ -503,12 +512,8 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
     """
 
 
-    # Check whether the specified path exists or not
-    isExist = os.path.exists(saveFolder)
-    if not isExist:
-        # Create a new directory because it does not exist
-        os.makedirs(saveFolder)
-   
+    # Make sure to create the directory
+    ensure_dir(saveFolder)
 
     # List of colors, each tetrode will be in the same color but with different transparency
     colors = ['black','red','orangered','saddlebrown','gold','olive','chartreuse','turquoise','darkslategray','dodgerblue','midnightblue','slateblue','darkviolet','violet','magenta','crimson']
@@ -551,7 +556,7 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
             if modulo_ch==3:
                 iGroup=iGroup+1
         elif probe_type == 'Ad-tech':
-            if modulo_ch == 8:
+            if modulo_ch == 7:
                 iGroup = iGroup + 1
 
 
@@ -562,7 +567,8 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
     ax1.legend(loc='center left',labels=chRegs,bbox_to_anchor=(1.01,0.5),fontsize=4)
 
     # Save the figure in the right folder
-    plt.savefig(saveFolder + 'PSD_All_Channels_0_600Hz_'+bsnm+'_'+session+'.png', dpi=300)
+    plt.rcParams["svg.fonttype"] = 'none'
+    plt.savefig(saveFolder + 'PSD_All_Channels_'+bsnm+'_'+session+'.svg', dpi=300)
 
     # Display the figure in the notebook
     plt.show()
@@ -632,11 +638,7 @@ def plot_noise(data,sr,chRegions,path,save=1,limit='auto',fr_low=300,fr_high=300
     Matplotlib plot saved in the specific folder if you want to
     '''
     # Check whether the specified path exists or not
-    isExist = os.path.exists(path)
-    if not isExist:
-
-        # Create a new directory because it does not exist
-        os.makedirs(path)
+    ensure_dir(path)
    
 
 
@@ -722,11 +724,7 @@ def plot_raw(data,sr,num_channel,path,save=1):
     Matplotlib plot with raw signal 
     '''
     # Check whether the specified path exists or not
-    isExist = os.path.exists(path)
-    if not isExist:
-
-        # Create a new directory because it does not exist
-        os.makedirs(path)
+    ensure_dir(path)
    
 
     # Select 1s of data
@@ -828,7 +826,7 @@ def tblprep(path,electrodes,sub,sess) :
 
 
 
-def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFolder) :
+def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFolder,save=1) :
     '''
     Here we take the 5 minutes of signal that were randomly choosed before
     This function will calculate the RMS (root mean square) for 1 second randomly choosed in the 5 minutes window
@@ -902,9 +900,25 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFold
 
     #save the table
     tbl.to_excel(path, index=False)
+    # Plot the results
+    matplotlib.rcParams.update({'font.size': 11})
+
+    plt.figure(figsize=(20,5),layout='constrained')
+    plot_tetrode(rms,chRegions)
+
+    ax = plt.gca()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
     
-    # Plot the values
-    plot_rms_filter(path,saveFolder,sub,sess,save=1)
+    
+    plt.title('RMS (filtered signal) for each channel',fontsize=18)
+    plt.xticks(rotation = 45)
+    plt.ylabel('RMS (300 - 3000 Hz) [Volts]',fontsize=15)
+
+    if save==1:
+        plt.savefig(saveFolder+'RMS_Filter_AllMicro.jpg')
+    
+    return rms
 
     
 
@@ -994,11 +1008,7 @@ def correlation_coefficient(data,chRegions,path,pathtbl,sub,sess,probe_type,save
     import os
       
     # Check whether the specified path exists or not
-    isExist = os.path.exists(path)
-    if not isExist:
-
-        # Create a new directory because it does not exist
-        os.makedirs(path)
+    ensure_dir(path)
 
 
     mean_corr = list()
@@ -1037,7 +1047,7 @@ def correlation_coefficient(data,chRegions,path,pathtbl,sub,sess,probe_type,save
                 for j in range(data_group.shape[0]):
                     if i!=j:
                         # Compute the pearson correlation between channel i and j
-                        corr[j] = stats.pearsonr(data[i+iGroup*8],data[j+iTetrode*8]).statistic
+                        corr[j] = stats.pearsonr(data[i+iGroup*8],data[j+iGroupe*8]).statistic
                 
 
                 # Get the mean correlation with all neighbouring channels
@@ -1131,11 +1141,7 @@ def variance_normalized(data,chRegions,path,pathtbl,sub,sess,probe_type,save=1):
     '''
        
     # Check whether the specified path exists or not
-    isExist = os.path.exists(path)
-    if not isExist:
-
-        # Create a new directory because it does not exist
-        os.makedirs(path)
+    ensure_dir(path)
 
 
 
@@ -1151,7 +1157,7 @@ def variance_normalized(data,chRegions,path,pathtbl,sub,sess,probe_type,save=1):
 
             # Loop over all channels in the tetrode of interest
             for i in range(data_tetrode.shape[0]):
-
+                
                 # Get the variance of channel i
                 var_i = np.var(data_tetrode[i])
                 var_j = np.zeros(data_tetrode.shape[0])
@@ -1165,11 +1171,11 @@ def variance_normalized(data,chRegions,path,pathtbl,sub,sess,probe_type,save=1):
                 # Get the mean variance of neighbouring electrodes
                 var_j[var_j==0] = np.nan
                 
-                mean_var_j = np.nanmean(var_j)
+                median_var_j = np.nanmedian(var_j)
 
 
                 # Normalized variance of channels i by mean variance of neighbouring channels
-                variance.append(var_i/mean_var_j)
+                variance.append(var_i/median_var_j)
 
     elif probe_type == 'Ad-tech':
         # Loop over all tetrodes
@@ -1287,11 +1293,7 @@ def deviation(data,chRegions,path,pathtbl,sub,sess,probe_type, save=1):
 
 
     # Check whether the specified path exists or not
-    isExist = os.path.exists(path)
-    if not isExist:
-
-        # Create a new directory because it does not exist
-        os.makedirs(path)
+    ensure_dir(path)
 
 
 
@@ -1439,11 +1441,7 @@ def variance(data,chRegions,path,pathtbl,sub,sess,save=1):
 
     '''
     # Check whether the specified path exists or not
-    isExist = os.path.exists(path)
-    if not isExist:
-
-        # Create a new directory because it does not exist
-        os.makedirs(path)
+    ensure_dir(path)
 
 
 
@@ -1526,17 +1524,13 @@ def signaltonoise(a,chRegions,path,pathtbl,sub,sess, save=1, axis=1, ddof=0):
 
     """
     # Check whether the specified path exists or not
-    isExist = os.path.exists(path)
-    if not isExist:
-
-        # Create a new directory because it does not exist
-        os.makedirs(path)
+    ensure_dir(path)
 
     
     a = np.asanyarray(a)
     m = a.mean(axis)
     sd = a.std(axis=axis, ddof=ddof)
-    s2n = np.where(sd == 0, 0, m/sd)
+    signal2noise = np.where(sd == 0, 0, m/sd)
 
     #open the excel table
     tbl = pd.read_excel(pathtbl)
@@ -1545,7 +1539,7 @@ def signaltonoise(a,chRegions,path,pathtbl,sub,sess, save=1, axis=1, ddof=0):
     #creat a datframe with electrode names and
     var_df = pd.DataFrame()
     var_df['electrodes'] = chRegions
-    var_df['SNR'] = s2n
+    var_df['SNR'] = signal2noise
 
     #write the correlation in the table
     for i in range (0, len(var_df)):   
@@ -1560,7 +1554,7 @@ def signaltonoise(a,chRegions,path,pathtbl,sub,sess, save=1, axis=1, ddof=0):
 
 
     plt.figure(figsize=(20,5), layout='constrained')
-    plot_tetrode(s2n,chRegions)
+    plot_tetrode(signal2noise,chRegions)
     plt.title('SNR')
     plt.xticks(rotation = 45)
      
@@ -1568,7 +1562,7 @@ def signaltonoise(a,chRegions,path,pathtbl,sub,sess, save=1, axis=1, ddof=0):
     if save==1:
         plt.savefig(path+'SNR_AllChannels.jpg')
 
-    return s2n
+    return signal2noise
 
 def kurtosis(data,chRegions,path,pathtbl,sub,sess,save=1):
     """
@@ -1610,11 +1604,7 @@ def kurtosis(data,chRegions,path,pathtbl,sub,sess,save=1):
     kurtosis_channel = []
 
     # Check whether the specified path exists or not
-    isExist = os.path.exists(path)
-    if not isExist:
-
-        # Create a new directory because it does not exist
-        os.makedirs(path)
+    ensure_dir(path)
 
     
     for iCh in range(data.shape[0]):
@@ -1698,11 +1688,7 @@ def hurst_component(data,chRegions,path,pathtbl,sub,sess,save=1):
     """
 
     # Check whether the specified path exists or not
-    isExist = os.path.exists(path)
-    if not isExist:
-
-        # Create a new directory because it does not exist
-        os.makedirs(path)
+    ensure_dir(path)
     
     # Initialize list to store results
     hurst = list() 
