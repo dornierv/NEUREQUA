@@ -17,8 +17,19 @@ release = '0.1..1.19'
 extensions = ['sphinx.ext.autodoc',
               'autoapi.extension']
 
+# AutoAPI : pointe vers ton dossier de code
+autoapi_dirs = ['../../neurequa']   # adapte selon ton arborescence
+autoapi_type = 'python'
+autoapi_options = [
+    'members',
+    'undoc-members',
+    'show-inheritance',
+    'show-module-summary',
+]
+
 templates_path = ['_templates']
 exclude_patterns = []
+
 
 
 
