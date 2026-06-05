@@ -14,7 +14,12 @@ release = '0.1..1.19'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = [
+    'autoapi.extension',      # extraction auto des docstrings
+    'sphinx.ext.napoleon',    # support NumPy/Google docstring style
+    'sphinx.ext.viewcode',    # lien "voir le code source"
+    'sphinx.ext.mathjax',     # rendu des équations LaTeX
+]
 
 templates_path = ['_templates']
 exclude_patterns = []
