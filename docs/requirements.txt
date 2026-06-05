@@ -1,10 +1,3 @@
 sphinx
 sphinx-autoapi
 furo
-mne
-neo
-numpy
-scipy
-pandas
-matplotlib
-seaborn
