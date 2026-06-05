@@ -1,7 +1,7 @@
-neurequa.quality_module
+NEUREQUA.quality_module
 =======================
 
-.. py:module:: neurequa.quality_module
+.. py:module:: NEUREQUA.quality_module
 
 
 Functions
@@ -9,28 +9,28 @@ Functions
 
 .. autoapisummary::
 
-   neurequa.quality_module.ensure_dir
-   neurequa.quality_module.load_raw_data
-   neurequa.quality_module.splitCharNum
-   neurequa.quality_module.get_unique_unsorted
-   neurequa.quality_module.reorder_data
-   neurequa.quality_module.find_nearest
-   neurequa.quality_module.random_time
-   neurequa.quality_module.p_welch
-   neurequa.quality_module.plot_all_chan
-   neurequa.quality_module.plot_tetrode
-   neurequa.quality_module.plot_noise
-   neurequa.quality_module.plot_raw
-   neurequa.quality_module.tblprep
-   neurequa.quality_module.rms_signal_filtered
-   neurequa.quality_module.plot_rms_filter
-   neurequa.quality_module.correlation_coefficient
-   neurequa.quality_module.variance_normalized
-   neurequa.quality_module.deviation
-   neurequa.quality_module.variance
-   neurequa.quality_module.signaltonoise
-   neurequa.quality_module.kurtosis
-   neurequa.quality_module.hurst_component
+   NEUREQUA.quality_module.ensure_dir
+   NEUREQUA.quality_module.load_raw_data
+   NEUREQUA.quality_module.splitCharNum
+   NEUREQUA.quality_module.get_unique_unsorted
+   NEUREQUA.quality_module.reorder_data
+   NEUREQUA.quality_module.find_nearest
+   NEUREQUA.quality_module.random_time
+   NEUREQUA.quality_module.p_welch
+   NEUREQUA.quality_module.plot_all_chan
+   NEUREQUA.quality_module.plot_tetrode
+   NEUREQUA.quality_module.plot_noise
+   NEUREQUA.quality_module.plot_raw
+   NEUREQUA.quality_module.tblprep
+   NEUREQUA.quality_module.rms_signal_filtered
+   NEUREQUA.quality_module.plot_rms_filter
+   NEUREQUA.quality_module.correlation_coefficient
+   NEUREQUA.quality_module.variance_normalized
+   NEUREQUA.quality_module.deviation
+   NEUREQUA.quality_module.variance
+   NEUREQUA.quality_module.signaltonoise
+   NEUREQUA.quality_module.kurtosis
+   NEUREQUA.quality_module.hurst_component
 
 
 Module Contents

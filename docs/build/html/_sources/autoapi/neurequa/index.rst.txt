@@ -1,7 +1,7 @@
-neurequa
+NEUREQUA
 ========
 
-.. py:module:: neurequa
+.. py:module:: NEUREQUA
 
 .. autoapi-nested-parse::
 
@@ -17,9 +17,9 @@ Submodules
 .. toctree::
    :maxdepth: 1
 
-   /autoapi/neurequa/artefact_detections/index
-   /autoapi/neurequa/cognitive_module/index
-   /autoapi/neurequa/neuralynx_io/index
-   /autoapi/neurequa/quality_module/index
+   /autoapi/NEUREQUA/artefact_detections/index
+   /autoapi/NEUREQUA/cognitive_module/index
+   /autoapi/NEUREQUA/neuralynx_io/index
+   /autoapi/NEUREQUA/quality_module/index
 
 

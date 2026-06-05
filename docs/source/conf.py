@@ -27,8 +27,14 @@ autoapi_options = [
 
 # Thème
 html_theme = 'furo'
+html_static_path = ['_static']
+html_logo = "logo.png"
+html_theme_options = {
+    'logo_only': True,
+    'display_version': False,
+}
 
-# Support des équations (utile pour RMS, Hurst, etc.)
+# Support des équations
 mathjax_path = (
     'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
 )

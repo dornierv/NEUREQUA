@@ -1,7 +1,7 @@
-neurequa.cognitive_module
+NEUREQUA.cognitive_module
 =========================
 
-.. py:module:: neurequa.cognitive_module
+.. py:module:: NEUREQUA.cognitive_module
 
 
 Attributes
@@ -9,13 +9,13 @@ Attributes
 
 .. autoapisummary::
 
-   neurequa.cognitive_module.HEADER_LENGTH
-   neurequa.cognitive_module.NCS_SAMPLES_PER_RECORD
-   neurequa.cognitive_module.NCS_RECORD
-   neurequa.cognitive_module.NEV_RECORD
-   neurequa.cognitive_module.VOLT_SCALING
-   neurequa.cognitive_module.MILLIVOLT_SCALING
-   neurequa.cognitive_module.MICROVOLT_SCALING
+   NEUREQUA.cognitive_module.HEADER_LENGTH
+   NEUREQUA.cognitive_module.NCS_SAMPLES_PER_RECORD
+   NEUREQUA.cognitive_module.NCS_RECORD
+   NEUREQUA.cognitive_module.NEV_RECORD
+   NEUREQUA.cognitive_module.VOLT_SCALING
+   NEUREQUA.cognitive_module.MILLIVOLT_SCALING
+   NEUREQUA.cognitive_module.MICROVOLT_SCALING
 
 
 Functions
@@ -23,19 +23,19 @@ Functions
 
 .. autoapisummary::
 
-   neurequa.cognitive_module.ensure_dir
-   neurequa.cognitive_module.read_header
-   neurequa.cognitive_module.parse_header
-   neurequa.cognitive_module.read_records
-   neurequa.cognitive_module.estimate_record_count
-   neurequa.cognitive_module.parse_neuralynx_time_string
-   neurequa.cognitive_module.load_nev
-   neurequa.cognitive_module.create_epoch
-   neurequa.cognitive_module.ensure_raw
-   neurequa.cognitive_module.plot_artefact_map
-   neurequa.cognitive_module.to_json
-   neurequa.cognitive_module.load_neuralynx_micro
-   neurequa.cognitive_module.plot_erp
+   NEUREQUA.cognitive_module.ensure_dir
+   NEUREQUA.cognitive_module.read_header
+   NEUREQUA.cognitive_module.parse_header
+   NEUREQUA.cognitive_module.read_records
+   NEUREQUA.cognitive_module.estimate_record_count
+   NEUREQUA.cognitive_module.parse_neuralynx_time_string
+   NEUREQUA.cognitive_module.load_nev
+   NEUREQUA.cognitive_module.create_epoch
+   NEUREQUA.cognitive_module.ensure_raw
+   NEUREQUA.cognitive_module.plot_artefact_map
+   NEUREQUA.cognitive_module.to_json
+   NEUREQUA.cognitive_module.load_neuralynx_micro
+   NEUREQUA.cognitive_module.plot_erp
 
 
 Module Contents

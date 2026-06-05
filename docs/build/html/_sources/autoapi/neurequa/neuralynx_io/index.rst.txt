@@ -1,7 +1,7 @@
-neurequa.neuralynx_io
+NEUREQUA.neuralynx_io
 =====================
 
-.. py:module:: neurequa.neuralynx_io
+.. py:module:: NEUREQUA.neuralynx_io
 
 .. autoapi-nested-parse::
 
@@ -16,13 +16,13 @@ Attributes
 
 .. autoapisummary::
 
-   neurequa.neuralynx_io.HEADER_LENGTH
-   neurequa.neuralynx_io.NCS_SAMPLES_PER_RECORD
-   neurequa.neuralynx_io.NCS_RECORD
-   neurequa.neuralynx_io.NEV_RECORD
-   neurequa.neuralynx_io.VOLT_SCALING
-   neurequa.neuralynx_io.MILLIVOLT_SCALING
-   neurequa.neuralynx_io.MICROVOLT_SCALING
+   NEUREQUA.neuralynx_io.HEADER_LENGTH
+   NEUREQUA.neuralynx_io.NCS_SAMPLES_PER_RECORD
+   NEUREQUA.neuralynx_io.NCS_RECORD
+   NEUREQUA.neuralynx_io.NEV_RECORD
+   NEUREQUA.neuralynx_io.VOLT_SCALING
+   NEUREQUA.neuralynx_io.MILLIVOLT_SCALING
+   NEUREQUA.neuralynx_io.MICROVOLT_SCALING
 
 
 Functions
@@ -30,14 +30,14 @@ Functions
 
 .. autoapisummary::
 
-   neurequa.neuralynx_io.read_header
-   neurequa.neuralynx_io.parse_header
-   neurequa.neuralynx_io.read_records
-   neurequa.neuralynx_io.estimate_record_count
-   neurequa.neuralynx_io.parse_neuralynx_time_string
-   neurequa.neuralynx_io.check_ncs_records
-   neurequa.neuralynx_io.load_ncs
-   neurequa.neuralynx_io.load_nev
+   NEUREQUA.neuralynx_io.read_header
+   NEUREQUA.neuralynx_io.parse_header
+   NEUREQUA.neuralynx_io.read_records
+   NEUREQUA.neuralynx_io.estimate_record_count
+   NEUREQUA.neuralynx_io.parse_neuralynx_time_string
+   NEUREQUA.neuralynx_io.check_ncs_records
+   NEUREQUA.neuralynx_io.load_ncs
+   NEUREQUA.neuralynx_io.load_nev
 
 
 Module Contents

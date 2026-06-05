@@ -1,7 +1,7 @@
-neurequa.artefact_detections
+NEUREQUA.artefact_detections
 ============================
 
-.. py:module:: neurequa.artefact_detections
+.. py:module:: NEUREQUA.artefact_detections
 
 
 Functions
@@ -9,21 +9,21 @@ Functions
 
 .. autoapisummary::
 
-   neurequa.artefact_detections.detectPeaks
-   neurequa.artefact_detections.bandpass_filter_bessel
-   neurequa.artefact_detections.smooth_binary_array
-   neurequa.artefact_detections.get_peri_stimulus_counts
-   neurequa.artefact_detections.get_timeWins4AdjacentPoints
-   neurequa.artefact_detections.get_timeWins_mergeIfNext
-   neurequa.artefact_detections.get_timeWinsTemplatedSignal
-   neurequa.artefact_detections.get_timeWinsIntersect
-   neurequa.artefact_detections.get_timeWins4TimeVect
-   neurequa.artefact_detections.detect_movement_artifacts
-   neurequa.artefact_detections.detect_subtle_artifacts
-   neurequa.artefact_detections.get_tickLocsNLabels_centered
-   neurequa.artefact_detections.plot_chTraces
-   neurequa.artefact_detections.plot_detected_events
-   neurequa.artefact_detections.ratio_artefact
+   NEUREQUA.artefact_detections.detectPeaks
+   NEUREQUA.artefact_detections.bandpass_filter_bessel
+   NEUREQUA.artefact_detections.smooth_binary_array
+   NEUREQUA.artefact_detections.get_peri_stimulus_counts
+   NEUREQUA.artefact_detections.get_timeWins4AdjacentPoints
+   NEUREQUA.artefact_detections.get_timeWins_mergeIfNext
+   NEUREQUA.artefact_detections.get_timeWinsTemplatedSignal
+   NEUREQUA.artefact_detections.get_timeWinsIntersect
+   NEUREQUA.artefact_detections.get_timeWins4TimeVect
+   NEUREQUA.artefact_detections.detect_movement_artifacts
+   NEUREQUA.artefact_detections.detect_subtle_artifacts
+   NEUREQUA.artefact_detections.get_tickLocsNLabels_centered
+   NEUREQUA.artefact_detections.plot_chTraces
+   NEUREQUA.artefact_detections.plot_detected_events
+   NEUREQUA.artefact_detections.ratio_artefact
 
 
 Module Contents
