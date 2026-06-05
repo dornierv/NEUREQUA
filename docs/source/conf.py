@@ -16,7 +16,7 @@ extensions = [
 ]
 
 # AutoAPI : pointe vers ton dossier de code
-autoapi_dirs = ['../../neurequa']   # adapte selon ton arborescence
+autoapi_dirs = ['../../NEUREQUA']   # adapte selon ton arborescence
 autoapi_type = 'python'
 autoapi_options = [
     'members',
