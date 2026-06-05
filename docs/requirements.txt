@@ -1,5 +1,10 @@
 sphinx
 sphinx-autoapi
 furo
-pyyaml==6.0.1
-neurequa
+mne
+neo
+numpy
+scipy
+pandas
+matplotlib
+seaborn

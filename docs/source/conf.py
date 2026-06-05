@@ -1,24 +1,22 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# For the full list of built-in configuration values, see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+import os
+import sys
 
-# -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+# Permet à Sphinx de trouver ton package
+sys.path.insert(0, os.path.abspath('../..'))
 
-project = 'NEUREQUA'
-copyright = '2026, Dornier V.'
-author = 'Dornier V.'
-release = '0.1..1.19'
+project   = 'NEUREQUA'
+author    = 'Dornier V.'
+release   = '0.1'
 
-# -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-
-extensions = ['sphinx.ext.autodoc',
-              'autoapi.extension']
+extensions = [
+    'autoapi.extension',      # extraction auto des docstrings
+    'sphinx.ext.napoleon',    # support NumPy/Google docstring style
+    'sphinx.ext.viewcode',    # lien "voir le code source"
+    'sphinx.ext.mathjax',     # rendu des équations LaTeX
+]
 
 # AutoAPI : pointe vers ton dossier de code
-autoapi_dirs = ['/NEUREQUA/']   # adapte selon ton arborescence
+autoapi_dirs = ['../../neurequa']   # adapte selon ton arborescence
 autoapi_type = 'python'
 autoapi_options = [
     'members',
@@ -27,14 +25,10 @@ autoapi_options = [
     'show-module-summary',
 ]
 
-templates_path = ['_templates']
-exclude_patterns = []
+# Thème
+html_theme = 'furo'
 
-
-
-
-# -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-
-html_theme = 'alabaster'
-html_static_path = ['_static']
+# Support des équations (utile pour RMS, Hurst, etc.)
+mathjax_path = (
+    'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+)

@@ -12,3 +12,4 @@ Dependencies
 - MNE-Python
 - NEO
 - NumPy, SciPy, pandas, matplotlib, seaborn
+
