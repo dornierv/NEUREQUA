@@ -1,0 +1,13 @@
+LICENSE
+README.md
+setup.py
+NEUREQUA/__init__.py
+NEUREQUA/artefact_detections.py
+NEUREQUA/cognitive_module.py
+NEUREQUA/neuralynx_io.py
+NEUREQUA/quality_module.py
+neurequa.egg-info/PKG-INFO
+neurequa.egg-info/SOURCES.txt
+neurequa.egg-info/dependency_links.txt
+neurequa.egg-info/requires.txt
+neurequa.egg-info/top_level.txt
