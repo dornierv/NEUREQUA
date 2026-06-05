@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='NEUREQUA',
+    name='neurequa',
 
     version='0.1.1.19',    
 
