@@ -15,6 +15,12 @@ import matplotlib
 def ensure_dir(path: str) -> None:
     """
     Create the directory if it does not exist
+
+
+    Parameters
+    ---------------------------
+    path: str
+        Path-like where you want to create folder
     """
 
     isExist = os.path.exists(path)
@@ -834,7 +840,7 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFold
     Parameters 
     ---------------------------
 
-    data: 2-D Matrice
+    data: numpy.array
         2-D Matrice containing all your data with shape nChannels x nSamples
     
     path: string
@@ -1047,7 +1053,7 @@ def correlation_coefficient(data,chRegions,path,pathtbl,sub,sess,probe_type,save
                 for j in range(data_group.shape[0]):
                     if i!=j:
                         # Compute the pearson correlation between channel i and j
-                        corr[j] = stats.pearsonr(data[i+iGroup*8],data[j+iGroupe*8]).statistic
+                        corr[j] = stats.pearsonr(data[i+iGroup*8],data[j+iGroup*8]).statistic
                 
 
                 # Get the mean correlation with all neighbouring channels
