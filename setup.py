@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='neurequa',
@@ -10,7 +10,7 @@ setup(
     author='Vincent Dornier',
     author_email='vincent.dornier@cnrs.fr',
     license='MIT',
-    packages=['neurequa'],
+    packages=find_packages(),
     install_requires=['neo',
                       'numpy',  
                       'scipy',
