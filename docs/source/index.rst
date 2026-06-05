@@ -1,17 +1,18 @@
-.. NEUREQUA documentation master file, created by
-   sphinx-quickstart on Fri Jun  5 15:49:32 2026.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-NEUREQUA documentation
+NEUREQUA Documentation
 ======================
-
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contents
+
+   installation
+   quickstart
+   autoapi/index
+
+Introduction
+------------
+
+NEUREQUA is an open-source Python library for monitoring the quality
+of intracranial microelectrode recordings in human patients undergoing
+stereo-electroencephalography (SEEG).
 
