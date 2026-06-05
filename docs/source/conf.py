@@ -15,7 +15,6 @@ release = '0.1..1.19'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'autoapi.extension',      # extraction auto des docstrings
 ]
 
 templates_path = ['_templates']
