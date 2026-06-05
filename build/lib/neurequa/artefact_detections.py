@@ -119,7 +119,7 @@ thresh_dt1	float	Z-score threshold for first subtle artifact detector
 extend_final_com_ms	int	Window merge threshold (ms)
 
 
-Made by Adrien Causse
+Made by Adrien A. Causse
 """
 
 
@@ -224,34 +224,100 @@ def detectPeaks(x, mph=None, mpd=1, threshold=0, edge='rising', kpsh=False, vall
     return ind
 
 def bandpass_filter_bessel(data, lowcut, highcut, sr, order=2):
+    '''
+    Apply a band-pass filter on our raw LFPs
+
+    
+    Parameters
+    ----------
+
+    data: numpy array
+        Numpy array containing the data to filter 
+
+    lowcut: int
+        Low cut frequency to apply on band-pass filter
+
+    highcut: int
+        High cut frequency to apply on band-pass filter
+
+    sr: int
+        Sampling rate of the signal to filter
+    
+    order: int
+        default = 2 
+        Order of the filter to apply
+    
+    
+    Returns
+    ----------
+
+    y: numpy array
+        Matrices containing the filtered data between lowcut and highcut
+    '''
+
+    # Parameters of the filter
     nyquist = 0.5 * sr
     low = lowcut / nyquist
     high = highcut / nyquist
 
+    # Create the filter
     b, a = bessel(N=order, Wn=[low, high], btype='bandpass', analog=False, output='ba')
     
+    # Filter the data
     y = filtfilt(b, a, data)
+
     return y
     
 def smooth_binary_array(binary_array, kernel_size):
+    '''
+    Function used to obtain time series data from binary ones
+
+    Parameters
+    ----------
+    binary_array: array
+        Array composed of 0 or 1 only (e.g. spike data)
+
+    kernel_size: int
+        Size of the kernel to compute the convolution
+    
+    Returns
+    ----------
+    convolve_signal: array
+        binary_array but transformed into time serie
+    '''
+
+    # Create the kernel used
     kernel = np.ones(kernel_size)
-    return np.convolve(binary_array, kernel, mode="same") > 0
+
+    # Do the convolution of the signal with the kernel created
+    convolve_signal = np.convolve(binary_array, kernel, mode="same") > 0
+
+
+    return convolve_signal
     
     
 def get_peri_stimulus_counts(actVect, window_ms=10, sampling_rate=1250):
     """
     Compute peri-stimulus histogram for each spike in a spike train using vectorized operations.
     
-    Parameters:
-    - actVect (np.array): Binary vector (1 for spike, 0 for no spike).
-    - window_ms (int): Window size in milliseconds around each spike.
-    - sampling_rate (int): Sampling rate in Hz.
+    Parameters
+    ----------
+    actVect: Numpy array 
+        Binary vector (1 for spike, 0 for no spike).
 
-    Returns:
-    - peri_stimulus_counts (np.array): Array of the same length as spkTimes
-      with the sum of spikes in the ±window around each spike.
+    window_ms: int
+        Window size in milliseconds around each spike.
+
+    sampling_rate: int
+        Sampling rate in Hz.
+
+    Returns
+    ----------
+    peri_stimulus_counts: Numpy array
+        Array of the same length as spkTimes with the sum of spikes in the ±window around each spike.
     """
-    spkTimes = np.where(actVect)[0]  # Get spike times (indices)
+    # Get spike times (indices)
+    spkTimes = np.where(actVect)[0]  
     
     # Convert window from ms to samples
     window_samples = int(window_ms * sampling_rate / 1000)
@@ -271,12 +337,21 @@ def get_peri_stimulus_counts(actVect, window_ms=10, sampling_rate=1250):
 
 def get_timeWins4AdjacentPoints(arr):
     """
-    return start_ends
+    Get the time (start,end) of each burst
+
+    Parameters
+    ----------
+    arr: Numpy  array
+        Made of indices (np.where(bool))
     
-    which is an array of shape (X, 2)
-    arr in input is made of indices (np.where(bool))
+    Returns
+    ----------
+    start_ends: Numpy array
+        Array of shape (X, 2) with X corresponds to bursts
     """
+    # Convert arr to array
     arr = np.array(arr)
+
     # Find the indices where the difference between consecutive elements is not 1
     diff = np.diff(arr)
     breaks = np.where(diff != 1)[0]
@@ -286,22 +361,33 @@ def get_timeWins4AdjacentPoints(arr):
     
     # The end of each burst is the element at each break, plus the last element
     ends = np.append(arr[breaks], arr[-1])
+
+    start_ends = np.vstack((starts, ends)).T
     
-    return np.vstack((starts, ends)).T
+    return start_ends
 
 
 def get_timeWins_mergeIfNext(timeWins, nbPointsToMerge):
     """
     Merges overlapping or close windows where gaps are < nbPointsToMerge points, and returns the indices of the merged windows.
 
-    Parameters:
-    - timeWins (ndarray): Shape (n, 2), each row is [start, end].
-    - nbPointsToMerge (int): Max gap allowed between consecutive windows to merge.
+    Parameters
+    ----------
+    timeWins: ndarray
+        Shape (n, 2), each row is [start, end]
+    
+    nbPointsToMerge: int 
+        Max gap allowed between consecutive windows to merge.
 
-    Returns:
-    - merged_windows (ndarray): Shape (m, 2), merged windows.
-    - merged_indices (list of lists): Indices of the original windows contributing to each merged window.
+    Returns
+    ----------
+    merged_windows: ndarray 
+        Shape (m, 2), merged windows.
+
+    merged_indices: list of lists 
+        Indices of the original windows contributing to each merged window.
     """
+    # If empty 
     if len(timeWins) == 0:
         return np.array([]).reshape(0, 2), []
 
@@ -326,17 +412,46 @@ def get_timeWins_mergeIfNext(timeWins, nbPointsToMerge):
 
 def get_timeWinsTemplatedSignal(signal, timeWins, nTimePoints = None, filling = np.nan):
     """
-    return templatedSignal
+
+    Parameters
+    ----------
+    signal: 1-D array 
+        Must be a 'pure' np.array, VECTOR shape. If it is an array of lists of len 1, 
+        please use: signal = np.ravel(signal) before passing signal into the function 
+
+    timeWins: ndarray
+        Shape (n, 2), each row is [start, end]
     
-    signal must be a 'pure' np.array, VECTOR shape. If it is an array of lists of len 1, please use: signal = np.ravel(signal) before passing signal into the function 
-    timeWins is a np.array of shape (nWins, 2) / 2 for start and for stop
+    nTimePoints: int or None
+        Default = None
+    
+    filling: nan
+        Numpy nan
+
+    
+    Returns
+    ----------
+    templatedSignal: array
+        Array containing the signal in time windows with burst artifact
+    
+    
     """
+    # If not specified get the number of points in the signal
     if nTimePoints is None:
         nTimePoints = signal.shape[0]
+
+    # Create an array with length nTimePoints filled with NaN
     templatedSignal = np.full(nTimePoints, filling)
+
+    # Loop over the timeWins 
     for timeWin in timeWins:
+
+        # Extract the signal for each time window and store it
         templatedSignal[timeWin[0]:timeWin[1]] = signal[timeWin[0]:timeWin[1]]
+
     return templatedSignal
+
+
 
 def get_timeWinsIntersect(itwA, itwB, lastPoint, firstPoint=0, ifDisplay=False, lfp=None):
     """
@@ -402,16 +517,31 @@ def detect_movement_artifacts(chTraces, chGoodInds, tetInds, verbose=True,
     """
     Detection of movement artifacts using vectorized operations.
     
-    Parameters:
-    - chTraces (ndarray): EEG/LFP data array (channels x time).
-    - chGoodInds (list): Indices of good channels.
-    - tetInds (list): List of tetrode indices.
-    - SR (int): Sampling rate (default=20000 Hz).
-    - thresh_mvA (float): Z-score threshold for movement artifacts.
-    - extend_mvA_ms (int): Extension of detected artifacts (ms).
-    - threshCorr (float): Correlation threshold for refinement.
+    Parameters
+    ----------
+    chTraces: ndarray 
+        EEG/LFP data array (channels x time).
+
+    chGoodInds: list
+        Indices of good channels.
+
+    - tetInds (list): 
+        List of tetrode indices.
+
+    - SR (int): 
+        Sampling rate (default=20000 Hz).
+
+    - thresh_mvA (float): 
+        Z-score threshold for movement artifacts.
+
+    - extend_mvA_ms (int): 
+    Extension of detected artifacts (ms).
+
+    - threshCorr (float): 
+        Correlation threshold for refinement.
     
-    Returns:
+    Returns
+    ----------
     - badWins_refined (ndarray): Array of refined bad time windows.
     """
     # Compute gradient for all channels in one step
@@ -686,6 +816,9 @@ def plot_chTraces(chTraces, sr, chInds = None, t_sample = None, chCols = None, w
         
 
 def plot_detected_events(chTraces, chRegs, SR, badWinArray, badWini, ignoreCh=[], win_s=2, lw=1, hspace=-7000, extend_final_com_ms=200):
+    '''
+    Functions used to plot the artifacts detected
+    '''
     
     tetWins=get_timeWins4TimeVect(np.arange(0, len(chRegs)+4, 4))
     chCols_tet=np.row_stack([[col]*4 for col in sb.color_palette('Dark2', len(tetWins))])

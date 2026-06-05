@@ -1,0 +1,927 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../../genindex.html"><link rel="search" title="Search" href="../../../search.html"><link rel="prev" title="neurequa.neuralynx_io" href="../neuralynx_io/index.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>neurequa.quality_module - NEUREQUA 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=acfd86a5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">NEUREQUA 0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  <span class="sidebar-brand-text">NEUREQUA 0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">API Reference</a><input aria-label="Toggle navigation of API Reference" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">neurequa</a><input aria-label="Toggle navigation of neurequa" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../artefact_detections/index.html">neurequa.artefact_detections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cognitive_module/index.html">neurequa.cognitive_module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../neuralynx_io/index.html">neurequa.neuralynx_io</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">neurequa.quality_module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../../_sources/autoapi/neurequa/quality_module/index.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-neurequa.quality_module">
+<span id="neurequa-quality-module"></span><h1>neurequa.quality_module<a class="headerlink" href="#module-neurequa.quality_module" title="Link to this heading">¶</a></h1>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.quality_module.ensure_dir" title="neurequa.quality_module.ensure_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_dir</span></code></a>(→ None)</p></td>
+<td><p>Create the directory if it does not exist</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.quality_module.load_raw_data" title="neurequa.quality_module.load_raw_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_raw_data</span></code></a>(path, dtype, length, pattern2exclude[, ...])</p></td>
+<td><p>Load data from the raw files (e.g., .ncs for Neuralynx)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.quality_module.splitCharNum" title="neurequa.quality_module.splitCharNum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">splitCharNum</span></code></a>(string)</p></td>
+<td><p>Separate a string containing characters and numbers in two objects</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.quality_module.get_unique_unsorted" title="neurequa.quality_module.get_unique_unsorted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_unique_unsorted</span></code></a>(array)</p></td>
+<td><p>Maintains the order of appearance in the original array</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.quality_module.reorder_data" title="neurequa.quality_module.reorder_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reorder_data</span></code></a>(Regions, data)</p></td>
+<td><p>When there is 3 tetrodes on the same shaft order will be x1, x10, x11, x12, x2, x3 ... x9 on the raw file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.quality_module.find_nearest" title="neurequa.quality_module.find_nearest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_nearest</span></code></a>(array, value)</p></td>
+<td><p>Find the index where there is the nearest values in an array from the one we want</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.quality_module.random_time" title="neurequa.quality_module.random_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">random_time</span></code></a>(data, sampling_rate, length)</p></td>
+<td><p>Select randomly length minutes of signal from your entire recoding</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.quality_module.p_welch" title="neurequa.quality_module.p_welch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">p_welch</span></code></a>(data, chRegions, sub, sess, sr, sr_down, ...)</p></td>
+<td><p>Compute the power spectrum of your signal in order to identify frequencies present in your signal</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.quality_module.plot_all_chan" title="neurequa.quality_module.plot_all_chan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_all_chan</span></code></a>(f, nCh, chRegs, psd, bsnm, session, ...)</p></td>
+<td><p>This function will plot the power spectrum of all micro-channels on the same plot</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.quality_module.plot_tetrode" title="neurequa.quality_module.plot_tetrode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_tetrode</span></code></a>(metrics, chRegions)</p></td>
+<td><p>Function used to plot the metrics value of each tetrodes grouped by colors</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.quality_module.plot_noise" title="neurequa.quality_module.plot_noise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_noise</span></code></a>(data, sr, chRegions, path[, save, limit, ...])</p></td>
+<td><p>This function will plot the raw signal filtered between 300 and 300 Hz for 1 second randomly choosed in the 5 minutes window</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.quality_module.plot_raw" title="neurequa.quality_module.plot_raw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_raw</span></code></a>(data, sr, num_channel, path[, save])</p></td>
+<td><p>In entry take the 5 minutes of signal that were randomly choosed before</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.quality_module.tblprep" title="neurequa.quality_module.tblprep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tblprep</span></code></a>(path, electrodes, sub, sess)</p></td>
+<td><p>Here we prep the excel file where all metrics values will be stored</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.quality_module.rms_signal_filtered" title="neurequa.quality_module.rms_signal_filtered"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rms_signal_filtered</span></code></a>(data, path, chRegions, sub, sess, ...)</p></td>
+<td><p>Here we take the 5 minutes of signal that were randomly choosed before</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.quality_module.plot_rms_filter" title="neurequa.quality_module.plot_rms_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_rms_filter</span></code></a>(pathtbl, savingpath, sub, sess[, save])</p></td>
+<td><p>This function is used to plot the Root-mean square value of each channels</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.quality_module.correlation_coefficient" title="neurequa.quality_module.correlation_coefficient"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correlation_coefficient</span></code></a>(data, chRegions, path, ...[, save])</p></td>
+<td><p>This function compute a correlation coefficient between one micro-wire and all the other micro-wires</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.quality_module.variance_normalized" title="neurequa.quality_module.variance_normalized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variance_normalized</span></code></a>(data, chRegions, path, pathtbl, ...)</p></td>
+<td><p>Compute the variance of each channel normalized by the mean variance of all neighbouring channels on the same tetrode</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.quality_module.deviation" title="neurequa.quality_module.deviation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deviation</span></code></a>(data, chRegions, path, pathtbl, sub, sess, ...)</p></td>
+<td><p>Compute the deviation (i.e. electrical drift)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.quality_module.variance" title="neurequa.quality_module.variance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">variance</span></code></a>(data, chRegions, path, pathtbl, sub, sess[, save])</p></td>
+<td><p>Compute the variance of each channel to see if there is a lot of artefacts or not</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.quality_module.signaltonoise" title="neurequa.quality_module.signaltonoise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">signaltonoise</span></code></a>(a, chRegions, path, pathtbl, sub, sess)</p></td>
+<td><p>The signal-to-noise ratio of the input data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.quality_module.kurtosis" title="neurequa.quality_module.kurtosis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kurtosis</span></code></a>(data, chRegions, path, pathtbl, sub, sess[, save])</p></td>
+<td><p>Kurtosis: An electrical activity may appear in one of the channels and be absent in the remaining ones.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.quality_module.hurst_component" title="neurequa.quality_module.hurst_component"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hurst_component</span></code></a>(data, chRegions, path, pathtbl, sub, sess)</p></td>
+<td><p>Compute the Hurst component</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.ensure_dir">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">ensure_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#neurequa.quality_module.ensure_dir" title="Link to this definition">¶</a></dt>
+<dd><p>Create the directory if it does not exist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path-like where you want to create folder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.load_raw_data">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">load_raw_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern2exclude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Random'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#load_raw_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.load_raw_data" title="Link to this definition">¶</a></dt>
+<dd><p>Load data from the raw files (e.g., .ncs for Neuralynx)</p>
+<dl class="simple">
+<dt>Returns two objects :</dt><dd><ol class="arabic simple">
+<li><p>A raw-object from MNE (see <a class="reference external" href="https://mne.tools/stable/generated/mne.io.Raw.html#mne.io.Raw">https://mne.tools/stable/generated/mne.io.Raw.html#mne.io.Raw</a> for documentation)</p></li>
+<li><p>An array containing raw values of the signal you want to analyze</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>string</em>) – A string containing the path where your data are stored</p></li>
+<li><p><strong>dtpe</strong> (<em>string</em>) – For Neuralynx data : ‘ncs’
+For Blackrock data : ‘nsX’
+For Dark Horse Neuro data : ‘med’
+edf is also supported : ‘edf’</p></li>
+<li><p><strong>length</strong> (<em>int</em><em> or </em><em>'all'</em>) – If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal
+If you specify ‘all’ it will take the entire recording (can be slower, depends on your computational resources)</p></li>
+<li><p><strong>pattern2exclude</strong> (<em>string</em>) – Pattern that enables us to not take into account the macrocontacts
+(e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be ‘_sub.ncs’)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>time: string or tuple</dt><dd><p>By default take randomly portion of signal corresponding to length
+It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording</p>
+</dd>
+<dt>analog: string (optional) (Default: False)</dt><dd><p>Reference channel used in blackrock recording system if it exists</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>raw_data</strong> (<em>raw data in FIF format (see MNE)</em>) – This object contains all informations about your data (channels name, sampling rate etc.)</p></li>
+<li><p><strong>data_sig</strong> (<em>np array</em>) – Array containing raw values of the signal you want to load
+Will have a shape of nCh x nSamples</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.splitCharNum">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">splitCharNum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#splitCharNum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.splitCharNum" title="Link to this definition">¶</a></dt>
+<dd><p>Separate a string containing characters and numbers in two objects
+(One with characters and one with numbers)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>string</strong> (<em>string</em>) – String containing characters and numbers (e.g., ‘da1’)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>char</strong> (<em>string</em>) – string containing only the characters from the input (e.g., ‘da’)</p></li>
+<li><p><strong>number</strong> (<em>string</em>) – string containing only the numbers from the input (e.g., ‘1’)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.get_unique_unsorted">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">get_unique_unsorted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#get_unique_unsorted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.get_unique_unsorted" title="Link to this definition">¶</a></dt>
+<dd><p>Maintains the order of appearance in the original array
+Does not sort by ascending order (figures) or alphabetic order (characters)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>array</strong> (<em>array</em><em> of </em><em>string</em>) – Array of string containing the name of your channels (e.g. [‘da’,’db’])</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>uniqueUnsorted</strong> – array of string containing</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.reorder_data">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">reorder_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Regions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#reorder_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.reorder_data" title="Link to this definition">¶</a></dt>
+<dd><p>When there is 3 tetrodes on the same shaft order will be x1, x10, x11, x12, x2, x3 … x9 on the raw file</p>
+<p>We want to re-organize it so the order is x1, x2, x3 … x9, x10, x11, x12</p>
+<p>Will return the array of regions name and data in the right order</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Regions</strong> (<em>array</em><em> of </em><em>string</em>) – Array of strings containing all the name of the regions implanted with your channels</p></li>
+<li><p><strong>data</strong> (<em>array</em>) – Matrix containing raw values with shape nChannels x nSamples</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>Regions_ok</strong> (<em>array of string</em>) – Array of strings containing the name in the right order (e.g., ‘x1’, ‘x2’, ‘x3’ … ‘x9’, ‘x10’, ‘x11’, ‘x12’)</p></li>
+<li><p><strong>data_ok</strong> (<em>array</em>) – Matrix with shape nChannels x nSamples but re-organize to match the order of channel labels</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.find_nearest">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">find_nearest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#find_nearest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.find_nearest" title="Link to this definition">¶</a></dt>
+<dd><p>Find the index where there is the nearest values in an array from the one we want</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>np.array</em>) – array containing data (e.g., [2, 7, 12])</p></li>
+<li><p><strong>value</strong> (<em>int</em>) – The value we want to find the closest (e.g. 11)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>idx</strong> – Will return the index  in array closest to value (e.g., 2)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.random_time">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">random_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#random_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.random_time" title="Link to this definition">¶</a></dt>
+<dd><p>Select randomly length minutes of signal from your entire recoding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>The raw object</em><em> of </em><em>data</em><em> (</em><em>Raw object from MNE</em><em>)</em>)</p></li>
+<li><p><strong>rate</strong> (<em>sampling</em>) – The sampling rate of your recording (e.g., 32768)</p></li>
+<li><p><strong>length</strong> (<em>int</em>) – Length in minute of the signal you want to analyze</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>start_idx</strong> – Correspond to the first sample of the signal, the beginning of the recording you want
+to analyze</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.p_welch">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">p_welch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr_down</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr_low</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr_high</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveFolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Dixi'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#p_welch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.p_welch" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the power spectrum of your signal in order to identify frequencies present in your signal
+Here we use the welch’s method to compute the power spectrum</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em>) – Matrice containing data of all channels containing nSamples</p></li>
+<li><p><strong>chRegions</strong> (<em>Numpy array</em>) – Array containing the labels of all the electrodes in the recording</p></li>
+<li><p><strong>sub</strong> (<em>string</em>) – ID of the patient you are analyzing</p></li>
+<li><p><strong>sess</strong> (<em>string</em>) – Name of the session you are analyzing</p></li>
+<li><p><strong>sr</strong> (<em>int</em>) – Sampling rate of your recording (e.g., 32768)</p></li>
+<li><p><strong>sr_down</strong> (<em>int</em>) – Sampling rate downsampled, so the one you want (e.g., 8192 Hz)</p></li>
+<li><p><strong>fr_low</strong> (<em>int</em>) – The lowest frequency from which we compute the power spectrum</p></li>
+<li><p><strong>fr_high</strong> (<em>int</em>) – The highest frequency from which we compute the power spectrum</p></li>
+<li><p><strong>saveFolder</strong> (<em>string</em>) – Path where you want to save the output figure</p></li>
+<li><p><strong>probe_type</strong> (<em>string</em><em> (</em><em>Default=Dixi</em><em>)</em>) – String containing the model of your electrodes, it can be either ‘Dixi’ or ‘Ad-tech’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>pxx_log</strong> (<em>array</em>) – Array containing power spectrum values for the channel of interest</p></li>
+<li><p><strong>f_plot</strong> (<em>array</em>) – Array containing the values of frequency associate with each power spectrum value (will be useful for the plot)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.plot_all_chan">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">plot_all_chan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nCh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bsnm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveFolder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#plot_all_chan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.plot_all_chan" title="Link to this definition">¶</a></dt>
+<dd><p>This function will plot the power spectrum of all micro-channels on the same plot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<em>array</em>) – Array containing frequency values (it is the output of p_welch)</p></li>
+<li><p><strong>nCh</strong> (<em>int</em>) – Number of channels in your recording</p></li>
+<li><p><strong>chRegs</strong> (<em>array</em><em> of </em><em>strings</em>) – Array containing name of your channels</p></li>
+<li><p><strong>psd</strong> (<em>array</em>) – Array of power spectrum values for each value of f, it is the output of p_welch</p></li>
+<li><p><strong>session</strong> (<em>string</em>) – Name of the session you analyze, specify at the beginning of the jupyter notebook</p></li>
+<li><p><strong>probe_type</strong> (<em>string</em>) – String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>saveFolder<span class="classifier">string</span></dt><dd><p>String containing the path of the folder where you want to save figure</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Matplotlib plot containing power spectrum of each channels and saved in the folder specified</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.plot_tetrode">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">plot_tetrode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#neurequa.quality_module.plot_tetrode" title="Link to this definition">¶</a></dt>
+<dd><p>Function used to plot the metrics value of each tetrodes grouped by colors</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.plot_noise">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">plot_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr_low</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr_high</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#plot_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.plot_noise" title="Link to this definition">¶</a></dt>
+<dd><p>This function will plot the raw signal filtered between 300 and 300 Hz for 1 second randomly choosed in the 5 minutes window
+So we can have an idea of the level of noise during our recording</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em>) – Matrix with your data with shape nChannels x nSamples</p></li>
+<li><p><strong>sr</strong> (<em>int</em>) – sampling rate of the signal</p></li>
+<li><p><strong>chRegions</strong> (<em>string</em>) – Array of string containing name of each channels</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – String containing the path where you want to save the figures</p></li>
+<li><p><strong>save</strong> (<em>int</em><em>, </em><em>default = 1</em>) – If you don’t want to save figure put save = 0</p></li>
+<li><p><strong>limit</strong> (<em>string</em>) – Default value is ‘auto’ so matplotlib handes the limit but otherwise it is the min and max of your data
+Could be useful to better see the level of noise in your recording</p></li>
+<li><p><strong>fr_low</strong> (<em>int</em><em>, </em><em>default = 300</em>) – The lowest frequency for your band pass filter</p></li>
+<li><p><strong>fr_high</strong> (<em>int</em><em>, </em><em>default = 3000</em>) – The highest frequency for your band pass filter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib plot saved in the specific folder if you want to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.plot_raw">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">plot_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#plot_raw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.plot_raw" title="Link to this definition">¶</a></dt>
+<dd><p>In entry take the 5 minutes of signal that were randomly choosed before
+This function will plot the raw signal for 1 second randomly choosed in the 5 minutes window</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em>) – data from one particular channel</p></li>
+<li><p><strong>sr</strong> (<em>int</em>) – sampling rate of the signal</p></li>
+<li><p><strong>num_channel</strong> (<em>int</em>) – Number of the channel in your recording</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – Path where you want to store your figure in output</p></li>
+<li><p><strong>save</strong> (<em>Boolean</em>) – Default = 1 else put save = 0</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib plot with raw signal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.tblprep">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">tblprep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">electrodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#tblprep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.tblprep" title="Link to this definition">¶</a></dt>
+<dd><p>Here we prep the excel file where all metrics values will be stored
+You can either create a file for each session or patient by changing the name of path
+But you could also keep the same file and then store values to create a database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>string</em>) – Path where you want to store the excel file containing the metrics or an existing file to store values</p></li>
+<li><p><strong>electrodes</strong> (<em>array</em><em> of </em><em>string</em>) – Array containing the name of your electrodes (automatically extracted from your recording)</p></li>
+<li><p><strong>sub</strong> (<em>string</em>) – Name of the subject analyzed</p></li>
+<li><p><strong>sess</strong> (<em>string</em>) – Name of the session analyzed</p></li>
+</ul>
+</dd>
+</dl>
+<section id="outputs">
+<h3>Outputs<a class="headerlink" href="#outputs" title="Link to this heading">¶</a></h3>
+<p>It creates an excel file where metrics will be stored</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.rms_signal_filtered">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">rms_signal_filtered</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr_low</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr_high</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveFolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#rms_signal_filtered"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.rms_signal_filtered" title="Link to this definition">¶</a></dt>
+<dd><p>Here we take the 5 minutes of signal that were randomly choosed before
+This function will calculate the RMS (root mean square) for 1 second randomly choosed in the 5 minutes window</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>numpy.array</em>) – 2-D Matrice containing all your data with shape nChannels x nSamples</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – Path where is the excel file you created earlier</p></li>
+<li><p><strong>chRegions</strong> (<em>array</em><em> of </em><em>string</em>) – Name of the electrodes in your recordings</p></li>
+<li><p><strong>sub</strong> (<em>string</em>) – Name of the subject analyzed</p></li>
+<li><p><strong>sess</strong> (<em>string</em>) – Name of the session analyzed</p></li>
+<li><p><strong>fr_low</strong> (<em>int</em>) – Low frequency to filter the data (e.g., 300)</p></li>
+<li><p><strong>fr_high</strong> (<em>int</em>) – High frequency to filter the data (e.g., 3000)</p></li>
+<li><p><strong>sr</strong> (<em>int</em>) – Sampling rate of the signal of your recording system</p></li>
+<li><p><strong>saveFolder</strong> (<em>string</em>) – Path where you want to store the outputes figure</p></li>
+<li><p><strong>Outputs</strong></p></li>
+<li><p><strong>---------------------------</strong></p></li>
+<li><p><strong>filtered</strong> (<em>Figure with the values</em><em> of </em><em>RMS</em><em> of </em><em>your signal</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.plot_rms_filter">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">plot_rms_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathtbl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savingpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#plot_rms_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.plot_rms_filter" title="Link to this definition">¶</a></dt>
+<dd><p>This function is used to plot the Root-mean square value of each channels</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.correlation_coefficient">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">correlation_coefficient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathtbl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#correlation_coefficient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.correlation_coefficient" title="Link to this definition">¶</a></dt>
+<dd><p>This function compute a correlation coefficient between one micro-wire and all the other micro-wires
+from the same tetrode</p>
+<p>see Tuyisenge, V., Trebaul, L., Bhattacharjee, M., Chanteloup-Forêt, B., Saubat-Guigui, C., Mîndruţă, I., Rheims, S.,
+Maillard, L., Kahane, P., Taussig, D., &amp; David, O. (2018).
+Automatic bad channel detection in intracranial electroencephalographic recordings using ensemble machine learning.
+Clinical Neurophysiology, 129(3), 548‑554. <a class="reference external" href="https://doi.org/10.1016/j.clinph.2017.12.013">https://doi.org/10.1016/j.clinph.2017.12.013</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em>) – Matrix with your data with shape nChannels x nSamples</p></li>
+<li><p><strong>chRegions</strong> (<em>Array</em>) – Vector with the name of the micro-wires</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – Path where you want to save the figure obtained</p></li>
+<li><p><strong>pathtbl</strong> (<em>string</em>) – Path where you store the excel file containing all values for the patient you analyze</p></li>
+<li><p><strong>sub</strong> (<em>string</em>) – String like ‘sub-XX’ with XX being the number of the subject in your database</p></li>
+<li><p><strong>sess</strong> (<em>string</em>) – String containing the name of the session you are analyzing (specified at the beginning of the jupyter notebook)</p></li>
+<li><p><strong>probe_type</strong> (<em>string</em>) – String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</p></li>
+<li><p><strong>figure</strong> (<em>put save = 0 if you don't want to save the</em>)</p></li>
+<li><p><strong>figure</strong></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Matplotlib plot with correlation coefficient for each channel</em></p></li>
+<li><p><em>Values of the correlation coefficient saved in an excel fil to get a report of the analyzes</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.variance_normalized">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">variance_normalized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathtbl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#variance_normalized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.variance_normalized" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the variance of each channel normalized by the mean variance of all neighbouring channels on the same tetrode
+If variance is high then it means that the channel is not recording the same activity than the ones around, so maybe it
+is broken or there is a problem with the plugging on your recording system</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em>) – Matrix with your data with shape nChannels x nSamples</p></li>
+<li><p><strong>chRegions</strong> (<em>array</em><em> of </em><em>strings</em>) – Vector with the name of your channels</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – Path where you want to save output figure</p></li>
+<li><p><strong>pathtbl</strong> (<em>string</em>) – Path where the excel file of this patient is stored</p></li>
+<li><p><strong>sub</strong> (<em>string</em>) – String containing the number or the ID of the patient in your database</p></li>
+<li><p><strong>sess</strong> (<em>string</em>) – String containing the name of the session you are analyzing</p></li>
+<li><p><strong>probe_type</strong> (<em>string</em>) – String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</p></li>
+</ul>
+</dd>
+</dl>
+<p>save: Default=1 to save figure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><em>Matplotlib plot with values of variance normalized</em></p></li>
+<li><p><em>Values are also stored in the excel file</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p>see Tuyisenge, V., Trebaul, L., Bhattacharjee, M., Chanteloup-Forêt, B., Saubat-Guigui, C., Mîndruţă, I., Rheims, S.,
+Maillard, L., Kahane, P., Taussig, D., &amp; David, O. (2018).
+Automatic bad channel detection in intracranial electroencephalographic recordings using ensemble machine learning.
+Clinical Neurophysiology, 129(3), 548‑554. <a class="reference external" href="https://doi.org/10.1016/j.clinph.2017.12.013">https://doi.org/10.1016/j.clinph.2017.12.013</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.deviation">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">deviation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathtbl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#deviation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.deviation" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the deviation (i.e. electrical drift)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em>) – Matrix with your data with shape nChannels x nSamples</p></li>
+<li><p><strong>chRegions</strong> (<em>array</em><em> of </em><em>strings</em>) – Vector with the name of your channels</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – Path where you want to save the output’s figure</p></li>
+<li><p><strong>paththbl</strong> (<em>string</em>) – Path where to store values in excel</p></li>
+<li><p><strong>sub</strong> (<em>string</em>) – IDs of the patient</p></li>
+<li><p><strong>sess</strong> (<em>string</em>) – Name of the session</p></li>
+<li><p><strong>probe_type</strong> (<em>string</em>) – String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib plot and values in excel file</p>
+</dd>
+</dl>
+<p>see Tuyisenge, V., Trebaul, L., Bhattacharjee, M., Chanteloup-Forêt, B., Saubat-Guigui, C., Mîndruţă, I., Rheims, S.,
+Maillard, L., Kahane, P., Taussig, D., &amp; David, O. (2018).
+Automatic bad channel detection in intracranial electroencephalographic recordings using ensemble machine learning.
+Clinical Neurophysiology, 129(3), 548‑554. <a class="reference external" href="https://doi.org/10.1016/j.clinph.2017.12.013">https://doi.org/10.1016/j.clinph.2017.12.013</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.variance">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">variance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathtbl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#variance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.variance" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the variance of each channel to see if there is a lot of artefacts or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em>) – Matrix with your data with shape nChannels x nSamples</p></li>
+<li><p><strong>chRegions</strong> (<em>array</em><em> of </em><em>strings</em>) – Vector with the name of your channels</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – Path where you want to save output figure</p></li>
+<li><p><strong>paththbl</strong> (<em>string</em>) – Path to the excel file where to store informations</p></li>
+<li><p><strong>sub</strong> (<em>string</em>) – IDs of the patient</p></li>
+<li><p><strong>sess</strong> (<em>string</em>) – Name of the session</p></li>
+<li><p><strong>save</strong> (<em>Default=1 to save figure</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib plot and value store in excel file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.signaltonoise">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">signaltonoise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathtbl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#signaltonoise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.signaltonoise" title="Link to this definition">¶</a></dt>
+<dd><p>The signal-to-noise ratio of the input data.</p>
+<p>Returns the signal-to-noise ratio of <cite>a</cite>, here defined as the mean
+divided by the standard deviation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>array_like</em>) – An array_like object containing the sample data.</p></li>
+<li><p><strong>axis</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – If axis is equal to None, the array is first ravel’d. If axis is an
+integer, this is the axis over which to operate. Default is 0.</p></li>
+<li><p><strong>ddof</strong> (<em>int</em><em>, </em><em>optional</em>) – Degrees of freedom correction for standard deviation. Default is 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>s2n</strong> – The mean to standard deviation ratio(s) along <cite>axis</cite>, or 0 where the
+standard deviation is 0.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.kurtosis">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathtbl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.kurtosis" title="Link to this definition">¶</a></dt>
+<dd><p>Kurtosis: An electrical activity may appear in one of the channels and be absent in the remaining ones.
+Such events can be detected by computing the kurtosis in all channels. Given that the kurtosis
+indicates the presence of outliers in datasets, the highest value reveals which channel shows a
+particular event (Mognon et al., 2011) (from Tuyisenge et al., 2018)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em>) – Matrix containing your data with shape nChannels x nSamples</p></li>
+<li><p><strong>chRegions</strong> (<em>array</em><em> of </em><em>strings</em>) – Vector containing name of your channels</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – String of the path where you want to store figures</p></li>
+<li><p><strong>pathtbl</strong> (<em>string</em>) – Path where the excel file is stored</p></li>
+<li><p><strong>sub</strong> (<em>string</em>) – IDs of the patient you are analyzing</p></li>
+<li><p><strong>sess</strong> (<em>string</em>) – Name of the session</p></li>
+<li><p><strong>save</strong> (<em>Boolean</em><em>, </em><em>default=1</em>) – =1 if you want to save plot, put = 0 otherwise</p></li>
+</ul>
+</dd>
+</dl>
+<section id="results">
+<h3>Results<a class="headerlink" href="#results" title="Link to this heading">¶</a></h3>
+<p>Matplotlib plot and value store in the excel file</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.quality_module.hurst_component">
+<span class="sig-prename descclassname"><span class="pre">neurequa.quality_module.</span></span><span class="sig-name descname"><span class="pre">hurst_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathtbl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/quality_module.html#hurst_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.quality_module.hurst_component" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the Hurst component
+You can see Tuyisenge et al. (2018) for a detail of the algorithm
+Typically EEG data have values around 0.7</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array</em>) – Matrix containing your data with shape nChannels x nSamples</p></li>
+<li><p><strong>chRegions</strong> (<em>array</em><em> of </em><em>strings</em>) – Vectors containing the name of your channels</p></li>
+<li><p><strong>path</strong> (<em>string</em>) – Path where you want to store the plots</p></li>
+<li><p><strong>pathtbl</strong> (<em>string</em>) – Path where is store your excel file saving results</p></li>
+<li><p><strong>sub</strong> (<em>String</em>) – String “sub-XX” where XX is the number of the subject analyzed</p></li>
+<li><p><strong>sess</strong> (<em>String</em>) – Name of the session you are analyzing</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib plot</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="../neuralynx_io/index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">neurequa.neuralynx_io</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">neurequa.quality_module</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#neurequa.quality_module.ensure_dir"><code class="docutils literal notranslate"><span class="pre">ensure_dir()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.load_raw_data"><code class="docutils literal notranslate"><span class="pre">load_raw_data()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.splitCharNum"><code class="docutils literal notranslate"><span class="pre">splitCharNum()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.get_unique_unsorted"><code class="docutils literal notranslate"><span class="pre">get_unique_unsorted()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.reorder_data"><code class="docutils literal notranslate"><span class="pre">reorder_data()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.find_nearest"><code class="docutils literal notranslate"><span class="pre">find_nearest()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.random_time"><code class="docutils literal notranslate"><span class="pre">random_time()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.p_welch"><code class="docutils literal notranslate"><span class="pre">p_welch()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.plot_all_chan"><code class="docutils literal notranslate"><span class="pre">plot_all_chan()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.plot_tetrode"><code class="docutils literal notranslate"><span class="pre">plot_tetrode()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.plot_noise"><code class="docutils literal notranslate"><span class="pre">plot_noise()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.plot_raw"><code class="docutils literal notranslate"><span class="pre">plot_raw()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.tblprep"><code class="docutils literal notranslate"><span class="pre">tblprep()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.rms_signal_filtered"><code class="docutils literal notranslate"><span class="pre">rms_signal_filtered()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.plot_rms_filter"><code class="docutils literal notranslate"><span class="pre">plot_rms_filter()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.correlation_coefficient"><code class="docutils literal notranslate"><span class="pre">correlation_coefficient()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.variance_normalized"><code class="docutils literal notranslate"><span class="pre">variance_normalized()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.deviation"><code class="docutils literal notranslate"><span class="pre">deviation()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.variance"><code class="docutils literal notranslate"><span class="pre">variance()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.signaltonoise"><code class="docutils literal notranslate"><span class="pre">signaltonoise()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.kurtosis"><code class="docutils literal notranslate"><span class="pre">kurtosis()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.quality_module.hurst_component"><code class="docutils literal notranslate"><span class="pre">hurst_component()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>

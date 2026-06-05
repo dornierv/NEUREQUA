@@ -1,0 +1,1916 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>neurequa.quality_module - NEUREQUA 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">NEUREQUA 0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <span class="sidebar-brand-text">NEUREQUA 0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../autoapi/index.html">API Reference</a><input aria-label="Toggle navigation of API Reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../autoapi/neurequa/index.html">neurequa</a><input aria-label="Toggle navigation of neurequa" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/artefact_detections/index.html">neurequa.artefact_detections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/cognitive_module/index.html">neurequa.cognitive_module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/neuralynx_io/index.html">neurequa.neuralynx_io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/quality_module/index.html">neurequa.quality_module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for neurequa.quality_module</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Import librairies</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">neo.rawio</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.signal</span> <span class="k">as</span> <span class="nn">sig</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sb</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">neo</span>
+<span class="kn">import</span> <span class="nn">mne</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+
+
+<div class="viewcode-block" id="load_raw_data">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.load_raw_data">[docs]</a>
+<span class="k">def</span> <span class="nf">load_raw_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">dtype</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">time</span><span class="o">=</span><span class="s1">&#39;Random&#39;</span><span class="p">,</span><span class="n">analog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load data from the raw files (e.g., .ncs for Neuralynx)</span>
+
+<span class="sd">    Returns two objects :</span>
+<span class="sd">        1) A raw-object from MNE (see https://mne.tools/stable/generated/mne.io.Raw.html#mne.io.Raw for documentation)</span>
+
+<span class="sd">        2) An array containing raw values of the signal you want to analyze </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    path : string</span>
+<span class="sd">        A string containing the path where your data are stored</span>
+
+<span class="sd">    dtpe : string</span>
+<span class="sd">        For Neuralynx data : &#39;ncs&#39;</span>
+<span class="sd">        For Blackrock data : &#39;nsX&#39;</span>
+<span class="sd">        For Dark Horse Neuro data : &#39;med&#39;</span>
+<span class="sd">        edf is also supported</span>
+
+<span class="sd">    length: int or &#39;all&#39;</span>
+<span class="sd">        If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal</span>
+<span class="sd">        If you specify &#39;all&#39; it will take the entire recording (can be slower, depends on your computational power)</span>
+<span class="sd">    </span>
+<span class="sd">        </span>
+<span class="sd">    time: string or tuple</span>
+<span class="sd">        By default take randomly portion of signal corresponding to length</span>
+<span class="sd">        It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording</span>
+<span class="sd">    </span>
+<span class="sd">    analog: string (optional) (Default: False)</span>
+<span class="sd">        Reference channel used in blackrock recording system if exist</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    raw_data : raw data in FIF format (see MNE)</span>
+<span class="sd">        This object contains all informations about your data (channels name, sampling rate etc.)</span>
+<span class="sd">    </span>
+<span class="sd">    data_sig : np array</span>
+<span class="sd">        Array containing raw values of the signal you want to load</span>
+<span class="sd">        Will have a shape of nCh x nSamples</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Load &#39;ncs&#39; from Neuralynx</span>
+    <span class="k">if</span> <span class="n">dtype</span><span class="o">==</span><span class="s1">&#39;ncs&#39;</span><span class="p">:</span>
+        <span class="c1"># Exclude files containing &#39;sub&#39; because correspond to macro-electrodes</span>
+        <span class="n">raw_data</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_neuralynx</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">exclude_fname_patterns</span><span class="o">=</span><span class="nb">list</span><span class="p">([</span><span class="s1">&#39;*&#39;</span><span class="o">+</span><span class="s1">&#39;_sub.ncs&#39;</span><span class="p">]))</span>
+    <span class="c1"># Load &#39;ns5&#39; from Blackrock    </span>
+    <span class="k">elif</span> <span class="n">dtype</span><span class="o">==</span><span class="s1">&#39;nsX&#39;</span><span class="p">:</span>
+        <span class="n">raw_data</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_nsx</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">analog</span><span class="p">:</span>
+            <span class="c1"># Exclude the reference channel</span>
+            <span class="n">raw_data</span><span class="o">.</span><span class="n">drop_channels</span><span class="p">(</span><span class="n">analog</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">dtype</span><span class="o">==</span><span class="s1">&#39;edf&#39;</span><span class="p">:</span>
+        <span class="n">raw_data</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_edf</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># This line if for Benoit, to get automatic in the futur</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">raw_data</span><span class="o">.</span><span class="n">drop_channels</span><span class="p">(</span><span class="s1">&#39;trigger&#39;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No trigger channels to drop&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">dtype</span><span class="o">==</span><span class="s1">&#39;dat&#39;</span><span class="p">:</span>
+        <span class="c1"># Here not sure everyone is using int16 but for us it is ok</span>
+        <span class="n">data_type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span>
+
+        <span class="c1"># In order to read the dat we absolutely need the number of channels so if not specified by user return a message</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please indicate the number of channels in your dat file to load it&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Here we load data</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">data_type</span><span class="p">)</span><span class="o">.</span><span class="n">itemsize</span><span class="p">)</span>
+            <span class="n">raw_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">memmap</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">data_type</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="o">/</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+
+        <span class="c1"># If the user specify too much arguments we ask him to only add the number the channels and nothing more    </span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You specify too much arguments please only indicate the number of channels&quot;</span><span class="p">)</span>
+    
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;med&#39;</span><span class="p">:</span>
+        <span class="c1"># Here we create a raw object from the med folder using this: </span>
+        <span class="c1"># https://mne.tools/stable/auto_examples/io/read_neo_format.html</span>
+
+        
+
+        <span class="c1"># Read data from the .med folder</span>
+        <span class="n">reader</span> <span class="o">=</span>  <span class="n">neo</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">MedIO</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+
+        <span class="c1"># Get the first block - proxy (do not load in memory)</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">lazy</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Get a proxy data from first segment (you have to get only one segment)</span>
+        <span class="n">segment</span> <span class="o">=</span> <span class="n">block</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Get the signal from all channels</span>
+        <span class="n">signals_proxy</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">analogsignals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File format not supported, you can load .ncs, .nsX, .med, .edf for now&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Contact us to add new file format&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dtype must be either ncs, nsX, med, edf&quot;</span><span class="p">)</span>
+
+
+        
+    
+    <span class="c1"># If you want to load all recording</span>
+    <span class="k">if</span> <span class="n">length</span><span class="o">==</span><span class="s1">&#39;all&#39;</span><span class="p">:</span>
+        <span class="c1"># If want to load all file then load all med recording</span>
+        <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;med&#39;</span><span class="p">:</span>
+            
+            <span class="n">signals</span> <span class="o">=</span> <span class="n">signals_proxy</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+            <span class="n">data</span> <span class="o">=</span> <span class="n">signals</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s2">&quot;V&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">sfreq</span> <span class="o">=</span> <span class="n">signals</span><span class="o">.</span><span class="n">sampling_rate</span><span class="o">.</span><span class="n">magnitude</span>
+
+
+            <span class="c1"># Get the name of the channels</span>
+            <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">reader</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;signal_channels&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">signals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+            <span class="c1"># Attribute a type to channels (here eeg)</span>
+            <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">ch_names</span><span class="p">)</span>  <span class="c1"># if not specified, type &#39;misc&#39; is assumed</span>
+
+            <span class="c1"># Create a raw object in MNE</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">)</span>
+            <span class="n">raw_data</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">RawArray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+
+            <span class="n">raw_interest</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="n">tmin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">data_sig</span> <span class="o">=</span> <span class="n">raw_interest</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">raw_interest</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="n">tmin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">data_sig</span> <span class="o">=</span> <span class="n">raw_interest</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+    <span class="c1"># Else will randomly choosed a portion of length specified in input</span>
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;med&#39;</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">random</span>
+            <span class="c1"># Determine the index max for the length you want</span>
+            <span class="c1"># e.g. If you want 5 minutes of signal the last sample can not be less than 5 minutes before the end of your recording</span>
+            <span class="n">sampling_rate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">signals_proxy</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">)</span>
+            <span class="n">last_sample</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">signals_proxy</span><span class="o">.</span><span class="n">duration</span><span class="o">*</span><span class="n">sampling_rate</span><span class="p">)</span>
+            
+
+            <span class="n">idx_max_random</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">last_sample</span> <span class="o">-</span> <span class="p">(</span><span class="n">sampling_rate</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="n">length</span><span class="p">))</span> <span class="c1"># (sr*60*length) correspond to the length of your subselection</span>
+
+
+            <span class="c1"># Here randomly select the starting index of the 5 minutes</span>
+
+            <span class="k">if</span> <span class="n">time</span> <span class="o">==</span> <span class="s1">&#39;Random&#39;</span><span class="p">:</span>
+                <span class="n">idx_time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="n">idx_max_random</span><span class="p">)</span>
+
+                <span class="n">signal_crop</span> <span class="o">=</span> <span class="n">signals_proxy</span><span class="o">.</span><span class="n">time_slice</span><span class="p">(</span><span class="n">t_start</span><span class="o">=</span><span class="n">idx_time</span><span class="o">/</span><span class="n">sampling_rate</span><span class="p">,</span><span class="n">t_stop</span><span class="o">=</span><span class="p">(</span><span class="n">idx_time</span><span class="o">/</span><span class="n">sampling_rate</span><span class="p">)</span><span class="o">+</span><span class="n">length</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+            
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Crop signal from the portion of interest</span>
+                <span class="n">signal_crop</span> <span class="o">=</span> <span class="n">signals_proxy</span><span class="o">.</span><span class="n">time_slice</span><span class="p">(</span><span class="n">t_start</span><span class="o">=</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">60</span><span class="p">,</span><span class="n">t_stop</span><span class="o">=</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">60</span><span class="p">))</span> <span class="c1"># transform time in seconds</span>
+
+            <span class="n">data</span> <span class="o">=</span> <span class="n">signal_crop</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s2">&quot;V&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">sfreq</span> <span class="o">=</span> <span class="n">signal_crop</span><span class="o">.</span><span class="n">sampling_rate</span><span class="o">.</span><span class="n">magnitude</span>
+
+
+            <span class="c1"># Get the name of the channels</span>
+            <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">reader</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;signal_channels&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">signal_crop</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+            <span class="c1"># Attribute a type to channels (here eeg)</span>
+            <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">ch_names</span><span class="p">)</span>  <span class="c1"># if not specified, type &#39;misc&#39; is assumed</span>
+
+            <span class="c1"># Create a raw object in MNE</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">)</span>
+            <span class="n">raw_data</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">RawArray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+
+            <span class="c1"># Load data in memory</span>
+            <span class="n">data_sig</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+        
+        
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">time</span> <span class="o">==</span> <span class="s1">&#39;Random&#39;</span><span class="p">:</span>
+                <span class="c1"># Select randomly the first sample </span>
+                <span class="n">idx_time</span> <span class="o">=</span> <span class="n">random_time</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span><span class="n">raw_data</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">],</span><span class="n">length</span><span class="p">)</span>
+                <span class="n">sampling_rate</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">]</span>
+                <span class="c1"># Crop the signal between 1st sample and last sample (last sample - 1st sample = length)</span>
+                <span class="n">raw_interest</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="n">tmin</span><span class="o">=</span><span class="n">idx_time</span><span class="o">/</span><span class="n">sampling_rate</span><span class="p">,</span><span class="n">tmax</span><span class="o">=</span><span class="p">(</span><span class="n">idx_time</span><span class="o">/</span><span class="n">sampling_rate</span><span class="p">)</span><span class="o">+</span><span class="n">length</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+            
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">raw_interest</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="n">tmin</span><span class="o">=</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">60</span><span class="p">,</span><span class="n">tmax</span><span class="o">=</span><span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+
+            <span class="c1"># Load data in memory</span>
+            <span class="n">data_sig</span> <span class="o">=</span> <span class="n">raw_interest</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+
+    
+    <span class="k">return</span> <span class="n">raw_data</span><span class="p">,</span><span class="n">data_sig</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="splitCharNum">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.splitCharNum">[docs]</a>
+<span class="k">def</span> <span class="nf">splitCharNum</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Separate a string containing characters and numbers in two objects</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    string : string</span>
+<span class="sd">        String containing characters and numbers (e.g., &#39;da1&#39;)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    char : string</span>
+<span class="sd">        string containing only the characters from the input (e.g., &#39;da&#39;)</span>
+
+<span class="sd">    number : string</span>
+<span class="sd">        string containing only the numbers from the input (e.g., &#39;1&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">re</span>
+    <span class="n">char</span><span class="p">,</span><span class="n">number</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[A-Za-z-_</span><span class="se">\&#39;</span><span class="s1">\s]+|\d+&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">char</span><span class="p">,</span><span class="n">number</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="get_unique_unsorted">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.get_unique_unsorted">[docs]</a>
+<span class="k">def</span> <span class="nf">get_unique_unsorted</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Maintains the order of appearance in the original array</span>
+<span class="sd">    Does not sort by ascending order (figures) or alphabetic order (characters)</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    array : array of string</span>
+<span class="sd">        Array of string containing the name of your channels (e.g. [&#39;da&#39;,&#39;db&#39;])</span>
+<span class="sd">    </span>
+<span class="sd">        </span>
+<span class="sd">    Returns </span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    uniqueUnsorted : string</span>
+<span class="sd">        array of string containing </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">unique</span><span class="p">,</span> <span class="n">uniqueInds</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">uniqueUnsorted</span><span class="o">=</span><span class="n">array</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">uniqueInds</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">uniqueUnsorted</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="reorder_data">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.reorder_data">[docs]</a>
+<span class="k">def</span> <span class="nf">reorder_data</span><span class="p">(</span><span class="n">Regions</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    When there is 3 tetrodes on the same shaft order will be x1, x10, x11, x12, x2, x3 ... x9 on the raw file</span>
+
+<span class="sd">    We want to re-organize it so the order is x1, x2, x3 ... x9, x10, x11, x12</span>
+
+<span class="sd">    Will return the array of regions name and data in the right order</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    Regions : array of string</span>
+<span class="sd">        Array of strings containing all the name of the regions implanted with your channels</span>
+<span class="sd">    </span>
+<span class="sd">    data : array</span>
+<span class="sd">        Matrix containing raw values with shape nChannels x nSamples</span>
+<span class="sd">    </span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    Regions_ok : array of string</span>
+<span class="sd">        Array of strings containing the name in the right order (e.g., &#39;x1&#39;, &#39;x2&#39;, &#39;x3&#39; ... &#39;x9&#39;, &#39;x10&#39;, &#39;x11&#39;, &#39;x12&#39;)</span>
+<span class="sd">    </span>
+<span class="sd">    data_ok : array</span>
+<span class="sd">        Matrix with shape nChannels x nSamples but re-organize to match the order of channel labels</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">chChar</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">splitCharNum</span><span class="p">(</span><span class="n">reg</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">reg</span> <span class="ow">in</span> <span class="n">Regions</span><span class="p">])</span>
+    <span class="n">chNumber</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">splitCharNum</span><span class="p">(</span><span class="n">reg</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">reg</span> <span class="ow">in</span> <span class="n">Regions</span><span class="p">])</span>
+    <span class="n">regInds</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">chChar</span><span class="o">==</span><span class="n">char</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">get_unique_unsorted</span><span class="p">(</span><span class="n">chChar</span><span class="p">)])</span>
+    
+
+    <span class="n">argsortChRegs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">regInds</span><span class="p">[</span><span class="n">regi</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">chNumber</span><span class="p">[</span><span class="n">regInds</span><span class="p">[</span><span class="n">regi</span><span class="p">]],</span> <span class="nb">int</span><span class="p">))]</span>\
+         <span class="k">for</span> <span class="n">regi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">regInds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+    
+
+    <span class="n">Regions_ok</span> <span class="o">=</span> <span class="n">Regions</span><span class="p">[</span><span class="n">argsortChRegs</span><span class="p">]</span>
+    <span class="n">data_ok</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">argsortChRegs</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">Regions_ok</span><span class="p">,</span><span class="n">data_ok</span>    </div>
+
+
+
+
+
+
+
+<div class="viewcode-block" id="find_nearest">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.find_nearest">[docs]</a>
+<span class="k">def</span> <span class="nf">find_nearest</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the index where there is the nearest values in an array from the one we want</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    array : np.array</span>
+<span class="sd">        array containing data (e.g., [2, 7, 12])</span>
+
+<span class="sd">    value : int</span>
+<span class="sd">        The value we want to find the closest (e.g. 11)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    idx : int</span>
+<span class="sd">        Will return the index  in array closest to value (e.g., 2)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">array</span> <span class="o">-</span> <span class="n">value</span><span class="p">))</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">idx</span></div>
+
+
+
+
+<div class="viewcode-block" id="random_time">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.random_time">[docs]</a>
+<span class="k">def</span> <span class="nf">random_time</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">sampling_rate</span><span class="p">,</span><span class="n">length</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Select randomly length minutes of signal from your entire recoding</span>
+
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    data : The raw object of data (Raw object from MNE)</span>
+<span class="sd">    </span>
+<span class="sd">    sampling rate : int</span>
+<span class="sd">        The sampling rate of your recording (e.g., 32768)</span>
+<span class="sd">    </span>
+<span class="sd">    length : int</span>
+<span class="sd">        Length in minute of the signal you want to analyze</span>
+<span class="sd">    </span>
+<span class="sd">        </span>
+<span class="sd">    Returns </span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    idx_debut : int</span>
+<span class="sd">        Correspond to the first sample of the signal, the beginning of the recording you want</span>
+<span class="sd">        to analyze</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Determine the index max for the length you want</span>
+    <span class="c1"># e.g. If you want 5 minutes of signal the last sample can not be less than 5 minutes before the end of your recording</span>
+    <span class="n">last_sample</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">last_samp</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="n">idx_max_random</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">last_sample</span> <span class="o">-</span> <span class="p">(</span><span class="n">sampling_rate</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="n">length</span><span class="p">))</span> <span class="c1"># (sr*60*lenght) correspond to the length of your subselection</span>
+
+
+    <span class="c1"># Here randomly select the starting index of the 5 minutes</span>
+    <span class="n">idx_debut</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="n">idx_max_random</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">idx_debut</span></div>
+
+
+
+
+<div class="viewcode-block" id="p_welch">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.p_welch">[docs]</a>
+<span class="k">def</span> <span class="nf">p_welch</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">sr</span><span class="p">,</span><span class="n">sr_down</span><span class="p">,</span><span class="n">fr_low</span><span class="p">,</span><span class="n">fr_high</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the power spectrum of your signal in order to identify frequencies present in your signal</span>
+<span class="sd">    Here we use the welch&#39;s method to compute the power spectrum</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    data : array</span>
+<span class="sd">        Matrix containing data of one channel containing nSamples</span>
+<span class="sd">    </span>
+<span class="sd">    sr : int</span>
+<span class="sd">        Sampling rate of your recording (e.g., 32768)</span>
+<span class="sd">    </span>
+<span class="sd">    sr_down : int</span>
+<span class="sd">        Sampling rate downsample to get signal in lower frequencies (e.g., 8192 Hz)</span>
+<span class="sd">    </span>
+<span class="sd">    fr_low : int</span>
+<span class="sd">        The lowest frequency from which we compute the power spectrum</span>
+<span class="sd">    </span>
+<span class="sd">    fr_high : int </span>
+<span class="sd">        The highest frequency from which we compute the power spectrum</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    pxx_log : array</span>
+<span class="sd">        Array containing power spectrum values for the channel of interest</span>
+<span class="sd">    </span>
+<span class="sd">    f_plot : array</span>
+<span class="sd">        Array containing the values of frequency associate with each power spectrum value (will be useful for the plot)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Dowsample from sr to fs in order to speed up computing</span>
+    <span class="n">ds_factor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sr</span><span class="o">/</span><span class="n">sr_down</span><span class="p">)</span> <span class="c1"># Calcule downsample factor by dividing sampling rate (of the original signal) by the sampling rate desired in output</span>
+
+    <span class="c1">#data_ds = sig.resample(data,int(data.shape[0]/ds_factor))</span>
+    
+    <span class="c1"># Compute welch method to estimate PSD</span>
+    <span class="n">f</span><span class="p">,</span> <span class="n">pxx</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">welch</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span>
+
+
+    <span class="c1"># Get the index from fr_low to fr_high Hz to plot the results</span>
+    <span class="n">idx_fr_lim</span> <span class="o">=</span> <span class="n">find_nearest</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">fr_high</span><span class="p">)</span>
+    <span class="n">idx_debut</span> <span class="o">=</span> <span class="n">find_nearest</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">fr_low</span><span class="p">)</span>
+
+    <span class="n">pxx_log</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">pxx</span><span class="p">[</span><span class="n">idx_debut</span><span class="p">:</span><span class="n">idx_fr_lim</span><span class="p">])</span>
+    <span class="n">f_plot</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">idx_debut</span><span class="p">:</span><span class="n">idx_fr_lim</span><span class="p">]</span>
+    <span class="c1">#pxx_log = pxx[idx_debut:idx_fr_lim]</span>
+
+
+    
+
+    <span class="k">return</span> <span class="n">pxx_log</span><span class="p">,</span><span class="n">f_plot</span></div>
+
+
+
+
+<div class="viewcode-block" id="plot_all_chan">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.plot_all_chan">[docs]</a>
+<span class="k">def</span> <span class="nf">plot_all_chan</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">nCh</span><span class="p">,</span><span class="n">chRegs</span><span class="p">,</span><span class="n">psd</span><span class="p">,</span><span class="n">bsnm</span><span class="p">,</span><span class="n">session</span><span class="p">,</span><span class="n">probe_type</span><span class="p">,</span><span class="n">saveFolder</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function will plot the power spectrum of all micro-channels on the same plot</span>
+
+<span class="sd">    Parameters </span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    f : array</span>
+<span class="sd">        Array containing frequency values (it is the output of p_welch)</span>
+<span class="sd">    </span>
+<span class="sd">    nCh : int</span>
+<span class="sd">        Number of channels in your recording</span>
+<span class="sd">    </span>
+<span class="sd">    chRegs : array of strings</span>
+<span class="sd">        Array containing name of your channels</span>
+<span class="sd">    </span>
+<span class="sd">    psd : array</span>
+<span class="sd">        Array of power spectrum values for each value of f, it is the output of p_welch</span>
+<span class="sd">    </span>
+<span class="sd">    session : string</span>
+<span class="sd">        Name of the session you analyze, specify at the beginning of the jupyter notebook</span>
+
+<span class="sd">    probe_type : string</span>
+<span class="sd">        String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</span>
+
+<span class="sd">    </span>
+<span class="sd">    saveFolder : string</span>
+<span class="sd">        String containing the path of the folder where you want to save figure</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    Matplotlib plot containing power spectrum of each channels and saved in the folder specified</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="c1"># Check whether the specified path exists or not</span>
+    <span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">saveFolder</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>
+        <span class="c1"># Create a new directory because it does not exist</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">saveFolder</span><span class="p">)</span>
+   
+
+    <span class="c1"># List of colors, each tetrode will be in the same color but with different transparency</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;orangered&#39;</span><span class="p">,</span><span class="s1">&#39;saddlebrown&#39;</span><span class="p">,</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span><span class="s1">&#39;olive&#39;</span><span class="p">,</span><span class="s1">&#39;chartreuse&#39;</span><span class="p">,</span><span class="s1">&#39;turquoise&#39;</span><span class="p">,</span><span class="s1">&#39;darkslategray&#39;</span><span class="p">,</span><span class="s1">&#39;dodgerblue&#39;</span><span class="p">,</span><span class="s1">&#39;midnightblue&#39;</span><span class="p">,</span><span class="s1">&#39;slateblue&#39;</span><span class="p">,</span><span class="s1">&#39;darkviolet&#39;</span><span class="p">,</span><span class="s1">&#39;violet&#39;</span><span class="p">,</span><span class="s1">&#39;magenta&#39;</span><span class="p">,</span><span class="s1">&#39;crimson&#39;</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Dixi&#39;</span><span class="p">:</span>
+        <span class="n">transparency</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Ad-tech&#39;</span><span class="p">:</span>
+        <span class="n">transparency</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+
+    
+    <span class="c1"># Initialize to zero the current tetrode (so it takes the first one)</span>
+    <span class="n">iGroup</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">min_pwr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">max_pwr</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Here we loop on all channel and plot the PSD corresponding to each channel</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nCh</span><span class="p">):</span>
+        <span class="c1"># Determine wich micro-wire of the tetrode it is (1st, 2nd, 3rd, 4th)</span>
+        <span class="k">if</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Dixi&#39;</span><span class="p">:</span>
+            <span class="n">modulo_ch</span> <span class="o">=</span> <span class="n">i</span><span class="o">%</span><span class="mi">4</span>
+        <span class="k">elif</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Ad-tech&#39;</span><span class="p">:</span>
+            <span class="n">modulo_ch</span> <span class="o">=</span> <span class="n">i</span><span class="o">%</span><span class="mi">8</span>
+
+        <span class="c1"># Plot the PSD of the micro-wire with according alpha transparency</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">psd</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">iGroup</span><span class="p">],</span><span class="n">alpha</span><span class="o">=</span><span class="n">transparency</span><span class="p">[</span><span class="n">modulo_ch</span><span class="p">])</span>
+
+
+        <span class="c1"># Keep min and max to automatically adjust the limit of the plot</span>
+        <span class="n">min_pwr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">psd</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="n">max_pwr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">psd</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+        <span class="c1"># When we did the last micro-wire of the tetrode iTetrode increment to go to the next tetrode</span>
+        <span class="k">if</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Dixi&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">modulo_ch</span><span class="o">==</span><span class="mi">3</span><span class="p">:</span>
+                <span class="n">iGroup</span><span class="o">=</span><span class="n">iGroup</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Ad-tech&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">modulo_ch</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="n">iGroup</span> <span class="o">=</span> <span class="n">iGroup</span> <span class="o">+</span> <span class="mi">1</span>
+
+
+    <span class="c1"># Legend and save plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;10 * log10(Power)&#39;</span><span class="p">)</span>
+    <span class="c1">#plt.ylabel(&#39;PSD [V**2/Hz]&#39;)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Power Spectrum (Welch &#39;&#39;s method) - &#39;</span><span class="o">+</span><span class="n">bsnm</span><span class="o">+</span><span class="s1">&#39; - &#39;</span><span class="o">+</span><span class="n">session</span><span class="p">)</span>
+
+
+    <span class="c1">#plt.ylim((min(min_pwr)-1,max(max_pwr)+1))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span><span class="n">labels</span><span class="o">=</span><span class="n">chRegs</span><span class="p">,</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">saveFolder</span> <span class="o">+</span> <span class="s1">&#39;PSD_All_Channels_0_600Hz_&#39;</span><span class="o">+</span><span class="n">bsnm</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">session</span><span class="o">+</span><span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span></div>
+
+
+
+    
+
+
+
+
+
+
+
+<div class="viewcode-block" id="plot_noise">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.plot_noise">[docs]</a>
+<span class="k">def</span> <span class="nf">plot_noise</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">sr</span><span class="p">,</span><span class="n">chRegions</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">save</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">limit</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span><span class="n">fr_low</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span><span class="n">fr_high</span><span class="o">=</span><span class="mi">3000</span><span class="p">):</span> <span class="c1">#</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function will plot the raw signal filtered between 300 and 300 Hz for 1 second randomly choosed in the 5 minutes window</span>
+<span class="sd">    So we can have an idea of the level of noise during our recording</span>
+
+
+<span class="sd">    Parameters </span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    data: array</span>
+<span class="sd">        Matrix with your data with shape nChannels x nSamples</span>
+
+<span class="sd">    sr : int</span>
+<span class="sd">        sampling rate of the signal</span>
+<span class="sd">    </span>
+<span class="sd">    chRegions : string</span>
+<span class="sd">        Array of string containing name of each channels</span>
+<span class="sd">    </span>
+<span class="sd">    path : string</span>
+<span class="sd">        String containing the path where you want to save the figures</span>
+<span class="sd">    </span>
+<span class="sd">    save : int, default = 1</span>
+<span class="sd">        If you don&#39;t want to save figure put save = 0</span>
+<span class="sd">    </span>
+<span class="sd">    fr_low : int, default = 300</span>
+<span class="sd">        The lowest frequency for your band pass filter </span>
+<span class="sd">    </span>
+<span class="sd">    fr_high : int, default = 3000</span>
+<span class="sd">        The highest frequency for your band pass filter</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    Matplotlib plot saved in the specific folder if you want to</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Check whether the specified path exists or not</span>
+    <span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>
+
+        <span class="c1"># Create a new directory because it does not exist</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+   
+
+
+    <span class="c1"># Select 1s of data</span>
+    <span class="n">idx_max_random</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">sr</span><span class="p">))</span> <span class="c1"># Select the index so the beginning is at least 1s before the end of the recording</span>
+
+    
+    <span class="c1"># Here randomly select the starting index of the second</span>
+    <span class="n">idx_debut</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="n">idx_max_random</span><span class="p">)</span>
+    
+    
+
+    <span class="c1"># Design our filter</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sos</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">3</span><span class="p">,[</span><span class="n">fr_low</span><span class="p">,</span><span class="n">fr_high</span><span class="p">],</span><span class="s1">&#39;bandpass&#39;</span><span class="p">,</span><span class="n">fs</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;sos&#39;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">sos</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">3</span><span class="p">,[</span><span class="n">fr_low</span><span class="p">,(</span><span class="n">sr</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;bandpass&#39;</span><span class="p">,</span><span class="n">fs</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;sos&#39;</span><span class="p">)</span>
+
+
+    <span class="n">data_filtered</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">iCh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="c1"># Filter the data</span>
+        <span class="n">data_filtered</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sig</span><span class="o">.</span><span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">iCh</span><span class="p">]))</span>
+
+    <span class="c1"># Get the max value </span>
+    <span class="n">limit_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data_filtered</span><span class="p">)</span>
+    <span class="n">limit_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data_filtered</span><span class="p">)</span>
+
+    <span class="c1"># Plot results</span>
+    <span class="k">for</span> <span class="n">iCh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="c1"># Plot the data</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">sr</span><span class="p">),</span><span class="n">data_filtered</span><span class="p">[</span><span class="n">iCh</span><span class="p">][</span><span class="n">idx_debut</span><span class="p">:</span><span class="n">idx_debut</span><span class="o">+</span><span class="n">sr</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;µV&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Noise level - channel : &#39;</span><span class="o">+</span> <span class="n">chRegions</span><span class="p">[</span><span class="n">iCh</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; (n° : &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">iCh</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;)&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">limit</span> <span class="o">!=</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="n">limit_min</span><span class="p">,</span><span class="n">limit_max</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">save</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;Noise_level_channel_&#39;</span><span class="o">+</span><span class="n">chRegions</span><span class="p">[</span><span class="n">iCh</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+        
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+
+
+    
+
+<div class="viewcode-block" id="plot_raw">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.plot_raw">[docs]</a>
+<span class="k">def</span> <span class="nf">plot_raw</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">sr</span><span class="p">,</span><span class="n">num_channel</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">save</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span> 
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    In entry take the 5 minutes of signal that were randomly choosed before</span>
+<span class="sd">    This function will plot the raw signal for 1 second randomly choosed in the 5 minutes window</span>
+
+<span class="sd">    Parameters </span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    data : array</span>
+<span class="sd">        data from one particular channel</span>
+
+<span class="sd">    sr : int</span>
+<span class="sd">        sampling rate of the signal</span>
+<span class="sd">    </span>
+<span class="sd">    num_channel : int</span>
+<span class="sd">        Number of the channel in your recording</span>
+<span class="sd">    </span>
+<span class="sd">    path : string</span>
+<span class="sd">        Path where you want to store your figure in output</span>
+<span class="sd">    </span>
+<span class="sd">    save : Boolean, default = 1 else put save = 0</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    Matplotlib plot with raw signal </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Check whether the specified path exists or not</span>
+    <span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>
+
+        <span class="c1"># Create a new directory because it does not exist</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+   
+
+    <span class="c1"># Select 1s of data</span>
+    <span class="n">idx_max_random</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">sr</span><span class="p">))</span> <span class="c1"># Select the index so the beginning is at least 1s before the end of the recording</span>
+
+    
+    <span class="c1"># Here randomly select the starting index of the second</span>
+    <span class="n">idx_debut</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="n">idx_max_random</span><span class="p">)</span>
+    
+    
+
+    
+
+
+    <span class="c1"># Plot the data</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">sr</span><span class="p">),</span><span class="n">data</span><span class="p">[</span><span class="n">idx_debut</span><span class="p">:</span><span class="n">idx_debut</span><span class="o">+</span><span class="n">sr</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;µV&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Raw signal - channel : &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_channel</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">save</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;Raw_Signal_channel&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">num_channel</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+
+
+<div class="viewcode-block" id="tblprep">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.tblprep">[docs]</a>
+<span class="k">def</span> <span class="nf">tblprep</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">electrodes</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">)</span> <span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    here we prep the excel file where all RMS for a patient is stored</span>
+<span class="sd">    path: path to an existing excel file</span>
+<span class="sd">    electrodes: electrode names </span>
+<span class="sd">    sub: patient number</span>
+<span class="sd">    sess: session number </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="c1">#open the preexisting excel file</span>
+    <span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">path_os</span>
+    
+    <span class="k">if</span> <span class="n">path_os</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># if empty, creat columns with named sub, session, and with electrode names</span>
+        <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;RMS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;RMS_filter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;variance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;variance_norm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;tetrode_cor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;deviation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;kurtosis&#39;</span><span class="p">]</span> <span class="o">=</span><span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;SNR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;Artefact&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+        <span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;Hurst&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DefaultValue&#39;</span>
+    
+    <span class="c1">#find the first empty line</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tbl</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+        
+    <span class="k">else</span> <span class="p">:</span>
+        <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tbl</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">tbl</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="n">tbl</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+            
+    <span class="c1">#write sub, session and electrode names </span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">electrodes</span><span class="p">)):</span> 
+        <span class="n">x</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">i</span>
+        <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tbl</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">&#39;sub&#39;</span><span class="p">:</span> <span class="n">sub</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="n">sess</span><span class="p">,</span><span class="s1">&#39;electrodes&#39;</span><span class="p">:</span> <span class="n">electrodes</span><span class="p">[</span><span class="n">x</span><span class="p">]}])],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        
+    <span class="c1">#save and replace the old file</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+  
+
+<span class="k">def</span> <span class="nf">rms_signal</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">electrodes</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">)</span> <span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    here we take the 5 minutes of signal that were randomly choosed before</span>
+<span class="sd">    This function will calculate the RMS (root mean square) for the  time window</span>
+
+<span class="sd">    data : data from one particular channel</span>
+
+<span class="sd">    sr : sampling rate of the signal</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Calculate the Root Mean Square (RMS) on the whole data</span>
+    <span class="n">rms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> 
+    
+    <span class="c1">#open the table</span>
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="c1">#write in the table</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">electrodes</span><span class="p">),</span> <span class="s1">&#39;RMS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rms</span>
+
+    <span class="c1">#save the table</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tbl</span>
+
+
+<div class="viewcode-block" id="rms_signal_filtered">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.rms_signal_filtered">[docs]</a>
+<span class="k">def</span> <span class="nf">rms_signal_filtered</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">chRegions</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span><span class="n">fr_low</span><span class="p">,</span><span class="n">fr_high</span><span class="p">,</span><span class="n">sr</span><span class="p">)</span> <span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    here we take the 5 minutes of signal that were randomly choosed before</span>
+<span class="sd">    This function will calculate the RMS (root mean square) for 1 second randomly choosed in the 5 minutes window</span>
+
+<span class="sd">    data : 2-D Matrice</span>
+<span class="sd">        2-D Matrice containing all your data with shape nChannels x nSamples</span>
+
+<span class="sd">    sr : sampling rate of the signal</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Band-pass filter between two frequencies</span>
+    <span class="c1"># Design our filter</span>
+    <span class="n">sos</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">3</span><span class="p">,[</span><span class="n">fr_low</span><span class="p">,</span><span class="n">fr_high</span><span class="p">],</span><span class="s1">&#39;bandpass&#39;</span><span class="p">,</span><span class="n">fs</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;sos&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">iChannels</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+        <span class="n">electrodes</span> <span class="o">=</span> <span class="n">chRegions</span><span class="p">[</span><span class="n">iChannels</span><span class="p">]</span>
+
+        <span class="c1"># Filter the data</span>
+        <span class="n">data_filtered</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="n">iChannels</span><span class="p">])</span>
+
+
+        <span class="c1"># Calculate the Root Mean Square (RMS) on the whole data</span>
+        <span class="n">rms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_filtered</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> 
+    
+        <span class="c1">#open the table</span>
+        <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1">#write in the table</span>
+        <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">electrodes</span><span class="p">),</span> <span class="s1">&#39;RMS_filter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rms</span>
+
+        <span class="c1">#save the table</span>
+        <span class="n">tbl</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+    
+
+    
+<span class="k">def</span> <span class="nf">plot_rms</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">,</span><span class="n">savingpath</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span><span class="n">save</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">)</span>
+    <span class="n">rmstbl</span> <span class="o">=</span> <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="s1">&#39;electrodes&#39;</span><span class="p">,</span> <span class="s1">&#39;RMS&#39;</span><span class="p">]]</span>
+        
+    <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;RMS for each channel&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>
+
+    <span class="n">sb</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;electrodes&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;RMS&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">rmstbl</span><span class="p">)</span>    
+    
+    <span class="k">if</span> <span class="n">save</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savingpath</span><span class="o">+</span><span class="s1">&#39;RMS_AllMicro.jpg&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="plot_rms_filter">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.plot_rms_filter">[docs]</a>
+<span class="k">def</span> <span class="nf">plot_rms_filter</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">,</span><span class="n">savingpath</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span><span class="n">save</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">)</span>
+    <span class="n">rmstbl</span> <span class="o">=</span> <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="s1">&#39;electrodes&#39;</span><span class="p">,</span> <span class="s1">&#39;RMS_filter&#39;</span><span class="p">]]</span>
+        
+    <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;RMS (300-3000) for each channel&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>
+
+    <span class="n">sb</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;electrodes&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;RMS_filter&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">rmstbl</span><span class="p">)</span> 
+
+
+    <span class="k">if</span> <span class="n">save</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savingpath</span><span class="o">+</span><span class="s1">&#39;RMS_Filter_AllMicro.jpg&#39;</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="correlation_coefficient">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.correlation_coefficient">[docs]</a>
+<span class="k">def</span> <span class="nf">correlation_coefficient</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">chRegions</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">pathtbl</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span><span class="n">probe_type</span><span class="p">,</span><span class="n">save</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function compute a correlation coefficient between one micro-wire and all the other micro-wires</span>
+<span class="sd">    from the same tetrode</span>
+
+<span class="sd">    see Tuyisenge, V., Trebaul, L., Bhattacharjee, M., Chanteloup-Forêt, B., Saubat-Guigui, C., Mîndruţă, I., Rheims, S., </span>
+<span class="sd">    Maillard, L., Kahane, P., Taussig, D., &amp; David, O. (2018). </span>
+<span class="sd">    Automatic bad channel detection in intracranial electroencephalographic recordings using ensemble machine learning. </span>
+<span class="sd">    Clinical Neurophysiology, 129(3), 548‑554. https://doi.org/10.1016/j.clinph.2017.12.013</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+
+<span class="sd">    data: array</span>
+<span class="sd">        Matrix with your data with shape nChannels x nSamples</span>
+
+<span class="sd">    chRegions: Array</span>
+<span class="sd">        Vector with the name of the micro-wires</span>
+
+<span class="sd">    path: string</span>
+<span class="sd">        Path where you want to save the figure obtained</span>
+<span class="sd">    </span>
+<span class="sd">    pathtbl : string</span>
+<span class="sd">        Path where you store the excel file containing all values for the patient you analyze</span>
+<span class="sd">    </span>
+<span class="sd">    sub : string</span>
+<span class="sd">        String like &#39;sub-XX&#39; with XX being the number of the subject in your database</span>
+<span class="sd">    </span>
+<span class="sd">    sess : string</span>
+<span class="sd">        String containing the name of the session you are analyzing (specified at the beginning of the jupyter notebook)</span>
+
+<span class="sd">    probe_type : string</span>
+<span class="sd">        String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</span>
+
+<span class="sd">    save=1 (default) to save the figure, put save = 0 if you don&#39;t want to save the figure</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    Matplotlib plot with correlation coefficient for each channel</span>
+<span class="sd">    Values of the correlation coefficient saved in an excel fil to get a report of the analyzes</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+      
+    <span class="c1"># Check whether the specified path exists or not</span>
+    <span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>
+
+        <span class="c1"># Create a new directory because it does not exist</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+
+    <span class="n">mean_corr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="c1"># Loop over each tetrode</span>
+    <span class="k">if</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Dixi&#39;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">iTetrode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">4</span><span class="p">)):</span>
+
+            <span class="c1"># Select data for the tetrode of interest</span>
+            <span class="n">data_tetrode</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">iTetrode</span><span class="o">*</span><span class="mi">4</span><span class="p">:</span><span class="n">iTetrode</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span>
+
+
+            <span class="c1"># For each channel in the tetrode of interest</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_tetrode</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data_tetrode</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_tetrode</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="n">i</span><span class="o">!=</span><span class="n">j</span><span class="p">:</span>
+                        <span class="c1"># Compute the pearson correlation between channel i and j</span>
+                        <span class="n">corr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">iTetrode</span><span class="o">*</span><span class="mi">4</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="n">iTetrode</span><span class="o">*</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">statistic</span>
+                
+
+                <span class="c1"># Get the mean correlation with all neighbouring channels</span>
+                <span class="n">corr</span><span class="p">[</span><span class="n">corr</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                
+                <span class="n">mean_corr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">corr</span><span class="p">))</span>
+
+    <span class="k">elif</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Ad-tech&#39;</span><span class="p">:</span>   
+        <span class="k">for</span> <span class="n">iGroup</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">8</span><span class="p">)):</span> 
+        <span class="c1"># Select data for the tetrode of interest</span>
+            <span class="n">data_group</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">iGroup</span><span class="o">*</span><span class="mi">8</span><span class="p">:</span><span class="n">iGroup</span><span class="o">*</span><span class="mi">8</span><span class="o">+</span><span class="mi">8</span><span class="p">]</span>
+
+
+            <span class="c1"># For each channel in the tetrode of interest</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_group</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data_group</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_group</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="n">i</span><span class="o">!=</span><span class="n">j</span><span class="p">:</span>
+                        <span class="c1"># Compute the pearson correlation between channel i and j</span>
+                        <span class="n">corr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">iGroup</span><span class="o">*</span><span class="mi">8</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="n">iTetrode</span><span class="o">*</span><span class="mi">8</span><span class="p">])</span><span class="o">.</span><span class="n">statistic</span>
+                
+
+                <span class="c1"># Get the mean correlation with all neighbouring channels</span>
+                <span class="n">corr</span><span class="p">[</span><span class="n">corr</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                
+                <span class="n">mean_corr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">corr</span><span class="p">))</span>    
+
+    <span class="c1">#open the excel table</span>
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">)</span>
+
+    <span class="c1">#creat a datframe with electrode names and correlation </span>
+    <span class="n">cor_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">cor_df</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chRegions</span>
+    <span class="n">cor_df</span><span class="p">[</span><span class="s1">&#39;tetrode_cor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_corr</span>
+
+    <span class="c1">#write the correlation in the table</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cor_df</span><span class="p">)):</span>   
+        <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cor_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;tetrode_cor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cor_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    
+    <span class="c1">#save table</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># Plot the results</span>
+    <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Correlation coefficient with neighbouring channels&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chRegions</span><span class="p">,</span><span class="n">mean_corr</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">save</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;Correlation_Coefficient_AllMicroChannels.jpg&#39;</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="variance_normalized">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.variance_normalized">[docs]</a>
+<span class="k">def</span> <span class="nf">variance_normalized</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">chRegions</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">pathtbl</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span><span class="n">probe_type</span><span class="p">,</span><span class="n">save</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the variance of each channel normalized by the mean variance of all neighbouring channels on the same tetrode</span>
+<span class="sd">    If variance is high then it means that the channel is not recording the same activity than the ones around, so maybe it</span>
+<span class="sd">    is broken or there is a problem with the plugging on your recording system</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    data: array</span>
+<span class="sd">        Matrix with your data with shape nChannels x nSamples</span>
+
+<span class="sd">    chRegions: array of strings</span>
+<span class="sd">        Vector with the name of your channels</span>
+
+<span class="sd">    path: string</span>
+<span class="sd">        Path where you want to save output figure</span>
+<span class="sd">    </span>
+<span class="sd">    pathtbl : string</span>
+<span class="sd">        Path where the excel file of this patient is stored</span>
+<span class="sd">    </span>
+<span class="sd">    sub : string</span>
+<span class="sd">        String containing the number or the ID of the patient in your database</span>
+<span class="sd">    </span>
+<span class="sd">    sess : string</span>
+<span class="sd">        String containing the name of the session you are analyzing</span>
+<span class="sd">    </span>
+<span class="sd">    probe_type : string</span>
+<span class="sd">        String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</span>
+
+
+
+<span class="sd">    save: Default=1 to save figure </span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    Matplotlib plot with values of variance normalized</span>
+<span class="sd">    Values are also stored in the excel file</span>
+
+
+<span class="sd">    see Tuyisenge, V., Trebaul, L., Bhattacharjee, M., Chanteloup-Forêt, B., Saubat-Guigui, C., Mîndruţă, I., Rheims, S., </span>
+<span class="sd">    Maillard, L., Kahane, P., Taussig, D., &amp; David, O. (2018). </span>
+<span class="sd">    Automatic bad channel detection in intracranial electroencephalographic recordings using ensemble machine learning. </span>
+<span class="sd">    Clinical Neurophysiology, 129(3), 548‑554. https://doi.org/10.1016/j.clinph.2017.12.013</span>
+
+
+<span class="sd">    &#39;&#39;&#39;</span>
+       
+    <span class="c1"># Check whether the specified path exists or not</span>
+    <span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>
+
+        <span class="c1"># Create a new directory because it does not exist</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+
+
+    <span class="n">variance</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Dixi&#39;</span><span class="p">:</span>
+        <span class="c1"># Loop over all tetrodes</span>
+        <span class="k">for</span> <span class="n">iTetrode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">4</span><span class="p">)):</span>
+
+            <span class="c1"># Select data of interest</span>
+            <span class="n">data_tetrode</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">iTetrode</span><span class="o">*</span><span class="mi">4</span><span class="p">:</span><span class="n">iTetrode</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span>
+
+
+            <span class="c1"># Loop over all channels in the tetrode of interest</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_tetrode</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+                <span class="c1"># Get the variance of channel i</span>
+                <span class="n">var_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">data_tetrode</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">var_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data_tetrode</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_tetrode</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="n">i</span><span class="o">!=</span><span class="n">j</span><span class="p">:</span>
+
+                        <span class="c1"># Get the variance of neighbouring channels</span>
+                        <span class="n">var_j</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">data_tetrode</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                
+
+                <span class="c1"># Get the mean variance of neighbouring electrodes</span>
+                <span class="n">var_j</span><span class="p">[</span><span class="n">var_j</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                
+                <span class="n">mean_var_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">var_j</span><span class="p">)</span>
+
+
+                <span class="c1"># Normalized variance of channels i by mean variance of neighbouring channels</span>
+                <span class="n">variance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var_i</span><span class="o">/</span><span class="n">mean_var_j</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Ad-tech&#39;</span><span class="p">:</span>
+        <span class="c1"># Loop over all tetrodes</span>
+        <span class="k">for</span> <span class="n">iGroup</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">8</span><span class="p">)):</span>
+
+            <span class="c1"># Select data of interest</span>
+            <span class="n">data_group</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">iGroup</span><span class="o">*</span><span class="mi">8</span><span class="p">:</span><span class="n">iGroup</span><span class="o">*</span><span class="mi">8</span><span class="o">+</span><span class="mi">8</span><span class="p">]</span>
+
+
+            <span class="c1"># Loop over all channels in the tetrode of interest</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_group</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+                <span class="c1"># Get the variance of channel i</span>
+                <span class="n">var_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">data_group</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">var_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data_group</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_group</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="n">i</span><span class="o">!=</span><span class="n">j</span><span class="p">:</span>
+
+                        <span class="c1"># Get the variance of neighbouring channels</span>
+                        <span class="n">var_j</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">data_group</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                
+
+                <span class="c1"># Get the mean variance of neighbouring electrodes</span>
+                <span class="n">var_j</span><span class="p">[</span><span class="n">var_j</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                
+                <span class="n">mean_var_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">var_j</span><span class="p">)</span>
+
+
+                <span class="c1"># Normalized variance of channels i by mean variance of neighbouring channels</span>
+                <span class="n">variance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var_i</span><span class="o">/</span><span class="n">mean_var_j</span><span class="p">)</span>
+
+
+
+      <span class="c1">#open the excel table</span>
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">)</span>
+
+
+    <span class="c1">#creat a datframe with electrode names and</span>
+    <span class="n">var_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">var_df</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chRegions</span>
+    <span class="n">var_df</span><span class="p">[</span><span class="s1">&#39;var&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">variance</span>
+
+    <span class="c1">#write the correlation in the table</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">var_df</span><span class="p">)):</span>   
+        <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">var_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;variance_norm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">var_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    
+    <span class="c1">#save table</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+
+    <span class="c1"># Plot the results</span>
+    <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Variance normalized by neighbouring mico-channels&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chRegions</span><span class="p">,</span><span class="n">variance</span><span class="p">)</span>  
+
+    <span class="k">if</span> <span class="n">save</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;Variance_Normalized_AllChannels.jpg&#39;</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="deviation">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.deviation">[docs]</a>
+<span class="k">def</span> <span class="nf">deviation</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">chRegions</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">pathtbl</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span><span class="n">probe_type</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the deviation (i.e. electrical drift)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    data: array </span>
+<span class="sd">        Matrix with your data with shape nChannels x nSamples</span>
+
+<span class="sd">    chRegions: array of strings</span>
+<span class="sd">        Vector with the name of your channels</span>
+
+<span class="sd">    path: string</span>
+<span class="sd">        Path where you want to save the output&#39;s figure</span>
+<span class="sd">    </span>
+<span class="sd">    paththbl : string</span>
+<span class="sd">        Path where to store values in excel</span>
+
+<span class="sd">    sub : string</span>
+<span class="sd">        IDs of the patient</span>
+<span class="sd">    </span>
+<span class="sd">    sess : string</span>
+<span class="sd">        Name of the session</span>
+<span class="sd">    </span>
+<span class="sd">    probe_type : string</span>
+<span class="sd">        String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</span>
+
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    Matplotlib plot and values in excel file</span>
+
+
+
+<span class="sd">    see Tuyisenge, V., Trebaul, L., Bhattacharjee, M., Chanteloup-Forêt, B., Saubat-Guigui, C., Mîndruţă, I., Rheims, S., </span>
+<span class="sd">    Maillard, L., Kahane, P., Taussig, D., &amp; David, O. (2018). </span>
+<span class="sd">    Automatic bad channel detection in intracranial electroencephalographic recordings using ensemble machine learning. </span>
+<span class="sd">    Clinical Neurophysiology, 129(3), 548‑554. https://doi.org/10.1016/j.clinph.2017.12.013</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+
+
+    <span class="c1"># Check whether the specified path exists or not</span>
+    <span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>
+
+        <span class="c1"># Create a new directory because it does not exist</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+
+
+    <span class="n">deviation</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Dixi&#39;</span><span class="p">:</span>
+        <span class="c1"># Loop over all tetrodes</span>
+        <span class="k">for</span> <span class="n">iTetrode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">4</span><span class="p">)):</span>
+
+            <span class="c1"># Select data of interest</span>
+
+            <span class="n">data_tetrode</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">iTetrode</span><span class="o">*</span><span class="mi">4</span><span class="p">:</span><span class="n">iTetrode</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span>
+
+
+
+            <span class="c1"># Loop over all channels in the tetrode of interest</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_tetrode</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+                <span class="c1"># Get the mean amplitude of channel i</span>
+                <span class="n">mean_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_tetrode</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">mean_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data_tetrode</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_tetrode</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="n">i</span><span class="o">!=</span><span class="n">j</span><span class="p">:</span>
+
+                        <span class="c1"># Get the mean amplitude of neighbouring channels</span>
+                        <span class="n">mean_j</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_tetrode</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                
+
+                <span class="c1"># Get the mean of neighbouring electrodes&#39; amplitudes </span>
+                <span class="n">mean_j</span><span class="p">[</span><span class="n">mean_j</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                
+                <span class="n">mean_neighbours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">mean_j</span><span class="p">)</span>
+
+
+                <span class="c1"># Get the deviation by substracting the mean of neighbours to channel i</span>
+                <span class="n">deviation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_i</span> <span class="o">-</span> <span class="n">mean_neighbours</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">probe_type</span> <span class="o">==</span> <span class="s1">&#39;Ad-tech&#39;</span><span class="p">:</span>
+        <span class="c1"># Loop over all tetrodes</span>
+        <span class="k">for</span> <span class="n">iGroup</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">8</span><span class="p">)):</span>
+
+            <span class="c1"># Select data of interest</span>
+
+            <span class="n">data_group</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">iGroup</span><span class="o">*</span><span class="mi">8</span><span class="p">:</span><span class="n">iGroup</span><span class="o">*</span><span class="mi">8</span><span class="o">+</span><span class="mi">8</span><span class="p">]</span>
+
+
+
+            <span class="c1"># Loop over all channels in the tetrode of interest</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_group</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+                <span class="c1"># Get the mean amplitude of channel i</span>
+                <span class="n">mean_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_group</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">mean_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data_group</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data_group</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="n">i</span><span class="o">!=</span><span class="n">j</span><span class="p">:</span>
+
+                        <span class="c1"># Get the mean amplitude of neighbouring channels</span>
+                        <span class="n">mean_j</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_group</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                
+
+                <span class="c1"># Get the mean of neighbouring electrodes&#39; amplitudes </span>
+                <span class="n">mean_j</span><span class="p">[</span><span class="n">mean_j</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                
+                <span class="n">mean_neighbours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">mean_j</span><span class="p">)</span>
+
+
+                <span class="c1"># Get the deviation by substracting the mean of neighbours to channel i</span>
+                <span class="n">deviation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_i</span> <span class="o">-</span> <span class="n">mean_neighbours</span><span class="p">)</span>
+            
+
+    <span class="c1"># Z-score transformation</span>
+    <span class="n">deviation</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">zscore</span><span class="p">(</span><span class="n">deviation</span><span class="p">)</span>
+
+    <span class="c1">#open the excel table</span>
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">)</span>
+
+
+    <span class="c1">#creat a datframe with electrode names and</span>
+    <span class="n">dev_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">dev_df</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chRegions</span>
+    <span class="n">dev_df</span><span class="p">[</span><span class="s1">&#39;devi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deviation</span>
+
+    <span class="c1">#write the correlation in the table</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dev_df</span><span class="p">)):</span>   
+        <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">dev_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;deviation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dev_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+  
+    <span class="c1">#save table</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+    <span class="c1"># Plot the results</span>
+    <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Deviation Z-Score&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chRegions</span><span class="p">,</span><span class="n">deviation</span><span class="p">)</span>  
+
+    <span class="k">if</span> <span class="n">save</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;Deviation_Zscore_AllChannels.jpg&#39;</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="variance">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.variance">[docs]</a>
+<span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">chRegions</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">pathtbl</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span><span class="n">save</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Compute the variance of each channel to see if there is a lot of artefacts or not</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    data: array</span>
+<span class="sd">        Matrix with your data with shape nChannels x nSamples</span>
+
+<span class="sd">    chRegions: array of strings</span>
+<span class="sd">        Vector with the name of your channels</span>
+
+<span class="sd">    path: string</span>
+<span class="sd">        Path where you want to save output figure</span>
+<span class="sd">    </span>
+<span class="sd">    paththbl : string</span>
+<span class="sd">        Path to the excel file where to store informations</span>
+<span class="sd">    </span>
+<span class="sd">    sub : string</span>
+<span class="sd">        IDs of the patient</span>
+<span class="sd">    </span>
+<span class="sd">    sess : string</span>
+<span class="sd">        Name of the session</span>
+
+<span class="sd">    save: Default=1 to save figure </span>
+
+<span class="sd">    </span>
+<span class="sd">    Returns </span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    Matplotlib plot and value store in excel file</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Check whether the specified path exists or not</span>
+    <span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>
+
+        <span class="c1"># Create a new directory because it does not exist</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+
+
+    <span class="n">variance</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="c1"># Loop over all tetrodes</span>
+    <span class="k">for</span> <span class="n">iChannels</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+
+        <span class="c1"># Select data of interest</span>
+        <span class="n">data_channel</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">iChannels</span><span class="p">]</span>
+
+        <span class="c1"># Get the variance of channel i</span>
+        <span class="n">var_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">data_channel</span><span class="p">)</span>
+
+        <span class="c1"># Normalized variance of channels i by mean variance of neighbouring channels</span>
+        <span class="n">variance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var_i</span><span class="p">)</span>
+            
+    <span class="c1">#open the excel table</span>
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">)</span>
+
+
+    <span class="c1">#creat a datframe with electrode names and</span>
+    <span class="n">var_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">var_df</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chRegions</span>
+    <span class="n">var_df</span><span class="p">[</span><span class="s1">&#39;var&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">variance</span>
+
+    <span class="c1">#write the correlation in the table</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">var_df</span><span class="p">)):</span>   
+        <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">var_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;variance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">var_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+  
+    <span class="c1">#save table</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+
+    <span class="c1"># Plot the results</span>
+    <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Variance&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chRegions</span><span class="p">,</span><span class="n">variance</span><span class="p">)</span>  
+
+    <span class="k">if</span> <span class="n">save</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;Variance_AllChannels.jpg&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="signaltonoise">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.signaltonoise">[docs]</a>
+<span class="k">def</span> <span class="nf">signaltonoise</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">chRegions</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">pathtbl</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The signal-to-noise ratio of the input data.</span>
+
+<span class="sd">    Returns the signal-to-noise ratio of `a`, here defined as the mean</span>
+<span class="sd">    divided by the standard deviation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    a : array_like</span>
+<span class="sd">        An array_like object containing the sample data.</span>
+<span class="sd">    axis : int or None, optional</span>
+<span class="sd">        If axis is equal to None, the array is first ravel&#39;d. If axis is an</span>
+<span class="sd">        integer, this is the axis over which to operate. Default is 0.</span>
+<span class="sd">    ddof : int, optional</span>
+<span class="sd">        Degrees of freedom correction for standard deviation. Default is 0.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    s2n : ndarray</span>
+<span class="sd">        The mean to standard deviation ratio(s) along `axis`, or 0 where the</span>
+<span class="sd">        standard deviation is 0.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check whether the specified path exists or not</span>
+    <span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>
+
+        <span class="c1"># Create a new directory because it does not exist</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+    <span class="n">sd</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="n">ddof</span><span class="p">)</span>
+    <span class="n">s2n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sd</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="o">/</span><span class="n">sd</span><span class="p">)</span>
+
+    <span class="c1">#open the excel table</span>
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">)</span>
+
+
+    <span class="c1">#creat a datframe with electrode names and</span>
+    <span class="n">var_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">var_df</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chRegions</span>
+    <span class="n">var_df</span><span class="p">[</span><span class="s1">&#39;SNR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">s2n</span>
+
+    <span class="c1">#write the correlation in the table</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">var_df</span><span class="p">)):</span>   
+        <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">var_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;SNR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">var_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+  
+    <span class="c1">#save table</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+    <span class="c1"># Plot the results</span>
+    <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;SNR&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chRegions</span><span class="p">,</span><span class="n">s2n</span><span class="p">)</span>  
+
+    <span class="k">if</span> <span class="n">save</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;SNR_AllChannels.jpg&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">s2n</span></div>
+
+
+<div class="viewcode-block" id="kurtosis">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.kurtosis">[docs]</a>
+<span class="k">def</span> <span class="nf">kurtosis</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">chRegions</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">pathtbl</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span><span class="n">save</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Kurtosis: An electrical activity may appear in one of the channels and be absent in the remaining ones. </span>
+<span class="sd">    Such events can be detected by computing the kurtosis in all channels. Given that the kurtosis </span>
+<span class="sd">    indicates the presence of outliers in datasets, the highest value reveals which channel shows a </span>
+<span class="sd">    particular event (Mognon et al., 2011) (from Tuyisenge et al., 2018)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    data : array</span>
+<span class="sd">        Matrix containing your data with shape nChannels x nSamples</span>
+<span class="sd">    </span>
+<span class="sd">    chRegions : array of strings</span>
+<span class="sd">        Vector containing name of your channels</span>
+<span class="sd">    </span>
+<span class="sd">    path : string</span>
+<span class="sd">        String of the path where you want to store figures</span>
+<span class="sd">    </span>
+<span class="sd">    pathtbl : string</span>
+<span class="sd">        Path where the excel file is stored</span>
+<span class="sd">    </span>
+<span class="sd">    sub : string</span>
+<span class="sd">        IDs of the patient you are analyzing</span>
+<span class="sd">    </span>
+<span class="sd">    sess : string</span>
+<span class="sd">        Name of the session </span>
+<span class="sd">    </span>
+<span class="sd">    save : Boolean, default=1</span>
+<span class="sd">        =1 if you want to save plot, put = 0 otherwise</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    Results</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    Matplotlib plot and value store in the excel file</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">kurtosis_channel</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Check whether the specified path exists or not</span>
+    <span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>
+
+        <span class="c1"># Create a new directory because it does not exist</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    
+    <span class="k">for</span> <span class="n">iCh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">iCh</span><span class="p">]</span>
+
+        <span class="c1"># Compute kurtosis on each channel</span>
+        <span class="n">kurtosis_channel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">fisher</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    
+    
+    <span class="c1">#open the excel table</span>
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">)</span>
+
+
+    <span class="c1">#creat a datframe with electrode names and</span>
+    <span class="n">kur_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">kur_df</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chRegions</span>
+    <span class="n">kur_df</span><span class="p">[</span><span class="s1">&#39;kurt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kurtosis_channel</span>
+    <span class="c1">#write the correlation in the table</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">kur_df</span><span class="p">)):</span>   
+        <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">kur_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;kurtosis&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kur_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+  
+    <span class="c1">#save table</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+    <span class="c1"># Plot the results</span>
+    <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Kurtosis on all channels&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chRegions</span><span class="p">,</span><span class="n">kurtosis_channel</span><span class="p">)</span>  
+
+    <span class="k">if</span> <span class="n">save</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;Kurtosis_AllChannels.jpg&#39;</span><span class="p">)</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="hurst_component">
+<a class="viewcode-back" href="../../autoapi/neurequa/quality_module/index.html#neurequa.quality_module.hurst_component">[docs]</a>
+<span class="k">def</span> <span class="nf">hurst_component</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">chRegions</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">pathtbl</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span><span class="n">save</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the Hurst component</span>
+<span class="sd">    You can see Tuyisenge et al. (2018) for a detail of the algorithm</span>
+<span class="sd">    Typically EEG data have values around 0.7</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    data : array</span>
+<span class="sd">        Matrix containing your data with shape nChannels x nSamples</span>
+
+<span class="sd">    chRegions : array of strings</span>
+<span class="sd">        Vectors containing the name of your channels</span>
+<span class="sd">    </span>
+<span class="sd">    path : string</span>
+<span class="sd">        Path where you want to store the plots</span>
+<span class="sd">    </span>
+<span class="sd">    pathtbl: string</span>
+<span class="sd">        Path where is store your excel file saving results</span>
+
+<span class="sd">    sub: String</span>
+<span class="sd">        String &quot;sub-XX&quot; where XX is the number of the subject analyzed</span>
+<span class="sd">    </span>
+<span class="sd">    sess: String</span>
+<span class="sd">        Name of the session you are analyzing</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    Matplotlib plot</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Check whether the specified path exists or not</span>
+    <span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>
+
+        <span class="c1"># Create a new directory because it does not exist</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">hurst</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span> 
+
+
+    <span class="c1"># Loop over each channel</span>
+    <span class="k">for</span> <span class="n">iCh</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+        <span class="c1"># Step 1. Compute mean amplitude</span>
+        <span class="n">mean_amplitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">iCh</span><span class="p">])</span>
+
+        <span class="c1"># Step 2. Create a mean centered channel</span>
+        <span class="n">mean_center_channel</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">iCh</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean_amplitude</span>
+
+
+        <span class="c1"># Step 3. Compute the cumulative channel deviation</span>
+        <span class="n">chan_deviation</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">chan_deviation</span> <span class="o">=</span> <span class="p">[</span><span class="n">chan_deviation</span> <span class="o">+</span> <span class="n">mean_center_channel</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mean_center_channel</span><span class="p">))]</span>
+
+
+        <span class="c1"># Step 4. Compute the channel amplitude range </span>
+        <span class="n">amplitude_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">chan_deviation</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">chan_deviation</span><span class="p">)</span>
+
+
+        <span class="c1"># Step 5. Compute the standard deviation</span>
+        <span class="n">std_channel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">iCh</span><span class="p">])</span>
+
+        <span class="c1"># Step 6. Compute Hurst exponent</span>
+        <span class="n">hurst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">amplitude_range</span><span class="o">/</span><span class="n">std_channel</span><span class="p">)))</span>
+
+
+
+    <span class="c1">#open the excel table</span>
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">)</span>
+
+
+    <span class="c1">#creat a datframe with electrode names and</span>
+    <span class="n">hurst_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">hurst_df</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chRegions</span>
+    <span class="n">hurst_df</span><span class="p">[</span><span class="s1">&#39;Hurst&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hurst</span>
+    <span class="c1">#write the correlation in the table</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">hurst_df</span><span class="p">)):</span>   
+        <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;electrodes&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">hurst_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;Hurst&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hurst_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+  
+    <span class="c1">#save table</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">pathtbl</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># Plot the results</span>
+    <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Hurst exponent (in EEG ~ 0.7)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chRegions</span><span class="p">,</span><span class="n">hurst</span><span class="p">)</span>  
+
+    <span class="k">if</span> <span class="n">save</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="s1">&#39;Hurst_Exponent_AllChannels.jpg&#39;</span><span class="p">)</span></div>
+
+
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>

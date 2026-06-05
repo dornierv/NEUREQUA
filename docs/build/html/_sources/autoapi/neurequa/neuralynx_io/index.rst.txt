@@ -1,0 +1,85 @@
+neurequa.neuralynx_io
+=====================
+
+.. py:module:: neurequa.neuralynx_io
+
+.. autoapi-nested-parse::
+
+   This function included in NeuReQua is from @alafuzof
+
+   https://github.com/alafuzof/NeuralynxIO
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   neurequa.neuralynx_io.HEADER_LENGTH
+   neurequa.neuralynx_io.NCS_SAMPLES_PER_RECORD
+   neurequa.neuralynx_io.NCS_RECORD
+   neurequa.neuralynx_io.NEV_RECORD
+   neurequa.neuralynx_io.VOLT_SCALING
+   neurequa.neuralynx_io.MILLIVOLT_SCALING
+   neurequa.neuralynx_io.MICROVOLT_SCALING
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   neurequa.neuralynx_io.read_header
+   neurequa.neuralynx_io.parse_header
+   neurequa.neuralynx_io.read_records
+   neurequa.neuralynx_io.estimate_record_count
+   neurequa.neuralynx_io.parse_neuralynx_time_string
+   neurequa.neuralynx_io.check_ncs_records
+   neurequa.neuralynx_io.load_ncs
+   neurequa.neuralynx_io.load_nev
+
+
+Module Contents
+---------------
+
+.. py:data:: HEADER_LENGTH
+   :value: 16384
+
+
+.. py:data:: NCS_SAMPLES_PER_RECORD
+   :value: 512
+
+
+.. py:data:: NCS_RECORD
+
+.. py:data:: NEV_RECORD
+
+.. py:data:: VOLT_SCALING
+   :value: (1, 'V')
+
+
+.. py:data:: MILLIVOLT_SCALING
+   :value: (1000, 'mV')
+
+
+.. py:data:: MICROVOLT_SCALING
+   :value: (1000000, 'µV')
+
+
+.. py:function:: read_header(fid)
+
+.. py:function:: parse_header(raw_hdr)
+
+.. py:function:: read_records(fid, record_dtype, record_skip=0, count=None)
+
+.. py:function:: estimate_record_count(file_path, record_dtype)
+
+.. py:function:: parse_neuralynx_time_string(time_string)
+
+.. py:function:: check_ncs_records(records)
+
+.. py:function:: load_ncs(file_path, load_time=True, rescale_data=True, signal_scaling=MICROVOLT_SCALING)
+
+.. py:function:: load_nev(file_path)
+

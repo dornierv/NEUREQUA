@@ -1,0 +1,268 @@
+neurequa.artefact_detections
+============================
+
+.. py:module:: neurequa.artefact_detections
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   neurequa.artefact_detections.detectPeaks
+   neurequa.artefact_detections.bandpass_filter_bessel
+   neurequa.artefact_detections.smooth_binary_array
+   neurequa.artefact_detections.get_peri_stimulus_counts
+   neurequa.artefact_detections.get_timeWins4AdjacentPoints
+   neurequa.artefact_detections.get_timeWins_mergeIfNext
+   neurequa.artefact_detections.get_timeWinsTemplatedSignal
+   neurequa.artefact_detections.get_timeWinsIntersect
+   neurequa.artefact_detections.get_timeWins4TimeVect
+   neurequa.artefact_detections.detect_movement_artifacts
+   neurequa.artefact_detections.detect_subtle_artifacts
+   neurequa.artefact_detections.get_tickLocsNLabels_centered
+   neurequa.artefact_detections.plot_chTraces
+   neurequa.artefact_detections.plot_detected_events
+   neurequa.artefact_detections.ratio_artefact
+
+
+Module Contents
+---------------
+
+.. py:function:: detectPeaks(x, mph=None, mpd=1, threshold=0, edge='rising', kpsh=False, valley=False)
+
+   Detect peaks in data based on their amplitude and other features.
+
+   :param x: data.
+   :type x: 1D array_like
+   :param mph: detect peaks that are greater than minimum peak height.
+   :type mph: {None, number}, optional (default = None)
+   :param mpd: detect peaks that are at least separated by minimum peak distance (in
+               number of data).
+   :type mpd: positive integer, optional (default = 1)
+   :param threshold: detect peaks (valleys) that are greater (smaller) than `threshold`
+                     in relation to their immediate neighbors.
+   :type threshold: positive number, optional (default = 0)
+   :param edge: for a flat peak, keep only the rising edge ('rising'), only the
+                falling edge ('falling'), both edges ('both'), or don't detect a
+                flat peak (None).
+   :type edge: {None, 'rising', 'falling', 'both'}, optional (default = 'rising')
+   :param kpsh: keep peaks with same height even if they are closer than `mpd`.
+   :type kpsh: bool, optional (default = False)
+   :param valley: if True (1), detect valleys (local minima) instead of peaks.
+   :type valley: bool, optional (default = False)
+
+   :returns: **ind** -- indeces of the peaks in `x`.
+   :rtype: 1D array_like
+
+   .. rubric:: Notes
+
+   The detection of valleys instead of peaks is performed internally by simply
+   negating the data: `ind_valleys = detect_peaks(-x)`
+
+   The function can handle NaN's
+
+   See this IPython Notebook [1]_.
+
+   .. rubric:: References
+
+   .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectPeaks.ipynb
+
+
+.. py:function:: bandpass_filter_bessel(data, lowcut, highcut, sr, order=2)
+
+   Apply a band-pass filter on our raw LFPs
+
+
+   :param data: Numpy array containing the data to filter
+   :type data: numpy array
+   :param lowcut: Low cut frequency to apply on band-pass filter
+   :type lowcut: int
+   :param highcut: High cut frequency to apply on band-pass filter
+   :type highcut: int
+   :param sr: Sampling rate of the signal to filter
+   :type sr: int
+   :param order: default = 2
+                 Order of the filter to apply
+   :type order: int
+
+   :returns: **y** -- Matrices containing the filtered data between lowcut and highcut
+   :rtype: numpy array
+
+
+.. py:function:: smooth_binary_array(binary_array, kernel_size)
+
+   Function used to obtain time series data from binary ones
+
+   :param binary_array: Array composed of 0 or 1 only (e.g. spike data)
+   :type binary_array: array
+   :param kernel_size: Size of the kernel to compute the convolution
+   :type kernel_size: int
+
+   :returns: **convolve_signal** -- binary_array but transformed into time serie
+   :rtype: array
+
+
+.. py:function:: get_peri_stimulus_counts(actVect, window_ms=10, sampling_rate=1250)
+
+   Compute peri-stimulus histogram for each spike in a spike train using vectorized operations.
+
+   :param actVect: Binary vector (1 for spike, 0 for no spike).
+   :type actVect: Numpy array
+   :param window_ms: Window size in milliseconds around each spike.
+   :type window_ms: int
+   :param sampling_rate: Sampling rate in Hz.
+   :type sampling_rate: int
+
+   :returns: **peri_stimulus_counts** -- Array of the same length as spkTimes with the sum of spikes in the ±window around each spike.
+   :rtype: Numpy array
+
+
+.. py:function:: get_timeWins4AdjacentPoints(arr)
+
+   Get the time (start,end) of each burst
+
+   :param arr: Made of indices (np.where(bool))
+   :type arr: Numpy  array
+
+   :returns: **start_ends** -- Array of shape (X, 2) with X corresponds to bursts
+   :rtype: Numpy array
+
+
+.. py:function:: get_timeWins_mergeIfNext(timeWins, nbPointsToMerge)
+
+   Merges overlapping or close windows where gaps are < nbPointsToMerge points, and returns the indices of the merged windows.
+
+   :param timeWins: Shape (n, 2), each row is [start, end]
+   :type timeWins: ndarray
+   :param nbPointsToMerge: Max gap allowed between consecutive windows to merge.
+   :type nbPointsToMerge: int
+
+   :returns: * **merged_windows** (*ndarray*) -- Shape (m, 2), merged windows.
+             * **merged_indices** (*list of lists*) -- Indices of the original windows contributing to each merged window.
+
+
+.. py:function:: get_timeWinsTemplatedSignal(signal, timeWins, nTimePoints=None, filling=np.nan)
+
+   :param signal: Must be a 'pure' np.array, VECTOR shape. If it is an array of lists of len 1,
+                  please use: signal = np.ravel(signal) before passing signal into the function
+   :type signal: 1-D array
+   :param timeWins: Shape (n, 2), each row is [start, end]
+   :type timeWins: ndarray
+   :param nTimePoints: Default = None
+   :type nTimePoints: int or None
+   :param filling: Numpy nan
+   :type filling: nan
+
+   :returns: **templatedSignal** -- Array containing the signal in time windows with burst artifact
+   :rtype: array
+
+
+.. py:function:: get_timeWinsIntersect(itwA, itwB, lastPoint, firstPoint=0, ifDisplay=False, lfp=None)
+
+   return itwTot
+
+   lfp to add if you want to check overlapping windows
+
+
+.. py:function:: get_timeWins4TimeVect(timeVect, dtype=int)
+
+   return timeWins
+
+
+.. py:function:: detect_movement_artifacts(chTraces, chGoodInds, tetInds, verbose=True, SR=20000, thresh_mvA=3, extend_mvA_ms=200, threshCorr=0.6)
+
+   Detection of movement artifacts using vectorized operations.
+
+   :param chTraces: EEG/LFP data array (channels x time).
+   :type chTraces: ndarray
+   :param chGoodInds: Indices of good channels.
+   :type chGoodInds: list
+   :param - tetInds (list): List of tetrode indices.
+   :param - SR (int): Sampling rate (default=20000 Hz).
+   :param - thresh_mvA (float): Z-score threshold for movement artifacts.
+   :param - extend_mvA_ms (int):
+   :param Extension of detected artifacts (ms).:
+   :param - threshCorr (float): Correlation threshold for refinement.
+
+   :returns: **- badWins_refined (ndarray)**
+   :rtype: Array of refined bad time windows.
+
+
+.. py:function:: detect_subtle_artifacts(chTraces, chGoodInds, tetInds, chRegs, SR=20000, verbose=True, extend_final_com_ms=200, lowcut_detPeaks=300, highcut_detPeaks=7000, order_detPeaks=2, thresh_dt1=10, nContacts_dt1=3, nTetrodes_dt1=2, extend_final_ms_dt1=20, thresh_peakDetect=4.5, window_ms_dt2=5, thresh_dt2=10, nContacts_dt2=2, nTetrodes_dt2=2, extend_final_ms_dt2=20)
+
+   Detects subtle artifacts using bandpass filtering and peak detection.
+
+   Parameters:
+   - chTraces (ndarray): EEG/LFP data array.
+   - chGoodInds (array): Array of good channel indices.
+   - tetInds (list): List of tetrode indices.
+   - chRegs (list): Array mapping channels to regions.
+   - SR (int): Sampling rate (default=20000 Hz).
+   - lowcut_detPeaks (int): Low cut-off frequency for peak detection.
+   - highcut_detPeaks (int): High cut-off frequency for peak detection.
+   - order_detPeaks (int): Filter order.
+   - thresh_dt1 (float): Z-score threshold for the first detector.
+   - nContacts_dt1 (int): Minimum number of contacts required for detection in first detector.
+   - nTetrodes_dt1 (int): Minimum number of tetrodes required for first detector.
+   - extend_final_ms_dt1 (int): Extension window for first detector (ms).
+   - thresh_peakDetect (float): Peak detection threshold.
+   - window_ms_dt2 (int): Window size for second detector (ms).
+   - thresh_dt2 (float): Threshold for spike count in the second detector.
+   - nContacts_dt2 (int): Minimum number of contacts required for second detector.
+   - nTetrodes_dt2 (int): Minimum number of tetrodes required for second detector.
+   - extend_final_ms_dt2 (int): Extension window for second detector (ms).
+
+   Returns:
+   - bad_windows (ndarray): Array of detected bad time windows.
+
+   Steps:
+   - Filters signals in a high-frequency range (300-7000 Hz).
+   - Identifies peaks crossing amplitude and gradient thresholds.
+   - Uses channel and tetrode-level consensus to refine detection.
+
+
+.. py:function:: get_tickLocsNLabels_centered(tickMin, tickMax, nTicks, dtype=float, conversion=1)
+
+   return tickLocs, tickLabels
+
+   convert will be multiplied to tickLabels
+   to convert sample_rate to secs: 1/sr
+   to convert sample_rate to ms: 1000/sr
+   & vice versa
+
+   ex:
+   get_tickLocsNLabels_centered(0, 4*1250, 5, convert = 1000/sr)
+   return
+   (array([   0., 1250., 2500., 3750., 5000.]),
+    array([-2000., -1000.,    -0.,  1000.,  2000.]))
+
+
+.. py:function:: plot_chTraces(chTraces, sr, chInds=None, t_sample=None, chCols=None, win_s=1, hspace=-200, title=False, legend=True, chLegend=None, xlabel=True, fontsize_legend=20, lw=1, nTicks=5, roundTickLabels=2, locLegend='upper right', titleLegend=None, title_fontsizeLegend=20, lwLegend=1, alpha=1, xTickFS=20, labFS=30, yTickFS=12, bbox_to_anchor=None, ignoreCh=[])
+
+   chInds is a np.array
+   Adviced size: plt.figure(figsize=(30,nCh*1.5))
+
+   legendLabels
+   bbox_to_anchor=(1.1, 1.05) is good
+
+
+.. py:function:: plot_detected_events(chTraces, chRegs, SR, badWinArray, badWini, ignoreCh=[], win_s=2, lw=1, hspace=-7000, extend_final_com_ms=200)
+
+   Functions used to plot the artifacts detected
+
+
+.. py:function:: ratio_artefact(data, badWins_final, path, sub, sess)
+
+   :param data: 2-D array with format nChannels x nSamples containing your recording
+   :type data: 2-D array
+   :param badWins_final: Output of the function get_timeWinsIntersect
+   :type badWins_final: Array
+   :param path: Path where your excel table is stored
+   :type path: String
+   :param sub: Identifiant of your subject
+   :type sub: String
+   :param sess: Name of the current session you are analyzing
+   :type sess: String
+
+

@@ -1,0 +1,25 @@
+neurequa
+========
+
+.. py:module:: neurequa
+
+.. autoapi-nested-parse::
+
+   NeuReQua
+
+   Python library to monitor your signal quality
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/neurequa/artefact_detections/index
+   /autoapi/neurequa/cognitive_module/index
+   /autoapi/neurequa/neuralynx_io/index
+   /autoapi/neurequa/quality_module/index
+
+

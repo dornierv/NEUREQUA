@@ -1,0 +1,502 @@
+neurequa.quality_module
+=======================
+
+.. py:module:: neurequa.quality_module
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   neurequa.quality_module.ensure_dir
+   neurequa.quality_module.load_raw_data
+   neurequa.quality_module.splitCharNum
+   neurequa.quality_module.get_unique_unsorted
+   neurequa.quality_module.reorder_data
+   neurequa.quality_module.find_nearest
+   neurequa.quality_module.random_time
+   neurequa.quality_module.p_welch
+   neurequa.quality_module.plot_all_chan
+   neurequa.quality_module.plot_tetrode
+   neurequa.quality_module.plot_noise
+   neurequa.quality_module.plot_raw
+   neurequa.quality_module.tblprep
+   neurequa.quality_module.rms_signal_filtered
+   neurequa.quality_module.plot_rms_filter
+   neurequa.quality_module.correlation_coefficient
+   neurequa.quality_module.variance_normalized
+   neurequa.quality_module.deviation
+   neurequa.quality_module.variance
+   neurequa.quality_module.signaltonoise
+   neurequa.quality_module.kurtosis
+   neurequa.quality_module.hurst_component
+
+
+Module Contents
+---------------
+
+.. py:function:: ensure_dir(path: str) -> None
+
+   Create the directory if it does not exist
+
+
+   :param path: Path-like where you want to create folder
+   :type path: str
+
+
+.. py:function:: load_raw_data(path, dtype, length, pattern2exclude, time='Random', analog=False, *args)
+
+   Load data from the raw files (e.g., .ncs for Neuralynx)
+
+   Returns two objects :
+       1) A raw-object from MNE (see https://mne.tools/stable/generated/mne.io.Raw.html#mne.io.Raw for documentation)
+
+       2) An array containing raw values of the signal you want to analyze
+
+   :param path: A string containing the path where your data are stored
+   :type path: string
+   :param dtpe: For Neuralynx data : 'ncs'
+                For Blackrock data : 'nsX'
+                For Dark Horse Neuro data : 'med'
+                edf is also supported : 'edf'
+   :type dtpe: string
+   :param length: If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal
+                  If you specify 'all' it will take the entire recording (can be slower, depends on your computational resources)
+   :type length: int or 'all'
+   :param pattern2exclude: Pattern that enables us to not take into account the macrocontacts
+                           (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be '_sub.ncs')
+   :type pattern2exclude: string
+
+   time: string or tuple
+       By default take randomly portion of signal corresponding to length
+       It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording
+
+   analog: string (optional) (Default: False)
+       Reference channel used in blackrock recording system if it exists
+
+
+   :returns: * **raw_data** (*raw data in FIF format (see MNE)*) -- This object contains all informations about your data (channels name, sampling rate etc.)
+             * **data_sig** (*np array*) -- Array containing raw values of the signal you want to load
+               Will have a shape of nCh x nSamples
+
+
+.. py:function:: splitCharNum(string)
+
+   Separate a string containing characters and numbers in two objects
+   (One with characters and one with numbers)
+
+   :param string: String containing characters and numbers (e.g., 'da1')
+   :type string: string
+
+   :returns: * **char** (*string*) -- string containing only the characters from the input (e.g., 'da')
+             * **number** (*string*) -- string containing only the numbers from the input (e.g., '1')
+
+
+.. py:function:: get_unique_unsorted(array)
+
+   Maintains the order of appearance in the original array
+   Does not sort by ascending order (figures) or alphabetic order (characters)
+
+
+   :param array: Array of string containing the name of your channels (e.g. ['da','db'])
+   :type array: array of string
+
+   :returns: **uniqueUnsorted** -- array of string containing
+   :rtype: string
+
+
+.. py:function:: reorder_data(Regions, data)
+
+   When there is 3 tetrodes on the same shaft order will be x1, x10, x11, x12, x2, x3 ... x9 on the raw file
+
+   We want to re-organize it so the order is x1, x2, x3 ... x9, x10, x11, x12
+
+   Will return the array of regions name and data in the right order
+
+
+   :param Regions: Array of strings containing all the name of the regions implanted with your channels
+   :type Regions: array of string
+   :param data: Matrix containing raw values with shape nChannels x nSamples
+   :type data: array
+
+   :returns: * **Regions_ok** (*array of string*) -- Array of strings containing the name in the right order (e.g., 'x1', 'x2', 'x3' ... 'x9', 'x10', 'x11', 'x12')
+             * **data_ok** (*array*) -- Matrix with shape nChannels x nSamples but re-organize to match the order of channel labels
+
+
+.. py:function:: find_nearest(array, value)
+
+   Find the index where there is the nearest values in an array from the one we want
+
+
+   :param array: array containing data (e.g., [2, 7, 12])
+   :type array: np.array
+   :param value: The value we want to find the closest (e.g. 11)
+   :type value: int
+
+   :returns: **idx** -- Will return the index  in array closest to value (e.g., 2)
+   :rtype: int
+
+
+.. py:function:: random_time(data, sampling_rate, length)
+
+   Select randomly length minutes of signal from your entire recoding
+
+
+   :param data:
+   :type data: The raw object of data (Raw object from MNE)
+   :param sampling rate: The sampling rate of your recording (e.g., 32768)
+   :type sampling rate: int
+   :param length: Length in minute of the signal you want to analyze
+   :type length: int
+
+   :returns: **start_idx** -- Correspond to the first sample of the signal, the beginning of the recording you want
+             to analyze
+   :rtype: int
+
+
+.. py:function:: p_welch(data, chRegions, sub, sess, sr, sr_down, fr_low, fr_high, saveFolder, probe_type='Dixi')
+
+   Compute the power spectrum of your signal in order to identify frequencies present in your signal
+   Here we use the welch's method to compute the power spectrum
+
+   :param data: Matrice containing data of all channels containing nSamples
+   :type data: array
+   :param chRegions: Array containing the labels of all the electrodes in the recording
+   :type chRegions: Numpy array
+   :param sub: ID of the patient you are analyzing
+   :type sub: string
+   :param sess: Name of the session you are analyzing
+   :type sess: string
+   :param sr: Sampling rate of your recording (e.g., 32768)
+   :type sr: int
+   :param sr_down: Sampling rate downsampled, so the one you want (e.g., 8192 Hz)
+   :type sr_down: int
+   :param fr_low: The lowest frequency from which we compute the power spectrum
+   :type fr_low: int
+   :param fr_high: The highest frequency from which we compute the power spectrum
+   :type fr_high: int
+   :param saveFolder: Path where you want to save the output figure
+   :type saveFolder: string
+   :param probe_type: String containing the model of your electrodes, it can be either 'Dixi' or 'Ad-tech'
+   :type probe_type: string (Default=Dixi)
+
+   :returns: * **pxx_log** (*array*) -- Array containing power spectrum values for the channel of interest
+             * **f_plot** (*array*) -- Array containing the values of frequency associate with each power spectrum value (will be useful for the plot)
+
+
+.. py:function:: plot_all_chan(f, nCh, chRegs, psd, bsnm, session, probe_type, saveFolder)
+
+   This function will plot the power spectrum of all micro-channels on the same plot
+
+   :param f: Array containing frequency values (it is the output of p_welch)
+   :type f: array
+   :param nCh: Number of channels in your recording
+   :type nCh: int
+   :param chRegs: Array containing name of your channels
+   :type chRegs: array of strings
+   :param psd: Array of power spectrum values for each value of f, it is the output of p_welch
+   :type psd: array
+   :param session: Name of the session you analyze, specify at the beginning of the jupyter notebook
+   :type session: string
+   :param probe_type: String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
+   :type probe_type: string
+
+   saveFolder : string
+       String containing the path of the folder where you want to save figure
+
+   :rtype: Matplotlib plot containing power spectrum of each channels and saved in the folder specified
+
+
+.. py:function:: plot_tetrode(metrics, chRegions)
+
+   Function used to plot the metrics value of each tetrodes grouped by colors
+
+
+.. py:function:: plot_noise(data, sr, chRegions, path, save=1, limit='auto', fr_low=300, fr_high=3000)
+
+   This function will plot the raw signal filtered between 300 and 300 Hz for 1 second randomly choosed in the 5 minutes window
+   So we can have an idea of the level of noise during our recording
+
+
+   :param data: Matrix with your data with shape nChannels x nSamples
+   :type data: array
+   :param sr: sampling rate of the signal
+   :type sr: int
+   :param chRegions: Array of string containing name of each channels
+   :type chRegions: string
+   :param path: String containing the path where you want to save the figures
+   :type path: string
+   :param save: If you don't want to save figure put save = 0
+   :type save: int, default = 1
+   :param limit: Default value is 'auto' so matplotlib handes the limit but otherwise it is the min and max of your data
+                 Could be useful to better see the level of noise in your recording
+   :type limit: string
+   :param fr_low: The lowest frequency for your band pass filter
+   :type fr_low: int, default = 300
+   :param fr_high: The highest frequency for your band pass filter
+   :type fr_high: int, default = 3000
+
+   :rtype: Matplotlib plot saved in the specific folder if you want to
+
+
+.. py:function:: plot_raw(data, sr, num_channel, path, save=1)
+
+   In entry take the 5 minutes of signal that were randomly choosed before
+   This function will plot the raw signal for 1 second randomly choosed in the 5 minutes window
+
+   :param data: data from one particular channel
+   :type data: array
+   :param sr: sampling rate of the signal
+   :type sr: int
+   :param num_channel: Number of the channel in your recording
+   :type num_channel: int
+   :param path: Path where you want to store your figure in output
+   :type path: string
+   :param save: Default = 1 else put save = 0
+   :type save: Boolean
+
+   :rtype: Matplotlib plot with raw signal
+
+
+.. py:function:: tblprep(path, electrodes, sub, sess)
+
+   Here we prep the excel file where all metrics values will be stored
+   You can either create a file for each session or patient by changing the name of path
+   But you could also keep the same file and then store values to create a database.
+
+   :param path: Path where you want to store the excel file containing the metrics or an existing file to store values
+   :type path: string
+   :param electrodes: Array containing the name of your electrodes (automatically extracted from your recording)
+   :type electrodes: array of string
+   :param sub: Name of the subject analyzed
+   :type sub: string
+   :param sess: Name of the session analyzed
+   :type sess: string
+
+   Outputs
+   ---------------------------
+   It creates an excel file where metrics will be stored
+
+
+.. py:function:: rms_signal_filtered(data, path, chRegions, sub, sess, fr_low, fr_high, sr, saveFolder, save=1)
+
+   Here we take the 5 minutes of signal that were randomly choosed before
+   This function will calculate the RMS (root mean square) for 1 second randomly choosed in the 5 minutes window
+
+   :param data: 2-D Matrice containing all your data with shape nChannels x nSamples
+   :type data: numpy.array
+   :param path: Path where is the excel file you created earlier
+   :type path: string
+   :param chRegions: Name of the electrodes in your recordings
+   :type chRegions: array of string
+   :param sub: Name of the subject analyzed
+   :type sub: string
+   :param sess: Name of the session analyzed
+   :type sess: string
+   :param fr_low: Low frequency to filter the data (e.g., 300)
+   :type fr_low: int
+   :param fr_high: High frequency to filter the data (e.g., 3000)
+   :type fr_high: int
+   :param sr: Sampling rate of the signal of your recording system
+   :type sr: int
+   :param saveFolder: Path where you want to store the outputes figure
+   :type saveFolder: string
+   :param Outputs:
+   :param ---------------------------:
+   :param Figure with the values of RMS of your signal filtered:
+
+
+.. py:function:: plot_rms_filter(pathtbl, savingpath, sub, sess, save=1)
+
+   This function is used to plot the Root-mean square value of each channels
+
+
+
+.. py:function:: correlation_coefficient(data, chRegions, path, pathtbl, sub, sess, probe_type, save=1)
+
+   This function compute a correlation coefficient between one micro-wire and all the other micro-wires
+   from the same tetrode
+
+   see Tuyisenge, V., Trebaul, L., Bhattacharjee, M., Chanteloup-Forêt, B., Saubat-Guigui, C., Mîndruţă, I., Rheims, S.,
+   Maillard, L., Kahane, P., Taussig, D., & David, O. (2018).
+   Automatic bad channel detection in intracranial electroencephalographic recordings using ensemble machine learning.
+   Clinical Neurophysiology, 129(3), 548‑554. https://doi.org/10.1016/j.clinph.2017.12.013
+
+
+   :param data: Matrix with your data with shape nChannels x nSamples
+   :type data: array
+   :param chRegions: Vector with the name of the micro-wires
+   :type chRegions: Array
+   :param path: Path where you want to save the figure obtained
+   :type path: string
+   :param pathtbl: Path where you store the excel file containing all values for the patient you analyze
+   :type pathtbl: string
+   :param sub: String like 'sub-XX' with XX being the number of the subject in your database
+   :type sub: string
+   :param sess: String containing the name of the session you are analyzing (specified at the beginning of the jupyter notebook)
+   :type sess: string
+   :param probe_type: String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
+   :type probe_type: string
+   :param save=1 (default) to save the figure:
+   :param put save = 0 if you don't want to save the figure:
+
+   :returns: * *Matplotlib plot with correlation coefficient for each channel*
+             * *Values of the correlation coefficient saved in an excel fil to get a report of the analyzes*
+
+
+.. py:function:: variance_normalized(data, chRegions, path, pathtbl, sub, sess, probe_type, save=1)
+
+   Compute the variance of each channel normalized by the mean variance of all neighbouring channels on the same tetrode
+   If variance is high then it means that the channel is not recording the same activity than the ones around, so maybe it
+   is broken or there is a problem with the plugging on your recording system
+
+
+   :param data: Matrix with your data with shape nChannels x nSamples
+   :type data: array
+   :param chRegions: Vector with the name of your channels
+   :type chRegions: array of strings
+   :param path: Path where you want to save output figure
+   :type path: string
+   :param pathtbl: Path where the excel file of this patient is stored
+   :type pathtbl: string
+   :param sub: String containing the number or the ID of the patient in your database
+   :type sub: string
+   :param sess: String containing the name of the session you are analyzing
+   :type sess: string
+   :param probe_type: String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
+   :type probe_type: string
+
+   save: Default=1 to save figure
+
+   :returns: * *Matplotlib plot with values of variance normalized*
+             * *Values are also stored in the excel file*
+
+   see Tuyisenge, V., Trebaul, L., Bhattacharjee, M., Chanteloup-Forêt, B., Saubat-Guigui, C., Mîndruţă, I., Rheims, S.,
+   Maillard, L., Kahane, P., Taussig, D., & David, O. (2018).
+   Automatic bad channel detection in intracranial electroencephalographic recordings using ensemble machine learning.
+   Clinical Neurophysiology, 129(3), 548‑554. https://doi.org/10.1016/j.clinph.2017.12.013
+
+
+
+
+.. py:function:: deviation(data, chRegions, path, pathtbl, sub, sess, probe_type, save=1)
+
+   Compute the deviation (i.e. electrical drift)
+
+   :param data: Matrix with your data with shape nChannels x nSamples
+   :type data: array
+   :param chRegions: Vector with the name of your channels
+   :type chRegions: array of strings
+   :param path: Path where you want to save the output's figure
+   :type path: string
+   :param paththbl: Path where to store values in excel
+   :type paththbl: string
+   :param sub: IDs of the patient
+   :type sub: string
+   :param sess: Name of the session
+   :type sess: string
+   :param probe_type: String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
+   :type probe_type: string
+
+   :rtype: Matplotlib plot and values in excel file
+
+   see Tuyisenge, V., Trebaul, L., Bhattacharjee, M., Chanteloup-Forêt, B., Saubat-Guigui, C., Mîndruţă, I., Rheims, S.,
+   Maillard, L., Kahane, P., Taussig, D., & David, O. (2018).
+   Automatic bad channel detection in intracranial electroencephalographic recordings using ensemble machine learning.
+   Clinical Neurophysiology, 129(3), 548‑554. https://doi.org/10.1016/j.clinph.2017.12.013
+
+
+.. py:function:: variance(data, chRegions, path, pathtbl, sub, sess, save=1)
+
+   Compute the variance of each channel to see if there is a lot of artefacts or not
+
+   :param data: Matrix with your data with shape nChannels x nSamples
+   :type data: array
+   :param chRegions: Vector with the name of your channels
+   :type chRegions: array of strings
+   :param path: Path where you want to save output figure
+   :type path: string
+   :param paththbl: Path to the excel file where to store informations
+   :type paththbl: string
+   :param sub: IDs of the patient
+   :type sub: string
+   :param sess: Name of the session
+   :type sess: string
+   :param save:
+   :type save: Default=1 to save figure
+
+   :rtype: Matplotlib plot and value store in excel file
+
+
+.. py:function:: signaltonoise(a, chRegions, path, pathtbl, sub, sess, save=1, axis=1, ddof=0)
+
+   The signal-to-noise ratio of the input data.
+
+   Returns the signal-to-noise ratio of `a`, here defined as the mean
+   divided by the standard deviation.
+
+   :param a: An array_like object containing the sample data.
+   :type a: array_like
+   :param axis: If axis is equal to None, the array is first ravel'd. If axis is an
+                integer, this is the axis over which to operate. Default is 0.
+   :type axis: int or None, optional
+   :param ddof: Degrees of freedom correction for standard deviation. Default is 0.
+   :type ddof: int, optional
+
+   :returns: **s2n** -- The mean to standard deviation ratio(s) along `axis`, or 0 where the
+             standard deviation is 0.
+   :rtype: ndarray
+
+
+.. py:function:: kurtosis(data, chRegions, path, pathtbl, sub, sess, save=1)
+
+   Kurtosis: An electrical activity may appear in one of the channels and be absent in the remaining ones.
+   Such events can be detected by computing the kurtosis in all channels. Given that the kurtosis
+   indicates the presence of outliers in datasets, the highest value reveals which channel shows a
+   particular event (Mognon et al., 2011) (from Tuyisenge et al., 2018)
+
+   :param data: Matrix containing your data with shape nChannels x nSamples
+   :type data: array
+   :param chRegions: Vector containing name of your channels
+   :type chRegions: array of strings
+   :param path: String of the path where you want to store figures
+   :type path: string
+   :param pathtbl: Path where the excel file is stored
+   :type pathtbl: string
+   :param sub: IDs of the patient you are analyzing
+   :type sub: string
+   :param sess: Name of the session
+   :type sess: string
+   :param save: =1 if you want to save plot, put = 0 otherwise
+   :type save: Boolean, default=1
+
+   Results
+   ---------------------------
+   Matplotlib plot and value store in the excel file
+
+
+
+.. py:function:: hurst_component(data, chRegions, path, pathtbl, sub, sess, save=1)
+
+   Compute the Hurst component
+   You can see Tuyisenge et al. (2018) for a detail of the algorithm
+   Typically EEG data have values around 0.7
+
+
+   :param data: Matrix containing your data with shape nChannels x nSamples
+   :type data: array
+   :param chRegions: Vectors containing the name of your channels
+   :type chRegions: array of strings
+   :param path: Path where you want to store the plots
+   :type path: string
+   :param pathtbl: Path where is store your excel file saving results
+   :type pathtbl: string
+   :param sub: String "sub-XX" where XX is the number of the subject analyzed
+   :type sub: String
+   :param sess: Name of the session you are analyzing
+   :type sess: String
+
+   :rtype: Matplotlib plot
+
+

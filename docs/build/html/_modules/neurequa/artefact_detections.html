@@ -1,0 +1,1071 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>neurequa.artefact_detections - NEUREQUA 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">NEUREQUA 0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <span class="sidebar-brand-text">NEUREQUA 0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../autoapi/index.html">API Reference</a><input aria-label="Toggle navigation of API Reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../autoapi/neurequa/index.html">neurequa</a><input aria-label="Toggle navigation of neurequa" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/artefact_detections/index.html">neurequa.artefact_detections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/cognitive_module/index.html">neurequa.cognitive_module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/neuralynx_io/index.html">neurequa.neuralynx_io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/quality_module/index.html">neurequa.quality_module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for neurequa.artefact_detections</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sb</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">filtfilt</span><span class="p">,</span> <span class="n">bessel</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># ------------------------------------------------------------------------------------------------------------------------------</span>
+<span class="c1"># ------------------------------------------------------------ EXPLANATION -----------------------------------------------------</span>
+<span class="c1"># ------------------------------------------------------------------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Explanation of Inputs Needed to Run the Artifact Detection Pipeline</span>
+<span class="sd">This script performs artifact detection in three steps:</span>
+
+<span class="sd">Detect movement artifacts: Large, abrupt changes in the signal caused by patient movement or external disturbances.</span>
+<span class="sd">Detect subtle artifacts: More localized, high-frequency distortions that may affect signal quality.</span>
+<span class="sd">Merge detected windows: Combine overlapping or adjacent detected artifacts into a final list of artifact windows.</span>
+<span class="sd">1️⃣ Required Inputs and Their Definitions</span>
+<span class="sd">Before running the script, you need to define the following inputs.</span>
+
+<span class="sd">📌 EEG/LFP Data</span>
+<span class="sd">chTraces (ndarray): A 2D NumPy array of shape (n_channels, n_timepoints) containing the EEG/LFP signals.</span>
+<span class="sd">Each row represents a different recording channel.</span>
+<span class="sd">Each column represents a time point in the recording.</span>
+<span class="sd">📌 Channel and Tetrode Information</span>
+<span class="sd">chGoodInds (list): A list of good channel indices that are free of recording failures or noise.</span>
+<span class="sd">tetInds (list of lists): A list of tetrode channel groups.</span>
+<span class="sd">Each element is a list of channel indices corresponding to one tetrode.</span>
+<span class="sd">Used for refining artifact detection by checking signal correlations within tetrodes.</span>
+<span class="sd">chRegs (list): A list of region names or channel assignments (e.g., [&#39;Hippocampus&#39;, &#39;Cortex&#39;, &#39;Thalamus&#39;]).</span>
+<span class="sd">Used for grouping channels in subtle artifact detection.</span>
+<span class="sd">📌 Recording Parameters</span>
+<span class="sd">nCh (int): Total number of channels in the recording.</span>
+<span class="sd">SR (int): Sampling rate in Hz.</span>
+<span class="sd">Default is 20000 Hz (high-resolution data).</span>
+<span class="sd">This is needed to convert artifact windows from samples to milliseconds.</span>
+<span class="sd">📌 Movement Artifact Detection Parameters</span>
+<span class="sd">These parameters are used in detect_movement_artifacts():</span>
+
+<span class="sd">thresh_mvA (float): Z-score threshold for movement artifact detection.</span>
+<span class="sd">Default: 3 (higher values detect fewer artifacts).</span>
+<span class="sd">extend_mvA_ms (int): Time extension for detected movement artifacts (in ms).</span>
+<span class="sd">Default: 200 ms (extends the detected artifact period).</span>
+<span class="sd">threshCorr (float): Correlation threshold between tetrode wires for refinement.</span>
+<span class="sd">Default: 0.6 (low values allow more artifacts to be kept).</span>
+<span class="sd">📌 Subtle Artifact Detection Parameters</span>
+<span class="sd">These parameters are used in detect_subtle_artifacts():</span>
+
+<span class="sd">Filtering parameters:</span>
+<span class="sd">lowcut_detPeaks (int): Low cut-off frequency for peak detection (Hz). Default: 300 Hz.</span>
+<span class="sd">highcut_detPeaks (int): High cut-off frequency for peak detection (Hz). Default: 7000 Hz.</span>
+<span class="sd">order_detPeaks (int): Filter order for bandpass filtering. Default: 2.</span>
+<span class="sd">Thresholds for artifact detection:</span>
+<span class="sd">thresh_dt1 (float): Z-score threshold for first detector. Default: 10.</span>
+<span class="sd">nContacts_dt1 (int): Minimum channels needed to confirm an artifact. Default: 3.</span>
+<span class="sd">nTetrodes_dt1 (int): Minimum tetrodes required to confirm an artifact. Default: 2.</span>
+<span class="sd">extend_final_ms_dt1 (int): Time extension of detected artifacts (ms). Default: 20 ms.</span>
+<span class="sd">Peak detection (high-frequency bursts)</span>
+<span class="sd">thresh_peakDetect (float): Amplitude threshold for peak detection. Default: 4.5.</span>
+<span class="sd">window_ms_dt2 (int): Window size for detecting rapid spiking (ms). Default: 5 ms.</span>
+<span class="sd">thresh_dt2 (int): Spike count threshold for second detector. Default: 10.</span>
+<span class="sd">nContacts_dt2 (int): Minimum channels required to confirm a high-frequency burst artifact. Default: 2.</span>
+<span class="sd">nTetrodes_dt2 (int): Minimum tetrodes required to confirm a burst. Default: 2.</span>
+<span class="sd">extend_final_ms_dt2 (int): Time extension of detected bursts (ms). Default: 20 ms.</span>
+<span class="sd">📌 Window Merging Parameters</span>
+<span class="sd">These are used in get_timeWinsIntersect() to merge detected artifact windows:</span>
+
+<span class="sd">extend_final_com_ms (int): Merging window threshold (ms).</span>
+<span class="sd">If two artifact windows are closer than this value, they are merged into one.</span>
+<span class="sd">Default: 200 ms.</span>
+<span class="sd">2️⃣ What This Script Does</span>
+<span class="sd">Runs detect_movement_artifacts() on chTraces to find large movement artifacts.</span>
+<span class="sd">Runs detect_subtle_artifacts() to detect high-frequency distortions.</span>
+<span class="sd">Uses get_timeWinsIntersect() to merge the detected artifact windows into a final set.</span>
+
+<span class="sd">3️⃣ Example of Running the Code</span>
+<span class="sd">python</span>
+<span class="sd">Copy</span>
+<span class="sd">Edit</span>
+<span class="sd"># Step 1: Detect movement artifacts</span>
+<span class="sd">badWins_movement = detect_movement_artifacts(</span>
+<span class="sd">    chTraces, chGoodInds, tetInds, verbose=True, </span>
+<span class="sd">    SR=20000, thresh_mvA=3, extend_mvA_ms=200, threshCorr=0.6</span>
+<span class="sd">)</span>
+
+<span class="sd"># Step 2: Detect subtle artifacts</span>
+<span class="sd">badWins_subtle = detect_subtle_artifacts(</span>
+<span class="sd">    chTraces, chGoodInds, tetInds, chRegs, SR=20000, verbose=True,</span>
+<span class="sd">    extend_final_com_ms=200, lowcut_detPeaks=300, highcut_detPeaks=7000, order_detPeaks=2, </span>
+<span class="sd">    thresh_dt1=10, nContacts_dt1=3, nTetrodes_dt1=2, extend_final_ms_dt1=20, </span>
+<span class="sd">    thresh_peakDetect=4.5, window_ms_dt2=5, thresh_dt2=10, nContacts_dt2=2, </span>
+<span class="sd">    nTetrodes_dt2=2, extend_final_ms_dt2=20</span>
+<span class="sd">)</span>
+
+<span class="sd"># Step 3: Merge detected windows using intersection</span>
+<span class="sd">badWins_final = get_timeWinsIntersect(badWins_movement, badWins_subtle, chTraces.shape[1])</span>
+
+<span class="sd"># Display results</span>
+<span class="sd">print(f&quot;Total movement artifact windows: {len(badWins_movement)}&quot;)</span>
+<span class="sd">print(f&quot;Total subtle artifact windows: {len(badWins_subtle)}&quot;)</span>
+<span class="sd">print(f&quot;Final merged artifact windows: {len(badWins_final)}&quot;)</span>
+
+<span class="sd">4️⃣ Summary of What You Need to Define</span>
+<span class="sd">Parameter	Type	Description</span>
+<span class="sd">chTraces	ndarray	EEG/LFP data (channels x time)</span>
+<span class="sd">chGoodInds	list	Indices of good channels</span>
+<span class="sd">tetInds	list	List of tetrode channel groups</span>
+<span class="sd">chRegs	list	List of region names per channel</span>
+<span class="sd">SR	int	Sampling rate in Hz (default: 20000)</span>
+<span class="sd">thresh_mvA	float	Z-score threshold for movement artifacts</span>
+<span class="sd">extend_mvA_ms	int	Time extension for movement artifacts (ms)</span>
+<span class="sd">threshCorr	float	Correlation threshold for refining movement artifacts</span>
+<span class="sd">lowcut_detPeaks	int	Low cut-off for peak detection (Hz)</span>
+<span class="sd">highcut_detPeaks	int	High cut-off for peak detection (Hz)</span>
+<span class="sd">order_detPeaks	int	Filter order for bandpass filtering</span>
+<span class="sd">thresh_dt1	float	Z-score threshold for first subtle artifact detector</span>
+<span class="sd">extend_final_com_ms	int	Window merge threshold (ms)</span>
+
+
+<span class="sd">Made by Adrien Causse</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="c1"># ------------------------------------------------------------------------------------------------------------------------------</span>
+<span class="c1"># ------------------------------------------------------------ HOUSEKEEPING ----------------------------------------------------</span>
+<span class="c1"># ------------------------------------------------------------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="detectPeaks">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.detectPeaks">[docs]</a>
+<span class="k">def</span> <span class="nf">detectPeaks</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mph</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mpd</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">edge</span><span class="o">=</span><span class="s1">&#39;rising&#39;</span><span class="p">,</span> <span class="n">kpsh</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">valley</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Detect peaks in data based on their amplitude and other features.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : 1D array_like</span>
+<span class="sd">        data.</span>
+<span class="sd">    mph : {None, number}, optional (default = None)</span>
+<span class="sd">        detect peaks that are greater than minimum peak height.</span>
+<span class="sd">    mpd : positive integer, optional (default = 1)</span>
+<span class="sd">        detect peaks that are at least separated by minimum peak distance (in</span>
+<span class="sd">        number of data).</span>
+<span class="sd">    threshold : positive number, optional (default = 0)</span>
+<span class="sd">        detect peaks (valleys) that are greater (smaller) than `threshold`</span>
+<span class="sd">        in relation to their immediate neighbors.</span>
+<span class="sd">    edge : {None, &#39;rising&#39;, &#39;falling&#39;, &#39;both&#39;}, optional (default = &#39;rising&#39;)</span>
+<span class="sd">        for a flat peak, keep only the rising edge (&#39;rising&#39;), only the</span>
+<span class="sd">        falling edge (&#39;falling&#39;), both edges (&#39;both&#39;), or don&#39;t detect a</span>
+<span class="sd">        flat peak (None).</span>
+<span class="sd">    kpsh : bool, optional (default = False)</span>
+<span class="sd">        keep peaks with same height even if they are closer than `mpd`.</span>
+<span class="sd">    valley : bool, optional (default = False)</span>
+<span class="sd">        if True (1), detect valleys (local minima) instead of peaks.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ind : 1D array_like</span>
+<span class="sd">        indeces of the peaks in `x`.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The detection of valleys instead of peaks is performed internally by simply</span>
+<span class="sd">    negating the data: `ind_valleys = detect_peaks(-x)`</span>
+<span class="sd">    </span>
+<span class="sd">    The function can handle NaN&#39;s </span>
+
+<span class="sd">    See this IPython Notebook [1]_.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectPeaks.ipynb</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">valley</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span>
+    <span class="c1"># find indices of all peaks</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># handle NaN&#39;s</span>
+    <span class="n">indnan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">indnan</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">indnan</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+        <span class="n">dx</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">dx</span><span class="p">))[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">ine</span><span class="p">,</span> <span class="n">ire</span><span class="p">,</span> <span class="n">ife</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[],</span> <span class="p">[],</span> <span class="p">[]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">edge</span><span class="p">:</span>
+        <span class="n">ine</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">dx</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">dx</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;rising&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">]:</span>
+            <span class="n">ire</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">dx</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">dx</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;falling&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">]:</span>
+            <span class="n">ife</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">dx</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">dx</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">ine</span><span class="p">,</span> <span class="n">ire</span><span class="p">,</span> <span class="n">ife</span><span class="p">)))</span>
+    <span class="c1"># handle NaN&#39;s</span>
+    <span class="k">if</span> <span class="n">ind</span><span class="o">.</span><span class="n">size</span> <span class="ow">and</span> <span class="n">indnan</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="c1"># NaN&#39;s and values close to NaN&#39;s cannot be peaks</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">indnan</span><span class="p">,</span> <span class="n">indnan</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">indnan</span><span class="o">+</span><span class="mi">1</span><span class="p">))),</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+    <span class="c1"># first and last values of x cannot be peaks</span>
+    <span class="k">if</span> <span class="n">ind</span><span class="o">.</span><span class="n">size</span> <span class="ow">and</span> <span class="n">ind</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">if</span> <span class="n">ind</span><span class="o">.</span><span class="n">size</span> <span class="ow">and</span> <span class="n">ind</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># remove peaks &lt; minimum peak height</span>
+    <span class="k">if</span> <span class="n">ind</span><span class="o">.</span><span class="n">size</span> <span class="ow">and</span> <span class="n">mph</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">mph</span><span class="p">]</span>
+    <span class="c1"># remove peaks - neighbors &lt; threshold</span>
+    <span class="k">if</span> <span class="n">ind</span><span class="o">.</span><span class="n">size</span> <span class="ow">and</span> <span class="n">threshold</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">]]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dx</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># detect small peaks closer than minimum peak distance</span>
+    <span class="k">if</span> <span class="n">ind</span><span class="o">.</span><span class="n">size</span> <span class="ow">and</span> <span class="n">mpd</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">])][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># sort ind by peak height</span>
+        <span class="n">idel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ind</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ind</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">idel</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="c1"># keep peaks with the same height if kpsh is True</span>
+                <span class="n">idel</span> <span class="o">=</span> <span class="n">idel</span> <span class="o">|</span> <span class="p">(</span><span class="n">ind</span> <span class="o">&gt;=</span> <span class="n">ind</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">mpd</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ind</span> <span class="o">&lt;=</span> <span class="n">ind</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">mpd</span><span class="p">)</span> \
+                    <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="k">if</span> <span class="n">kpsh</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="n">idel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Keep current peak</span>
+        <span class="c1"># remove the small peaks and sort back the indices by their occurrence</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">ind</span><span class="p">[</span><span class="o">~</span><span class="n">idel</span><span class="p">])</span>
+        
+    <span class="k">return</span> <span class="n">ind</span></div>
+
+
+<div class="viewcode-block" id="bandpass_filter_bessel">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.bandpass_filter_bessel">[docs]</a>
+<span class="k">def</span> <span class="nf">bandpass_filter_bessel</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lowcut</span><span class="p">,</span> <span class="n">highcut</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">nyquist</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sr</span>
+    <span class="n">low</span> <span class="o">=</span> <span class="n">lowcut</span> <span class="o">/</span> <span class="n">nyquist</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">highcut</span> <span class="o">/</span> <span class="n">nyquist</span>
+
+    <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">bessel</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">Wn</span><span class="o">=</span><span class="p">[</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">],</span> <span class="n">btype</span><span class="o">=</span><span class="s1">&#39;bandpass&#39;</span><span class="p">,</span> <span class="n">analog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;ba&#39;</span><span class="p">)</span>
+    
+    <span class="n">y</span> <span class="o">=</span> <span class="n">filtfilt</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">y</span></div>
+
+    
+<div class="viewcode-block" id="smooth_binary_array">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.smooth_binary_array">[docs]</a>
+<span class="k">def</span> <span class="nf">smooth_binary_array</span><span class="p">(</span><span class="n">binary_array</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">):</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">binary_array</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
+
+    
+    
+<div class="viewcode-block" id="get_peri_stimulus_counts">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_peri_stimulus_counts">[docs]</a>
+<span class="k">def</span> <span class="nf">get_peri_stimulus_counts</span><span class="p">(</span><span class="n">actVect</span><span class="p">,</span> <span class="n">window_ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="mi">1250</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute peri-stimulus histogram for each spike in a spike train using vectorized operations.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    - actVect (np.array): Binary vector (1 for spike, 0 for no spike).</span>
+<span class="sd">    - window_ms (int): Window size in milliseconds around each spike.</span>
+<span class="sd">    - sampling_rate (int): Sampling rate in Hz.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - peri_stimulus_counts (np.array): Array of the same length as spkTimes</span>
+<span class="sd">      with the sum of spikes in the ±window around each spike.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">spkTimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">actVect</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Get spike times (indices)</span>
+    
+    <span class="c1"># Convert window from ms to samples</span>
+    <span class="n">window_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">window_ms</span> <span class="o">*</span> <span class="n">sampling_rate</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>
+    
+    <span class="c1"># Compute the number of spikes in the window for each spike using broadcasting</span>
+    <span class="n">peri_stimulus_counts</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">spkTimes</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">-</span> <span class="n">spkTimes</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])</span> <span class="o">&lt;=</span> <span class="n">window_samples</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span> 
+        <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">spkTimes</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">-</span> <span class="n">spkTimes</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">window_samples</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span> 
+        <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># Remove self-count</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">peri_stimulus_counts</span></div>
+
+
+<div class="viewcode-block" id="get_timeWins4AdjacentPoints">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_timeWins4AdjacentPoints">[docs]</a>
+<span class="k">def</span> <span class="nf">get_timeWins4AdjacentPoints</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    return start_ends</span>
+<span class="sd">    </span>
+<span class="sd">    which is an array of shape (X, 2)</span>
+<span class="sd">    arr in input is made of indices (np.where(bool))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="c1"># Find the indices where the difference between consecutive elements is not 1</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="n">breaks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">diff</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># The start of each burst is the element after each break, plus the first element</span>
+    <span class="n">starts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">breaks</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+    <span class="c1"># The end of each burst is the element at each break, plus the last element</span>
+    <span class="n">ends</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">breaks</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">starts</span><span class="p">,</span> <span class="n">ends</span><span class="p">))</span><span class="o">.</span><span class="n">T</span></div>
+
+
+
+<div class="viewcode-block" id="get_timeWins_mergeIfNext">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_timeWins_mergeIfNext">[docs]</a>
+<span class="k">def</span> <span class="nf">get_timeWins_mergeIfNext</span><span class="p">(</span><span class="n">timeWins</span><span class="p">,</span> <span class="n">nbPointsToMerge</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Merges overlapping or close windows where gaps are &lt; nbPointsToMerge points, and returns the indices of the merged windows.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - timeWins (ndarray): Shape (n, 2), each row is [start, end].</span>
+<span class="sd">    - nbPointsToMerge (int): Max gap allowed between consecutive windows to merge.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - merged_windows (ndarray): Shape (m, 2), merged windows.</span>
+<span class="sd">    - merged_indices (list of lists): Indices of the original windows contributing to each merged window.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timeWins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">[]</span>
+
+    <span class="c1"># Sort windows by start time, while keeping track of original indices</span>
+    <span class="n">sorted_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">timeWins</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">sorted_windows</span> <span class="o">=</span> <span class="n">timeWins</span><span class="p">[</span><span class="n">sorted_indices</span><span class="p">]</span>
+
+    <span class="n">merged</span> <span class="o">=</span> <span class="p">[</span><span class="n">sorted_windows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]</span>  <span class="c1"># Initialize with first window</span>
+    <span class="n">merged_indices</span> <span class="o">=</span> <span class="p">[[</span><span class="n">sorted_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]]]</span>  <span class="c1"># Track indices of merged windows</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sorted_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">sorted_windows</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="c1"># Check if the current window should be merged</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">-</span> <span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nbPointsToMerge</span><span class="p">:</span>  
+            <span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">end</span><span class="p">)</span>  <span class="c1"># Extend last window</span>
+            <span class="n">merged_indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>  <span class="c1"># Add original index to merged group</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">merged</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">])</span>  <span class="c1"># Start a new window</span>
+            <span class="n">merged_indices</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">idx</span><span class="p">])</span>  <span class="c1"># Start new index group</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">merged</span><span class="p">),</span> <span class="n">merged_indices</span></div>
+
+
+
+<div class="viewcode-block" id="get_timeWinsTemplatedSignal">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_timeWinsTemplatedSignal">[docs]</a>
+<span class="k">def</span> <span class="nf">get_timeWinsTemplatedSignal</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">timeWins</span><span class="p">,</span> <span class="n">nTimePoints</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">filling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    return templatedSignal</span>
+<span class="sd">    </span>
+<span class="sd">    signal must be a &#39;pure&#39; np.array, VECTOR shape. If it is an array of lists of len 1, please use: signal = np.ravel(signal) before passing signal into the function </span>
+<span class="sd">    timeWins is a np.array of shape (nWins, 2) / 2 for start and for stop</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">nTimePoints</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">nTimePoints</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">templatedSignal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">nTimePoints</span><span class="p">,</span> <span class="n">filling</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">timeWin</span> <span class="ow">in</span> <span class="n">timeWins</span><span class="p">:</span>
+        <span class="n">templatedSignal</span><span class="p">[</span><span class="n">timeWin</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">timeWin</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">signal</span><span class="p">[</span><span class="n">timeWin</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">timeWin</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">templatedSignal</span></div>
+
+
+<div class="viewcode-block" id="get_timeWinsIntersect">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_timeWinsIntersect">[docs]</a>
+<span class="k">def</span> <span class="nf">get_timeWinsIntersect</span><span class="p">(</span><span class="n">itwA</span><span class="p">,</span> <span class="n">itwB</span><span class="p">,</span> <span class="n">lastPoint</span><span class="p">,</span> <span class="n">firstPoint</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ifDisplay</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lfp</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    return itwTot</span>
+<span class="sd">    </span>
+<span class="sd">    lfp to add if you want to check overlapping windows</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">skull</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">lastPoint</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">itwA</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="n">itwA</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">itwTot</span><span class="o">=</span><span class="n">itwB</span>
+    <span class="k">elif</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">itwB</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="n">itwB</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">itwTot</span><span class="o">=</span><span class="n">itwA</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">itw</span> <span class="ow">in</span> <span class="n">itwA</span><span class="p">:</span>
+            <span class="n">skull</span><span class="p">[</span><span class="n">itw</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">itw</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">=</span><span class="kc">False</span>
+        <span class="k">for</span> <span class="n">itw</span> <span class="ow">in</span> <span class="n">itwB</span><span class="p">:</span>
+            <span class="n">skull</span><span class="p">[</span><span class="n">itw</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">itw</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">=</span><span class="kc">False</span>
+
+        <span class="n">edgeInds</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">skull</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">trues</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">skull</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">itwTot</span><span class="o">=</span><span class="p">[[</span><span class="n">trues</span><span class="p">[</span><span class="n">edgeInds</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">trues</span><span class="p">[</span><span class="n">edgeInds</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">edgeInds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+
+        <span class="k">if</span> <span class="n">skull</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span> <span class="c1"># starts by False (not detected window)</span>
+            <span class="n">itwTot</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">firstPoint</span><span class="p">,</span> <span class="n">trues</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+        <span class="k">if</span> <span class="n">skull</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+            <span class="n">itwTot</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">trues</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">lastPoint</span><span class="p">])</span>
+
+        <span class="n">itwTot</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">itwTot</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ifDisplay</span><span class="p">:</span>
+            <span class="n">lfpTpItwA</span><span class="o">=</span><span class="n">get_timeWinsTemplatedSignal</span><span class="p">(</span><span class="n">lfp</span><span class="p">,</span> <span class="n">itwA</span><span class="p">)</span>
+            <span class="n">lfpTpItwB</span><span class="o">=</span><span class="n">get_timeWinsTemplatedSignal</span><span class="p">(</span><span class="n">lfp</span><span class="p">,</span> <span class="n">itwB</span><span class="p">)</span>
+            <span class="n">lfpTpItwTot</span><span class="o">=</span><span class="n">get_timeWinsTemplatedSignal</span><span class="p">(</span><span class="n">lfp</span><span class="p">,</span> <span class="n">itwTot</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">lfpTpItwA</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">lfpTpItwB</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">lfpTpItwTot</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NON-overlapping windows&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Overlapping windows&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">itwTot</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="n">itwTot</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;WARNING: firstPoint is greater than the first time window. Consider editing firstPoint.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">itwTot</span></div>
+
+
+
+<div class="viewcode-block" id="get_timeWins4TimeVect">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_timeWins4TimeVect">[docs]</a>
+<span class="k">def</span> <span class="nf">get_timeWins4TimeVect</span><span class="p">(</span><span class="n">timeVect</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    return timeWins</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">timeWins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">timeVect</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">timeVect</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">timeWins</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">timeVect</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">ind</span><span class="p">],</span> <span class="n">timeVect</span><span class="p">[</span><span class="mi">1</span><span class="p">:][</span><span class="n">ind</span><span class="p">]]</span>
+    <span class="n">timeWins</span> <span class="o">=</span> <span class="n">timeWins</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">timeWins</span></div>
+
+
+<span class="c1"># ------------------------------------------------------------------------------------------------------------------------------</span>
+<span class="c1"># ------------------------------------------------------------ DETECT ----------------------------------------------------------</span>
+<span class="c1"># ------------------------------------------------------------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="detect_movement_artifacts">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.detect_movement_artifacts">[docs]</a>
+<span class="k">def</span> <span class="nf">detect_movement_artifacts</span><span class="p">(</span><span class="n">chTraces</span><span class="p">,</span> <span class="n">chGoodInds</span><span class="p">,</span> <span class="n">tetInds</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                              <span class="n">SR</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">thresh_mvA</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">extend_mvA_ms</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">threshCorr</span><span class="o">=</span><span class="mf">0.6</span> <span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Detection of movement artifacts using vectorized operations.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    - chTraces (ndarray): EEG/LFP data array (channels x time).</span>
+<span class="sd">    - chGoodInds (list): Indices of good channels.</span>
+<span class="sd">    - tetInds (list): List of tetrode indices.</span>
+<span class="sd">    - SR (int): Sampling rate (default=20000 Hz).</span>
+<span class="sd">    - thresh_mvA (float): Z-score threshold for movement artifacts.</span>
+<span class="sd">    - extend_mvA_ms (int): Extension of detected artifacts (ms).</span>
+<span class="sd">    - threshCorr (float): Correlation threshold for refinement.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    - badWins_refined (ndarray): Array of refined bad time windows.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Compute gradient for all channels in one step</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Compute gradient for all channels&#39;</span><span class="p">)</span>
+    <span class="n">gradients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">chTraces</span><span class="p">[</span><span class="n">chGoodInds</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">zgradients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">zscore</span><span class="p">(</span><span class="n">gradients</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># Compute Z-score for the LFP signals</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Compute Z-score for the LFP signals&#39;</span><span class="p">)</span>
+    <span class="n">zlfp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">zscore</span><span class="p">(</span><span class="n">chTraces</span><span class="p">[</span><span class="n">chGoodInds</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># Identify bad points where both gradient and LFP exceed threshold</span>
+    <span class="n">badPoints</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">zgradients</span> <span class="o">&gt;</span> <span class="n">thresh_mvA</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">zlfp</span> <span class="o">&gt;</span> <span class="n">thresh_mvA</span><span class="p">))</span>
+
+    <span class="c1"># Extend bad points using a smoothing kernel</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Extend bad points using a smoothing kernel&#39;</span><span class="p">)</span>
+    <span class="n">extend_mvA_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">extend_mvA_ms</span> <span class="o">*</span> <span class="n">SR</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">skull</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">chTraces</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">skull</span><span class="p">[</span><span class="n">badPoints</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">extend_mvA_samples</span><span class="p">)</span>
+    <span class="n">skull_smooth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">skull</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">badPoints</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">skull_smooth</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">badPoints</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">badPoints</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># Find breakpoints</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">badPoints</span><span class="p">,</span> <span class="n">edges</span><span class="p">)</span>  <span class="c1"># Split into contiguous segments</span>
+        <span class="n">badWins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([(</span><span class="n">seg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">seg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">seg</span> <span class="ow">in</span> <span class="n">segments</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># Convert to (start, end)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">badWins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>  <span class="c1"># Placeholder if no bad points</span>
+
+    <span class="c1"># Add a condition on correlation between wires of a given tetrode</span>
+    <span class="n">tetWinCorrCoef</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">teti</span><span class="p">,</span> <span class="n">inds</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tetInds</span><span class="p">):</span>
+        <span class="n">winCorrCoef</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>  <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">triu</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">chTraces</span><span class="p">[</span><span class="n">inds</span><span class="p">,</span> <span class="n">win</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">win</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span> <span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="mi">6</span>  <span class="k">for</span> <span class="n">win</span> <span class="ow">in</span> <span class="n">badWins</span><span class="p">])</span>
+        <span class="n">tetWinCorrCoef</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">winCorrCoef</span><span class="p">)</span>
+
+    <span class="n">badWins_final</span><span class="o">=</span><span class="n">badWins</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">tetWinCorrCoef</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">&lt;</span><span class="n">threshCorr</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done movement artefacts&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">badWins_final</span></div>
+
+
+
+    
+<div class="viewcode-block" id="detect_subtle_artifacts">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.detect_subtle_artifacts">[docs]</a>
+<span class="k">def</span> <span class="nf">detect_subtle_artifacts</span><span class="p">(</span><span class="n">chTraces</span><span class="p">,</span> <span class="n">chGoodInds</span><span class="p">,</span> <span class="n">tetInds</span><span class="p">,</span> <span class="n">chRegs</span><span class="p">,</span> <span class="n">SR</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">extend_final_com_ms</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">lowcut_detPeaks</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">highcut_detPeaks</span><span class="o">=</span><span class="mi">7000</span><span class="p">,</span> <span class="n">order_detPeaks</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+                            <span class="n">thresh_dt1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">nContacts_dt1</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nTetrodes_dt1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">extend_final_ms_dt1</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
+                            <span class="n">thresh_peakDetect</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">window_ms_dt2</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">thresh_dt2</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">nContacts_dt2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nTetrodes_dt2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">extend_final_ms_dt2</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                            <span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Detects subtle artifacts using bandpass filtering and peak detection.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    - chTraces (ndarray): EEG/LFP data array.</span>
+<span class="sd">    - chGoodInds (array): Array of good channel indices.</span>
+<span class="sd">    - tetInds (list): List of tetrode indices.</span>
+<span class="sd">    - chRegs (list): Array mapping channels to regions.</span>
+<span class="sd">    - SR (int): Sampling rate (default=20000 Hz).</span>
+<span class="sd">    - lowcut_detPeaks (int): Low cut-off frequency for peak detection.</span>
+<span class="sd">    - highcut_detPeaks (int): High cut-off frequency for peak detection.</span>
+<span class="sd">    - order_detPeaks (int): Filter order.</span>
+<span class="sd">    - thresh_dt1 (float): Z-score threshold for the first detector.</span>
+<span class="sd">    - nContacts_dt1 (int): Minimum number of contacts required for detection in first detector.</span>
+<span class="sd">    - nTetrodes_dt1 (int): Minimum number of tetrodes required for first detector.</span>
+<span class="sd">    - extend_final_ms_dt1 (int): Extension window for first detector (ms).</span>
+<span class="sd">    - thresh_peakDetect (float): Peak detection threshold.</span>
+<span class="sd">    - window_ms_dt2 (int): Window size for second detector (ms).</span>
+<span class="sd">    - thresh_dt2 (float): Threshold for spike count in the second detector.</span>
+<span class="sd">    - nContacts_dt2 (int): Minimum number of contacts required for second detector.</span>
+<span class="sd">    - nTetrodes_dt2 (int): Minimum number of tetrodes required for second detector.</span>
+<span class="sd">    - extend_final_ms_dt2 (int): Extension window for second detector (ms).</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    - bad_windows (ndarray): Array of detected bad time windows.</span>
+<span class="sd">    </span>
+<span class="sd">    Steps:</span>
+<span class="sd">    - Filters signals in a high-frequency range (300-7000 Hz).</span>
+<span class="sd">    - Identifies peaks crossing amplitude and gradient thresholds.</span>
+<span class="sd">    - Uses channel and tetrode-level consensus to refine detection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># First filter 300-7000 Hz to detect peaks</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Apply bandpass filtering to isolate high-frequency components&#39;</span><span class="p">)</span>
+    <span class="n">chTraces_filt</span><span class="o">=</span><span class="n">bandpass_filter_bessel</span><span class="p">(</span><span class="n">chTraces</span><span class="p">,</span> <span class="n">lowcut_detPeaks</span><span class="p">,</span> <span class="n">highcut_detPeaks</span><span class="p">,</span> <span class="n">SR</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order_detPeaks</span><span class="p">)</span>
+
+    <span class="c1"># Find correspondence between channel and tetrode</span>
+    <span class="n">ch2Tet</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chRegs</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">teti</span><span class="p">,</span> <span class="n">chs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tetInds</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">chs</span><span class="p">:</span>
+            <span class="n">ch2Tet</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span><span class="o">=</span><span class="n">teti</span>
+
+    <span class="c1"># Initial detection</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Compute gradient and filtered signal Z-score for each channel&#39;</span><span class="p">)</span>
+    <span class="n">all_bad_points_per_channel_dt1</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">all_bad_points_per_channel_dt2</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">chi</span><span class="p">,</span> <span class="n">ch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chGoodInds</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">chi</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chGoodInds</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">lfp</span><span class="o">=</span><span class="n">chTraces</span><span class="p">[</span><span class="n">ch</span><span class="p">]</span>
+        <span class="n">zgradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">zscore</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">lfp</span><span class="p">)))</span>
+        <span class="n">zlfp_filt</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">zscore</span><span class="p">(</span><span class="n">chTraces_filt</span><span class="p">[</span><span class="n">ch</span><span class="p">])</span>
+
+        <span class="c1">## ------------------------------------ DETECTOR 1 ------------------------------------</span>
+        <span class="c1"># Identify points exceeding gradient and amplitude (filtered signal) thresholds</span>
+        <span class="n">bad_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">zgradient</span> <span class="o">&gt;</span> <span class="n">thresh_dt1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">zlfp_filt</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">thresh_dt1</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">skull_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">lfp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">skull_tmp</span><span class="p">[</span><span class="n">bad_indices</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">all_bad_points_per_channel_dt1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">skull_tmp</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1">## ------------------------------------ DETECTOR 2 ------------------------------------</span>
+        <span class="c1"># Make activity vector from peak detection</span>
+        <span class="n">peaks</span><span class="o">=</span><span class="n">detectPeaks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">zlfp_filt</span><span class="p">))</span>
+        <span class="n">thresh_cross</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">zlfp_filt</span><span class="p">)</span><span class="o">&gt;</span><span class="n">thresh_peakDetect</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">peaksAbove</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">peaks</span><span class="p">,</span> <span class="n">thresh_cross</span><span class="p">)</span>
+        <span class="n">actVector</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">zlfp_filt</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="n">actVector</span><span class="p">[</span><span class="n">peaksAbove</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+        <span class="c1"># Get spike by spike peri stimulus counts</span>
+        <span class="n">pkPSC</span><span class="o">=</span><span class="n">get_peri_stimulus_counts</span><span class="p">(</span><span class="n">actVector</span><span class="p">,</span> <span class="n">window_ms</span><span class="o">=</span><span class="n">window_ms_dt2</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="n">SR</span><span class="p">)</span>
+        <span class="n">pkTimes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">actVector</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">all_bad_points_per_channel_dt2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pkTimes</span><span class="p">[</span><span class="n">pkPSC</span><span class="o">&gt;</span><span class="n">thresh_dt2</span><span class="p">])</span>
+
+    <span class="c1">## ------------------------------------ CONSENSUS ------------------------------------</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Find consensus points&#39;</span><span class="p">)</span>
+    <span class="n">detAll_bad_points</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">all_bad_points_per_channel</span><span class="p">,</span> <span class="n">nContacts</span><span class="p">,</span> <span class="n">nTetrodes</span><span class="p">,</span> <span class="n">extend_final_ms</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">all_bad_points_per_channel_dt1</span><span class="p">,</span> <span class="n">all_bad_points_per_channel_dt2</span><span class="p">],</span>
+                        <span class="p">[</span><span class="n">nContacts_dt1</span><span class="p">,</span> <span class="n">nContacts_dt2</span><span class="p">],</span>
+                        <span class="p">[</span><span class="n">nTetrodes_dt1</span><span class="p">,</span> <span class="n">nTetrodes_dt2</span><span class="p">],</span>
+                        <span class="p">[</span><span class="n">extend_final_ms_dt1</span><span class="p">,</span> <span class="n">extend_final_ms_dt2</span><span class="p">]):</span>
+        <span class="c1"># Filter artefacts detected on at least 3 contacts</span>
+        <span class="n">all_bad_points_binary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">chGoodInds</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">lfp</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bad_points</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_bad_points_per_channel</span><span class="p">):</span>
+            <span class="n">all_bad_points_binary</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">bad_points</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Sum across channels to count how many contacts detect artefacts at each time point</span>
+        <span class="n">bad_points_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">all_bad_points_binary</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">consensus_bad_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bad_points_sum</span> <span class="o">&gt;=</span> <span class="n">nContacts</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Make sure detected events are on at least X different tetrodes</span>
+        <span class="n">consensus_bad_points_nbTets</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">ch2Tet</span><span class="p">[</span> <span class="n">chGoodInds</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">all_bad_points_binary</span><span class="p">[:,</span> <span class="n">pt</span><span class="p">])[</span><span class="mi">0</span><span class="p">]]</span>  <span class="p">]))</span> 
+                                              <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">consensus_bad_points</span><span class="p">])</span>
+        <span class="n">consensus_bad_points_final</span><span class="o">=</span><span class="n">consensus_bad_points</span><span class="p">[</span><span class="n">consensus_bad_points_nbTets</span><span class="o">&gt;=</span><span class="n">nTetrodes</span><span class="p">]</span>
+
+        <span class="n">all_bad_points_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">consensus_bad_points_final</span><span class="p">)</span>
+
+        <span class="c1"># Extend consensus bad points - First by a fixed time</span>
+        <span class="n">skull_tmp2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">lfp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">skull_tmp2</span><span class="p">[</span><span class="n">all_bad_points_</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">extend_final_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">extend_final_ms</span> <span class="o">*</span> <span class="n">SR</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="n">skull_tmp2</span> <span class="o">=</span> <span class="n">smooth_binary_array</span><span class="p">(</span><span class="n">skull_tmp2</span><span class="p">,</span> <span class="n">extend_final_samples</span><span class="p">)</span>
+        <span class="n">all_bad_points_final_loop</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">skull_tmp2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">detAll_bad_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">all_bad_points_final_loop</span><span class="p">)</span>
+
+    <span class="c1"># Identify artefact windows</span>
+    <span class="n">all_bad_points</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">detAll_bad_points</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">all_bad_points</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bad_windows</span> <span class="o">=</span> <span class="n">get_timeWins4AdjacentPoints</span><span class="p">(</span><span class="n">all_bad_points</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bad_windows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>  <span class="c1"># Placeholder if no bad points are found</span>
+
+    <span class="c1"># Final merge when windows overlap</span>
+    <span class="n">extend_final_com_samples</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span> <span class="p">(</span><span class="n">extend_final_com_ms</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span><span class="o">*</span><span class="n">SR</span> <span class="p">)</span>
+    <span class="n">badWins_final</span><span class="p">,</span> <span class="n">_</span><span class="o">=</span><span class="n">get_timeWins_mergeIfNext</span><span class="p">(</span><span class="n">bad_windows</span><span class="p">,</span> <span class="n">extend_final_com_samples</span> <span class="p">)</span>
+
+    <span class="c1"># Output</span>
+    <span class="n">bad_duration</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">badWins_final</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">badWins_final</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">SR</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">        Total detected (subtle artefacts): </span><span class="si">{</span><span class="n">bad_duration</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> s&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;           equals :&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="n">bad_duration</span> <span class="o">/</span> <span class="p">(</span><span class="n">chTraces</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">SR</span><span class="p">))</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f the recording&#39;</span><span class="p">)</span>    
+
+    <span class="k">return</span> <span class="n">badWins_final</span></div>
+
+
+<span class="c1"># ------------------------------------------------------------------------------------------------------------------------------</span>
+<span class="c1"># ------------------------------------------------------------ PLOT ------------------------------------------------------------</span>
+<span class="c1"># ------------------------------------------------------------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="get_tickLocsNLabels_centered">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_tickLocsNLabels_centered">[docs]</a>
+<span class="k">def</span> <span class="nf">get_tickLocsNLabels_centered</span><span class="p">(</span><span class="n">tickMin</span><span class="p">,</span> <span class="n">tickMax</span><span class="p">,</span> <span class="n">nTicks</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span> <span class="n">conversion</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    return tickLocs, tickLabels </span>
+<span class="sd">    </span>
+<span class="sd">    convert will be multiplied to tickLabels </span>
+<span class="sd">    to convert sample_rate to secs: 1/sr</span>
+<span class="sd">    to convert sample_rate to ms: 1000/sr</span>
+<span class="sd">    &amp; vice versa</span>
+<span class="sd">    </span>
+<span class="sd">    ex:</span>
+<span class="sd">    get_tickLocsNLabels_centered(0, 4*1250, 5, convert = 1000/sr)</span>
+<span class="sd">    return</span>
+<span class="sd">    (array([   0., 1250., 2500., 3750., 5000.]),</span>
+<span class="sd">     array([-2000., -1000.,    -0.,  1000.,  2000.]))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tickLocs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">tickMin</span><span class="p">,</span> <span class="n">tickMax</span><span class="p">,</span> <span class="n">nTicks</span><span class="p">))</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">tickMin</span><span class="p">,</span> <span class="n">tickMax</span><span class="p">])</span>
+    <span class="n">tickLabels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="p">(</span><span class="n">tickMax</span><span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="p">(</span><span class="n">nTicks</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">tickMax</span><span class="o">-</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nTicks</span><span class="p">)])</span><span class="o">*</span><span class="n">conversion</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">tickLocs</span><span class="p">,</span> <span class="n">tickLabels</span></div>
+
+
+
+<div class="viewcode-block" id="plot_chTraces">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.plot_chTraces">[docs]</a>
+<span class="k">def</span> <span class="nf">plot_chTraces</span><span class="p">(</span><span class="n">chTraces</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">chInds</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">t_sample</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">chCols</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">win_s</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">hspace</span> <span class="o">=</span> <span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">legend</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">chLegend</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fontsize_legend</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nTicks</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">roundTickLabels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">locLegend</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">titleLegend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title_fontsizeLegend</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">lwLegend</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">xTickFS</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">labFS</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">yTickFS</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ignoreCh</span><span class="o">=</span><span class="p">[]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    chInds is a np.array</span>
+<span class="sd">    Adviced size: plt.figure(figsize=(30,nCh*1.5))</span>
+<span class="sd">    </span>
+<span class="sd">    legendLabels </span>
+<span class="sd">    bbox_to_anchor=(1.1, 1.05) is good</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">chTraces</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">multipleCh</span> <span class="o">=</span> <span class="mi">1</span> 
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">multipleCh</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">if</span> <span class="n">chInds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">multipleCh</span><span class="p">:</span>
+            <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">chTraces</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inds</span> <span class="o">=</span> <span class="n">chInds</span>
+        
+    <span class="n">nCh</span> <span class="o">=</span> <span class="n">inds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">chCols</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;tab10&#39;</span><span class="p">,</span> <span class="n">nCh</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">chCols</span>
+        
+    <span class="k">if</span> <span class="n">t_sample</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">multipleCh</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">chTraces</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">chTraces</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">t_sample</span>
+        
+    <span class="k">if</span> <span class="n">chLegend</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">chLegend</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">inds</span><span class="p">)</span>
+    
+    <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="n">win_s</span><span class="o">*</span><span class="n">sr</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">+</span><span class="n">win_s</span><span class="o">*</span><span class="n">sr</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="n">xLoc</span><span class="p">,</span> <span class="n">xLabels</span><span class="o">=</span><span class="n">get_tickLocsNLabels_centered</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">win_s</span><span class="o">*</span><span class="n">sr</span><span class="p">,</span> <span class="n">nTicks</span><span class="p">,</span> <span class="n">conversion</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">sr</span><span class="p">)</span>
+    <span class="n">xLabels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">xLabels</span> <span class="p">,</span><span class="n">roundTickLabels</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">chii</span><span class="p">,</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inds</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">multipleCh</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">chi</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ignoreCh</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chTraces</span><span class="p">[</span><span class="n">chi</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span><span class="o">+</span><span class="n">hspace</span><span class="o">*</span><span class="n">chii</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">chii</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="n">chLegend</span><span class="p">[</span><span class="n">chii</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chTraces</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span><span class="o">+</span><span class="n">hspace</span><span class="o">*</span><span class="n">chii</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">chii</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="n">chLegend</span><span class="p">[</span><span class="n">chii</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">win_s</span><span class="o">*</span><span class="n">sr</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">xLoc</span><span class="p">,</span> <span class="n">xLabels</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="n">xTickFS</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">yTickFS</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">legend</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bbox_to_anchor</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">leg</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize_legend</span><span class="p">,</span> <span class="n">loc</span> <span class="o">=</span> <span class="n">locLegend</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">titleLegend</span><span class="p">,</span> <span class="n">title_fontsize</span><span class="o">=</span><span class="n">title_fontsizeLegend</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="n">bbox_to_anchor</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">leg</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize_legend</span><span class="p">,</span> <span class="n">loc</span> <span class="o">=</span> <span class="n">locLegend</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">titleLegend</span><span class="p">,</span> <span class="n">title_fontsize</span><span class="o">=</span><span class="n">title_fontsizeLegend</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">leg</span><span class="o">.</span><span class="n">get_lines</span><span class="p">():</span>
+            <span class="n">line</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="n">lwLegend</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;t = &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39; sample points &lt;=&gt; &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mi">1000</span><span class="o">/</span><span class="n">sr</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39; ms&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">xlabel</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (secs)&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="n">labFS</span><span class="p">)</span></div>
+
+        
+
+<div class="viewcode-block" id="plot_detected_events">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.plot_detected_events">[docs]</a>
+<span class="k">def</span> <span class="nf">plot_detected_events</span><span class="p">(</span><span class="n">chTraces</span><span class="p">,</span> <span class="n">chRegs</span><span class="p">,</span> <span class="n">SR</span><span class="p">,</span> <span class="n">badWinArray</span><span class="p">,</span> <span class="n">badWini</span><span class="p">,</span> <span class="n">ignoreCh</span><span class="o">=</span><span class="p">[],</span> <span class="n">win_s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=-</span><span class="mi">7000</span><span class="p">,</span> <span class="n">extend_final_com_ms</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+    
+    <span class="n">tetWins</span><span class="o">=</span><span class="n">get_timeWins4TimeVect</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chRegs</span><span class="p">)</span><span class="o">+</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">chCols_tet</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">([[</span><span class="n">col</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">sb</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;Dark2&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tetWins</span><span class="p">))])</span>
+    
+    <span class="n">t</span><span class="o">=</span><span class="n">badWinArray</span><span class="p">[</span><span class="n">badWini</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">chLegend</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">reg</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">reg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chRegs</span><span class="p">)]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chRegs</span><span class="p">)))</span>
+    <span class="n">plot_chTraces</span><span class="p">(</span><span class="n">chTraces</span><span class="p">,</span> <span class="n">SR</span><span class="p">,</span> <span class="n">win_s</span><span class="o">=</span><span class="n">win_s</span><span class="p">,</span> <span class="n">t_sample</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="n">hspace</span><span class="p">,</span>
+                     <span class="n">chCols</span><span class="o">=</span><span class="n">chCols_tet</span><span class="p">,</span> <span class="n">ignoreCh</span><span class="o">=</span><span class="n">ignoreCh</span><span class="p">,</span> <span class="n">chLegend</span><span class="o">=</span><span class="n">chLegend</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;t_sample=&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;  &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="n">SR</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39; mns&#39;</span><span class="p">)</span>
+
+    <span class="c1"># DETECTED</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">win_s</span><span class="o">*</span><span class="n">SR</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span> <span class="n">win_s</span><span class="o">*</span><span class="n">SR</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span> <span class="n">badWinArray</span><span class="p">[</span><span class="n">badWini</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">badWinArray</span><span class="p">[</span><span class="n">badWini</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+
+    <span class="c1"># # PUTATIVE EXTEND</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span> <span class="n">win_s</span><span class="o">*</span><span class="n">SR</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">SR</span><span class="o">*</span><span class="p">(</span><span class="n">extend_final_com_ms</span><span class="o">/</span><span class="mi">1000</span><span class="p">))</span>  <span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span> <span class="n">win_s</span><span class="o">*</span><span class="n">SR</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span> <span class="n">badWinArray</span><span class="p">[</span><span class="n">badWini</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">badWinArray</span><span class="p">[</span><span class="n">badWini</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">SR</span><span class="o">*</span><span class="p">(</span><span class="n">extend_final_com_ms</span><span class="o">/</span><span class="mi">1000</span><span class="p">))</span>  <span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span></div>
+
+
+    
+    
+<div class="viewcode-block" id="ratio_artefact">
+<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.ratio_artefact">[docs]</a>
+<span class="k">def</span> <span class="nf">ratio_artefact</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">badWins_final</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------------------</span>
+<span class="sd">    data : 2-D array</span>
+<span class="sd">        2-D array with format nChannels x nSamples containing your recording</span>
+<span class="sd">    </span>
+<span class="sd">    badWins_final: Array</span>
+<span class="sd">        Output of the function get_timeWinsIntersect</span>
+
+<span class="sd">    path: String</span>
+<span class="sd">        Path where your excel table is stored</span>
+<span class="sd">    </span>
+<span class="sd">    sub: String</span>
+<span class="sd">        Identifiant of your subject</span>
+
+<span class="sd">    sess: String</span>
+<span class="sd">        Name of the current session you are analyzing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">bad_sample</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">badWins_final</span><span class="p">)):</span>
+        <span class="n">bad_sample</span> <span class="o">=</span> <span class="n">bad_sample</span> <span class="o">+</span> <span class="p">(</span><span class="n">badWins_final</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">badWins_final</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+
+    <span class="n">percentageRecording</span> <span class="o">=</span> <span class="p">(</span><span class="n">bad_sample</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span>
+
+    <span class="c1">#open the table</span>
+    <span class="n">tbl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="c1">#write in the table</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tbl</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sess</span><span class="p">),</span> <span class="s1">&#39;Artefact&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">percentageRecording</span>
+
+    <span class="c1">#save the table</span>
+    <span class="n">tbl</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your recording contains: </span><span class="si">{</span><span class="n">percentageRecording</span><span class="si">}</span><span class="s2"> % of artefacts&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>

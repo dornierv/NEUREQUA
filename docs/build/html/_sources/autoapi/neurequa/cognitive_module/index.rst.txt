@@ -1,0 +1,166 @@
+neurequa.cognitive_module
+=========================
+
+.. py:module:: neurequa.cognitive_module
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   neurequa.cognitive_module.HEADER_LENGTH
+   neurequa.cognitive_module.NCS_SAMPLES_PER_RECORD
+   neurequa.cognitive_module.NCS_RECORD
+   neurequa.cognitive_module.NEV_RECORD
+   neurequa.cognitive_module.VOLT_SCALING
+   neurequa.cognitive_module.MILLIVOLT_SCALING
+   neurequa.cognitive_module.MICROVOLT_SCALING
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   neurequa.cognitive_module.ensure_dir
+   neurequa.cognitive_module.read_header
+   neurequa.cognitive_module.parse_header
+   neurequa.cognitive_module.read_records
+   neurequa.cognitive_module.estimate_record_count
+   neurequa.cognitive_module.parse_neuralynx_time_string
+   neurequa.cognitive_module.load_nev
+   neurequa.cognitive_module.create_epoch
+   neurequa.cognitive_module.ensure_raw
+   neurequa.cognitive_module.plot_artefact_map
+   neurequa.cognitive_module.to_json
+   neurequa.cognitive_module.load_neuralynx_micro
+   neurequa.cognitive_module.plot_erp
+
+
+Module Contents
+---------------
+
+.. py:data:: HEADER_LENGTH
+   :value: 16384
+
+
+.. py:data:: NCS_SAMPLES_PER_RECORD
+   :value: 512
+
+
+.. py:data:: NCS_RECORD
+
+.. py:data:: NEV_RECORD
+
+.. py:data:: VOLT_SCALING
+   :value: (1, 'V')
+
+
+.. py:data:: MILLIVOLT_SCALING
+   :value: (1000, 'mV')
+
+
+.. py:data:: MICROVOLT_SCALING
+   :value: (1000000, 'µV')
+
+
+.. py:function:: ensure_dir(path: str) -> None
+
+   Create the directory if it does not exist
+
+
+   :param path: Path-like where you want to create folder
+   :type path: str
+
+
+.. py:function:: read_header(fid)
+
+.. py:function:: parse_header(raw_hdr)
+
+.. py:function:: read_records(fid, record_dtype, record_skip=0, count=None)
+
+.. py:function:: estimate_record_count(file_path, record_dtype)
+
+.. py:function:: parse_neuralynx_time_string(time_string)
+
+.. py:function:: load_nev(file_path)
+
+.. py:function:: create_epoch(lfps, Folder, t_min=1, t_max=1, ds_factor=1)
+
+   Create an Epoch structure in MNE based on the Events registered in the .nev of Neuralynx acquisition system
+   To load the data from the .nev file I used the following library:
+   https://github.com/alafuzof/NeuralynxIO
+
+
+   :param Folder: Path where your ncs files and the Events.nev files are stored
+   :type Folder: string
+   :param t_min: Time to include in the baseline (before the onset of event)
+   :type t_min: float
+   :param t_max: Time to include after the onset of the event
+   :type t_max: float
+
+
+.. py:function:: ensure_raw(path, sub, sess)
+
+.. py:function:: plot_artefact_map(path, sub, sess)
+
+   Plot figure to show the variance of each trial and each channel
+   Enables us to quickly see the channels that are artefacted (e.g., by epileptic activities)
+   and also trials contaminated
+
+   Just like the figure9.B of Mercier et al. (2022)
+
+   :param epoch_data: Matrice with the following shape (nTrials, nChannels, nSamples)
+   :type epoch_data: array
+   :param path: Path where you want to store results of this analyses
+   :type path: String
+
+   :rtype: Matplotlib plot containing heatmap and variance of each channels for each trials
+
+
+.. py:function:: to_json(dictionary, filename)
+
+.. py:function:: load_neuralynx_micro(path: str, sub: str, sess: str, macro_pattern: str = '_sub', verbose: bool = True) -> tuple[mne.io.Raw, numpy.ndarray, dict]
+
+   Load intracranial EEG microwire recordings acquired with Neuralynx
+   in .ncs format into memory, excluding macrocontact channels.
+
+   The function reads all .ncs files located in the specified directory,
+   automatically excludes channels whose filename contains the macro-
+   contact pattern, loads the full recording into memory, and returns
+   both a structured MNE Raw object and a raw NumPy array.
+
+   :param path: Path to the directory containing the .ncs recording files.
+   :type path: str
+   :param macro_pattern: Substring used to identify and exclude macrocontact channels
+                         from the recording (default: '_sub').
+                         Example: if macrocontact files are named 'LA1_sub.ncs',
+                         setting macro_pattern='_sub' will exclude them automatically.
+   :type macro_pattern: str, optional
+   :param verbose: If True, prints a summary of the loaded recording upon
+                   completion (default: True).
+   :type verbose: bool, optional
+
+   :returns: * **raw** (*mne.io.Raw*) -- MNE Raw object containing the full microwire recording.
+               Provides access to channel metadata (names, sampling rate,
+               recording duration) and supports MNE-based preprocessing.
+             * **data** (*np.ndarray*) -- NumPy array of shape (n_channels, n_samples) containing the
+               raw signal values in Volts, loaded entirely into memory.
+             * **metadata** (*dict*) --
+
+               Dictionary containing key recording parameters:
+                   - 'ch_names'    : list of str, microwire channel labels
+                   - 'n_channels'  : int, number of microwire channels
+                   - 'sfreq'       : float, sampling rate in Hz
+                   - 'duration_s'  : float, recording duration in seconds
+                   - 'n_samples'   : int, total number of samples per channel
+                   - 'macro_pattern': str, exclusion pattern used
+
+   :raises FileNotFoundError: If the specified path does not exist or contains no .ncs files.
+   :raises ValueError: If no microwire channels remain after applying the exclusion
+       pattern (i.e., all channels matched the macro_pattern).
+
+
+.. py:function:: plot_erp(path, metadata, sub, sess)
+

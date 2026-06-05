@@ -1,0 +1,681 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../../genindex.html"><link rel="search" title="Search" href="../../../search.html"><link rel="next" title="neurequa.cognitive_module" href="../cognitive_module/index.html"><link rel="prev" title="neurequa" href="../index.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>neurequa.artefact_detections - NEUREQUA 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=acfd86a5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">NEUREQUA 0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  <span class="sidebar-brand-text">NEUREQUA 0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">API Reference</a><input aria-label="Toggle navigation of API Reference" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">neurequa</a><input aria-label="Toggle navigation of neurequa" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">neurequa.artefact_detections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cognitive_module/index.html">neurequa.cognitive_module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../neuralynx_io/index.html">neurequa.neuralynx_io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quality_module/index.html">neurequa.quality_module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../../_sources/autoapi/neurequa/artefact_detections/index.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-neurequa.artefact_detections">
+<span id="neurequa-artefact-detections"></span><h1>neurequa.artefact_detections<a class="headerlink" href="#module-neurequa.artefact_detections" title="Link to this heading">¶</a></h1>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.artefact_detections.detectPeaks" title="neurequa.artefact_detections.detectPeaks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detectPeaks</span></code></a>(x[, mph, mpd, threshold, edge, kpsh, valley])</p></td>
+<td><p>Detect peaks in data based on their amplitude and other features.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.artefact_detections.bandpass_filter_bessel" title="neurequa.artefact_detections.bandpass_filter_bessel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bandpass_filter_bessel</span></code></a>(data, lowcut, highcut, sr[, order])</p></td>
+<td><p>Apply a band-pass filter on our raw LFPs</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.artefact_detections.smooth_binary_array" title="neurequa.artefact_detections.smooth_binary_array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">smooth_binary_array</span></code></a>(binary_array, kernel_size)</p></td>
+<td><p>Function used to obtain time series data from binary ones</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.artefact_detections.get_peri_stimulus_counts" title="neurequa.artefact_detections.get_peri_stimulus_counts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_peri_stimulus_counts</span></code></a>(actVect[, window_ms, ...])</p></td>
+<td><p>Compute peri-stimulus histogram for each spike in a spike train using vectorized operations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.artefact_detections.get_timeWins4AdjacentPoints" title="neurequa.artefact_detections.get_timeWins4AdjacentPoints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_timeWins4AdjacentPoints</span></code></a>(arr)</p></td>
+<td><p>Get the time (start,end) of each burst</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.artefact_detections.get_timeWins_mergeIfNext" title="neurequa.artefact_detections.get_timeWins_mergeIfNext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_timeWins_mergeIfNext</span></code></a>(timeWins, nbPointsToMerge)</p></td>
+<td><p>Merges overlapping or close windows where gaps are &lt; nbPointsToMerge points, and returns the indices of the merged windows.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.artefact_detections.get_timeWinsTemplatedSignal" title="neurequa.artefact_detections.get_timeWinsTemplatedSignal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_timeWinsTemplatedSignal</span></code></a>(signal, timeWins[, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.artefact_detections.get_timeWinsIntersect" title="neurequa.artefact_detections.get_timeWinsIntersect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_timeWinsIntersect</span></code></a>(itwA, itwB, lastPoint[, ...])</p></td>
+<td><p>return itwTot</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.artefact_detections.get_timeWins4TimeVect" title="neurequa.artefact_detections.get_timeWins4TimeVect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_timeWins4TimeVect</span></code></a>(timeVect[, dtype])</p></td>
+<td><p>return timeWins</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.artefact_detections.detect_movement_artifacts" title="neurequa.artefact_detections.detect_movement_artifacts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detect_movement_artifacts</span></code></a>(chTraces, chGoodInds, tetInds)</p></td>
+<td><p>Detection of movement artifacts using vectorized operations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.artefact_detections.detect_subtle_artifacts" title="neurequa.artefact_detections.detect_subtle_artifacts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detect_subtle_artifacts</span></code></a>(chTraces, chGoodInds, tetInds, ...)</p></td>
+<td><p>Detects subtle artifacts using bandpass filtering and peak detection.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.artefact_detections.get_tickLocsNLabels_centered" title="neurequa.artefact_detections.get_tickLocsNLabels_centered"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tickLocsNLabels_centered</span></code></a>(tickMin, tickMax, nTicks)</p></td>
+<td><p>return tickLocs, tickLabels</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.artefact_detections.plot_chTraces" title="neurequa.artefact_detections.plot_chTraces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_chTraces</span></code></a>(chTraces, sr[, chInds, t_sample, ...])</p></td>
+<td><p>chInds is a np.array</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#neurequa.artefact_detections.plot_detected_events" title="neurequa.artefact_detections.plot_detected_events"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_detected_events</span></code></a>(chTraces, chRegs, SR, ...[, ...])</p></td>
+<td><p>Functions used to plot the artifacts detected</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#neurequa.artefact_detections.ratio_artefact" title="neurequa.artefact_detections.ratio_artefact"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ratio_artefact</span></code></a>(data, badWins_final, path, sub, sess)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.detectPeaks">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">detectPeaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mpd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rising'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpsh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valley</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#detectPeaks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.detectPeaks" title="Link to this definition">¶</a></dt>
+<dd><p>Detect peaks in data based on their amplitude and other features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>1D array_like</em>) – data.</p></li>
+<li><p><strong>mph</strong> (<em>{None</em><em>, </em><em>number}</em><em>, </em><em>optional</em><em> (</em><em>default = None</em><em>)</em>) – detect peaks that are greater than minimum peak height.</p></li>
+<li><p><strong>mpd</strong> (<em>positive integer</em><em>, </em><em>optional</em><em> (</em><em>default = 1</em><em>)</em>) – detect peaks that are at least separated by minimum peak distance (in
+number of data).</p></li>
+<li><p><strong>threshold</strong> (<em>positive number</em><em>, </em><em>optional</em><em> (</em><em>default = 0</em><em>)</em>) – detect peaks (valleys) that are greater (smaller) than <cite>threshold</cite>
+in relation to their immediate neighbors.</p></li>
+<li><p><strong>edge</strong> (<em>{None</em><em>, </em><em>'rising'</em><em>, </em><em>'falling'</em><em>, </em><em>'both'}</em><em>, </em><em>optional</em><em> (</em><em>default = 'rising'</em><em>)</em>) – for a flat peak, keep only the rising edge (‘rising’), only the
+falling edge (‘falling’), both edges (‘both’), or don’t detect a
+flat peak (None).</p></li>
+<li><p><strong>kpsh</strong> (<em>bool</em><em>, </em><em>optional</em><em> (</em><em>default = False</em><em>)</em>) – keep peaks with same height even if they are closer than <cite>mpd</cite>.</p></li>
+<li><p><strong>valley</strong> (<em>bool</em><em>, </em><em>optional</em><em> (</em><em>default = False</em><em>)</em>) – if True (1), detect valleys (local minima) instead of peaks.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ind</strong> – indeces of the peaks in <cite>x</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1D array_like</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The detection of valleys instead of peaks is performed internally by simply
+negating the data: <cite>ind_valleys = detect_peaks(-x)</cite></p>
+<p>The function can handle NaN’s</p>
+<p>See this IPython Notebook <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectPeaks.ipynb">http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/DetectPeaks.ipynb</a></p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.bandpass_filter_bessel">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">bandpass_filter_bessel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#bandpass_filter_bessel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.bandpass_filter_bessel" title="Link to this definition">¶</a></dt>
+<dd><p>Apply a band-pass filter on our raw LFPs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>numpy array</em>) – Numpy array containing the data to filter</p></li>
+<li><p><strong>lowcut</strong> (<em>int</em>) – Low cut frequency to apply on band-pass filter</p></li>
+<li><p><strong>highcut</strong> (<em>int</em>) – High cut frequency to apply on band-pass filter</p></li>
+<li><p><strong>sr</strong> (<em>int</em>) – Sampling rate of the signal to filter</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – default = 2
+Order of the filter to apply</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>y</strong> – Matrices containing the filtered data between lowcut and highcut</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.smooth_binary_array">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">smooth_binary_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binary_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#smooth_binary_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.smooth_binary_array" title="Link to this definition">¶</a></dt>
+<dd><p>Function used to obtain time series data from binary ones</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>binary_array</strong> (<em>array</em>) – Array composed of 0 or 1 only (e.g. spike data)</p></li>
+<li><p><strong>kernel_size</strong> (<em>int</em>) – Size of the kernel to compute the convolution</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>convolve_signal</strong> – binary_array but transformed into time serie</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.get_peri_stimulus_counts">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">get_peri_stimulus_counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actVect</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_ms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1250</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#get_peri_stimulus_counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.get_peri_stimulus_counts" title="Link to this definition">¶</a></dt>
+<dd><p>Compute peri-stimulus histogram for each spike in a spike train using vectorized operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>actVect</strong> (<em>Numpy array</em>) – Binary vector (1 for spike, 0 for no spike).</p></li>
+<li><p><strong>window_ms</strong> (<em>int</em>) – Window size in milliseconds around each spike.</p></li>
+<li><p><strong>sampling_rate</strong> (<em>int</em>) – Sampling rate in Hz.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>peri_stimulus_counts</strong> – Array of the same length as spkTimes with the sum of spikes in the ±window around each spike.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.get_timeWins4AdjacentPoints">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">get_timeWins4AdjacentPoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#get_timeWins4AdjacentPoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.get_timeWins4AdjacentPoints" title="Link to this definition">¶</a></dt>
+<dd><p>Get the time (start,end) of each burst</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arr</strong> (<em>Numpy  array</em>) – Made of indices (np.where(bool))</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>start_ends</strong> – Array of shape (X, 2) with X corresponds to bursts</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.get_timeWins_mergeIfNext">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">get_timeWins_mergeIfNext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeWins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbPointsToMerge</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#get_timeWins_mergeIfNext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.get_timeWins_mergeIfNext" title="Link to this definition">¶</a></dt>
+<dd><p>Merges overlapping or close windows where gaps are &lt; nbPointsToMerge points, and returns the indices of the merged windows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeWins</strong> (<em>ndarray</em>) – Shape (n, 2), each row is [start, end]</p></li>
+<li><p><strong>nbPointsToMerge</strong> (<em>int</em>) – Max gap allowed between consecutive windows to merge.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>merged_windows</strong> (<em>ndarray</em>) – Shape (m, 2), merged windows.</p></li>
+<li><p><strong>merged_indices</strong> (<em>list of lists</em>) – Indices of the original windows contributing to each merged window.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.get_timeWinsTemplatedSignal">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">get_timeWinsTemplatedSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeWins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nTimePoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.nan</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#get_timeWinsTemplatedSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.get_timeWinsTemplatedSignal" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signal</strong> (<em>1-D array</em>) – Must be a ‘pure’ np.array, VECTOR shape. If it is an array of lists of len 1,
+please use: signal = np.ravel(signal) before passing signal into the function</p></li>
+<li><p><strong>timeWins</strong> (<em>ndarray</em>) – Shape (n, 2), each row is [start, end]</p></li>
+<li><p><strong>nTimePoints</strong> (<em>int</em><em> or </em><em>None</em>) – Default = None</p></li>
+<li><p><strong>filling</strong> (<em>nan</em>) – Numpy nan</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>templatedSignal</strong> – Array containing the signal in time windows with burst artifact</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.get_timeWinsIntersect">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">get_timeWinsIntersect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">itwA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itwB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lastPoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">firstPoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ifDisplay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lfp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#get_timeWinsIntersect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.get_timeWinsIntersect" title="Link to this definition">¶</a></dt>
+<dd><p>return itwTot</p>
+<p>lfp to add if you want to check overlapping windows</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.get_timeWins4TimeVect">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">get_timeWins4TimeVect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeVect</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#get_timeWins4TimeVect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.get_timeWins4TimeVect" title="Link to this definition">¶</a></dt>
+<dd><p>return timeWins</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.detect_movement_artifacts">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">detect_movement_artifacts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chTraces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chGoodInds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tetInds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SR</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresh_mvA</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend_mvA_ms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshCorr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.6</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#detect_movement_artifacts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.detect_movement_artifacts" title="Link to this definition">¶</a></dt>
+<dd><p>Detection of movement artifacts using vectorized operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chTraces</strong> (<em>ndarray</em>) – EEG/LFP data array (channels x time).</p></li>
+<li><p><strong>chGoodInds</strong> (<em>list</em>) – Indices of good channels.</p></li>
+<li><p><strong>(</strong><strong>list</strong><strong>)</strong> (<em>- tetInds</em>) – List of tetrode indices.</p></li>
+<li><p><strong>(</strong><strong>int</strong><strong>)</strong> (<em>- extend_mvA_ms</em>) – Sampling rate (default=20000 Hz).</p></li>
+<li><p><strong>(</strong><strong>float</strong><strong>)</strong> (<em>- threshCorr</em>) – Z-score threshold for movement artifacts.</p></li>
+<li><p><strong>(</strong><strong>int</strong><strong>)</strong></p></li>
+<li><p><strong>(</strong><strong>ms</strong><strong>)</strong><strong>.</strong> (<em>Extension</em><em> of </em><em>detected artifacts</em>)</p></li>
+<li><p><strong>(</strong><strong>float</strong><strong>)</strong> – Correlation threshold for refinement.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>- badWins_refined (ndarray)</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array of refined bad time windows.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.detect_subtle_artifacts">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">detect_subtle_artifacts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chTraces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chGoodInds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tetInds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SR</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend_final_com_ms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowcut_detPeaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highcut_detPeaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_detPeaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresh_dt1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nContacts_dt1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nTetrodes_dt1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend_final_ms_dt1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresh_peakDetect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_ms_dt2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresh_dt2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nContacts_dt2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nTetrodes_dt2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend_final_ms_dt2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#detect_subtle_artifacts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.detect_subtle_artifacts" title="Link to this definition">¶</a></dt>
+<dd><p>Detects subtle artifacts using bandpass filtering and peak detection.</p>
+<p>Parameters:
+- chTraces (ndarray): EEG/LFP data array.
+- chGoodInds (array): Array of good channel indices.
+- tetInds (list): List of tetrode indices.
+- chRegs (list): Array mapping channels to regions.
+- SR (int): Sampling rate (default=20000 Hz).
+- lowcut_detPeaks (int): Low cut-off frequency for peak detection.
+- highcut_detPeaks (int): High cut-off frequency for peak detection.
+- order_detPeaks (int): Filter order.
+- thresh_dt1 (float): Z-score threshold for the first detector.
+- nContacts_dt1 (int): Minimum number of contacts required for detection in first detector.
+- nTetrodes_dt1 (int): Minimum number of tetrodes required for first detector.
+- extend_final_ms_dt1 (int): Extension window for first detector (ms).
+- thresh_peakDetect (float): Peak detection threshold.
+- window_ms_dt2 (int): Window size for second detector (ms).
+- thresh_dt2 (float): Threshold for spike count in the second detector.
+- nContacts_dt2 (int): Minimum number of contacts required for second detector.
+- nTetrodes_dt2 (int): Minimum number of tetrodes required for second detector.
+- extend_final_ms_dt2 (int): Extension window for second detector (ms).</p>
+<p>Returns:
+- bad_windows (ndarray): Array of detected bad time windows.</p>
+<p>Steps:
+- Filters signals in a high-frequency range (300-7000 Hz).
+- Identifies peaks crossing amplitude and gradient thresholds.
+- Uses channel and tetrode-level consensus to refine detection.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.get_tickLocsNLabels_centered">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">get_tickLocsNLabels_centered</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tickMin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tickMax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nTicks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#get_tickLocsNLabels_centered"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.get_tickLocsNLabels_centered" title="Link to this definition">¶</a></dt>
+<dd><p>return tickLocs, tickLabels</p>
+<p>convert will be multiplied to tickLabels
+to convert sample_rate to secs: 1/sr
+to convert sample_rate to ms: 1000/sr
+&amp; vice versa</p>
+<p>ex:
+get_tickLocsNLabels_centered(0, 4*1250, 5, convert = 1000/sr)
+return
+(array([   0., 1250., 2500., 3750., 5000.]),</p>
+<blockquote>
+<div><p>array([-2000., -1000.,    -0.,  1000.,  2000.]))</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.plot_chTraces">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">plot_chTraces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chTraces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chInds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_sample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chCols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">win_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chLegend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nTicks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roundTickLabels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locLegend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'upper</span> <span class="pre">right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titleLegend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_fontsizeLegend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lwLegend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xTickFS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labFS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yTickFS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox_to_anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignoreCh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#plot_chTraces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.plot_chTraces" title="Link to this definition">¶</a></dt>
+<dd><p>chInds is a np.array
+Adviced size: plt.figure(figsize=(30,nCh*1.5))</p>
+<p>legendLabels
+bbox_to_anchor=(1.1, 1.05) is good</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.plot_detected_events">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">plot_detected_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chTraces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">badWinArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">badWini</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignoreCh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">win_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-7000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend_final_com_ms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#plot_detected_events"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.plot_detected_events" title="Link to this definition">¶</a></dt>
+<dd><p>Functions used to plot the artifacts detected</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neurequa.artefact_detections.ratio_artefact">
+<span class="sig-prename descclassname"><span class="pre">neurequa.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">ratio_artefact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">badWins_final</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/neurequa/artefact_detections.html#ratio_artefact"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neurequa.artefact_detections.ratio_artefact" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>2-D array</em>) – 2-D array with format nChannels x nSamples containing your recording</p></li>
+<li><p><strong>badWins_final</strong> (<em>Array</em>) – Output of the function get_timeWinsIntersect</p></li>
+<li><p><strong>path</strong> (<em>String</em>) – Path where your excel table is stored</p></li>
+<li><p><strong>sub</strong> (<em>String</em>) – Identifiant of your subject</p></li>
+<li><p><strong>sess</strong> (<em>String</em>) – Name of the current session you are analyzing</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../cognitive_module/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">neurequa.cognitive_module</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">neurequa</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">neurequa.artefact_detections</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#neurequa.artefact_detections.detectPeaks"><code class="docutils literal notranslate"><span class="pre">detectPeaks()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.bandpass_filter_bessel"><code class="docutils literal notranslate"><span class="pre">bandpass_filter_bessel()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.smooth_binary_array"><code class="docutils literal notranslate"><span class="pre">smooth_binary_array()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.get_peri_stimulus_counts"><code class="docutils literal notranslate"><span class="pre">get_peri_stimulus_counts()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.get_timeWins4AdjacentPoints"><code class="docutils literal notranslate"><span class="pre">get_timeWins4AdjacentPoints()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.get_timeWins_mergeIfNext"><code class="docutils literal notranslate"><span class="pre">get_timeWins_mergeIfNext()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.get_timeWinsTemplatedSignal"><code class="docutils literal notranslate"><span class="pre">get_timeWinsTemplatedSignal()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.get_timeWinsIntersect"><code class="docutils literal notranslate"><span class="pre">get_timeWinsIntersect()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.get_timeWins4TimeVect"><code class="docutils literal notranslate"><span class="pre">get_timeWins4TimeVect()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.detect_movement_artifacts"><code class="docutils literal notranslate"><span class="pre">detect_movement_artifacts()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.detect_subtle_artifacts"><code class="docutils literal notranslate"><span class="pre">detect_subtle_artifacts()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.get_tickLocsNLabels_centered"><code class="docutils literal notranslate"><span class="pre">get_tickLocsNLabels_centered()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.plot_chTraces"><code class="docutils literal notranslate"><span class="pre">plot_chTraces()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.plot_detected_events"><code class="docutils literal notranslate"><span class="pre">plot_detected_events()</span></code></a></li>
+<li><a class="reference internal" href="#neurequa.artefact_detections.ratio_artefact"><code class="docutils literal notranslate"><span class="pre">ratio_artefact()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>
