@@ -39,38 +39,38 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
 
     Parameters
     ---------------------------
-    path : string
+    - path: string
         A string containing the path where your data are stored
 
-    dtpe : string
+    - dtpe: string
         For Neuralynx data : 'ncs'
         For Blackrock data : 'nsX'
         For Dark Horse Neuro data : 'med'
         edf is also supported : 'edf'
 
-    length: int or 'all'
+    - length: int or 'all'
         If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal
         If you specify 'all' it will take the entire recording (can be slower, depends on your computational resources)
     
-    pattern2exclude: string
+    - pattern2exclude: string
         Pattern that enables us to not take into account the macrocontacts 
         (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be '_sub.ncs')
     
         
-    time: string or tuple
+    - time: string or tuple (Default='Random')
         By default take randomly portion of signal corresponding to length
         It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording
     
-    analog: string (optional) (Default: False)
+    - analog: string (optional) (Default: False)
         Reference channel used in blackrock recording system if it exists
     
     
     Returns
     ---------------------------
-    raw_data : raw data in FIF format (see MNE)
+    - raw_data : raw data in FIF format (see MNE)
         This object contains all informations about your data (channels name, sampling rate etc.)
     
-    data_sig : np array
+    - data_sig : np array
         Array containing raw values of the signal you want to load
         Will have a shape of nCh x nSamples
    """
