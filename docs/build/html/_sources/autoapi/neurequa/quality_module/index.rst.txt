@@ -67,14 +67,11 @@ Module Contents
    :param - pattern2exclude: Pattern that enables us to not take into account the macrocontacts
                              (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be '_sub.ncs')
    :type - pattern2exclude: string
-
-   - time: string or tuple (Default='Random')
-       By default take randomly portion of signal corresponding to length
-       It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording
-
-   - analog: string (optional) (Default: False)
-       Reference channel used in blackrock recording system if it exists
-
+   :param - time: By default take randomly portion of signal corresponding to length
+                  It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording
+   :type - time: string or tuple (Default='Random')
+   :param - analog: Reference channel used in blackrock recording system if it exists
+   :type - analog: string (optional) (Default: False)
 
    :returns: * **- raw_data** (*raw data in FIF format (see MNE)*) -- This object contains all informations about your data (channels name, sampling rate etc.)
              * **- data_sig** (*np array*) -- Array containing raw values of the signal you want to load

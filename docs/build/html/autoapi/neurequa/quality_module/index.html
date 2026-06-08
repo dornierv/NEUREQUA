@@ -359,25 +359,13 @@ edf is also supported : ‘edf’</p></li>
 If you specify ‘all’ it will take the entire recording (can be slower, depends on your computational resources)</p></li>
 <li><p><strong>pattern2exclude</strong> (<em>-</em>) – Pattern that enables us to not take into account the macrocontacts
 (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be ‘_sub.ncs’)</p></li>
+<li><p><strong>time</strong> (<em>-</em>) – By default take randomly portion of signal corresponding to length
+It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording</p></li>
+<li><p><strong>analog</strong> (<em>-</em>) – Reference channel used in blackrock recording system if it exists</p></li>
 </ul>
 </dd>
-</dl>
-<ul class="simple">
-<li><dl class="simple">
-<dt>time: string or tuple (Default=’Random’)</dt><dd><p>By default take randomly portion of signal corresponding to length
-It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>analog: string (optional) (Default: False)</dt><dd><p>Reference channel used in blackrock recording system if it exists</p>
-</dd>
-</dl>
-</li>
-</ul>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><ul class="simple">
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
 <li><p><strong>- raw_data</strong> (<em>raw data in FIF format (see MNE)</em>) – This object contains all informations about your data (channels name, sampling rate etc.)</p></li>
 <li><p><strong>- data_sig</strong> (<em>np array</em>) – Array containing raw values of the signal you want to load
 Will have a shape of nCh x nSamples</p></li>
