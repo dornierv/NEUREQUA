@@ -54,8 +54,7 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
     
     - pattern2exclude: string
         Pattern that enables us to not take into account the macrocontacts 
-        (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be '_sub.ncs')
-    
+        (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be '_sub.ncs') 
         
     - time: string or tuple (Default='Random')
         By default take randomly portion of signal corresponding to length
