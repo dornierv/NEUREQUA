@@ -513,31 +513,115 @@ please use: signal = np.ravel(signal) before passing signal into the function</p
 <dt class="sig sig-object py" id="NEUREQUA.artefact_detections.detect_subtle_artifacts">
 <span class="sig-prename descclassname"><span class="pre">NEUREQUA.artefact_detections.</span></span><span class="sig-name descname"><span class="pre">detect_subtle_artifacts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chTraces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chGoodInds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tetInds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SR</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend_final_com_ms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowcut_detPeaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highcut_detPeaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_detPeaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresh_dt1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nContacts_dt1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nTetrodes_dt1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend_final_ms_dt1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresh_peakDetect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_ms_dt2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresh_dt2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nContacts_dt2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nTetrodes_dt2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend_final_ms_dt2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/NEUREQUA/artefact_detections.html#detect_subtle_artifacts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NEUREQUA.artefact_detections.detect_subtle_artifacts" title="Link to this definition">¶</a></dt>
 <dd><p>Detects subtle artifacts using bandpass filtering and peak detection.</p>
-<p>Parameters:
-- chTraces (ndarray): EEG/LFP data array.
-- chGoodInds (array): Array of good channel indices.
-- tetInds (list): List of tetrode indices.
-- chRegs (list): Array mapping channels to regions.
-- SR (int): Sampling rate (default=20000 Hz).
-- lowcut_detPeaks (int): Low cut-off frequency for peak detection.
-- highcut_detPeaks (int): High cut-off frequency for peak detection.
-- order_detPeaks (int): Filter order.
-- thresh_dt1 (float): Z-score threshold for the first detector.
-- nContacts_dt1 (int): Minimum number of contacts required for detection in first detector.
-- nTetrodes_dt1 (int): Minimum number of tetrodes required for first detector.
-- extend_final_ms_dt1 (int): Extension window for first detector (ms).
-- thresh_peakDetect (float): Peak detection threshold.
-- window_ms_dt2 (int): Window size for second detector (ms).
-- thresh_dt2 (float): Threshold for spike count in the second detector.
-- nContacts_dt2 (int): Minimum number of contacts required for second detector.
-- nTetrodes_dt2 (int): Minimum number of tetrodes required for second detector.
-- extend_final_ms_dt2 (int): Extension window for second detector (ms).</p>
-<p>Returns:
-- bad_windows (ndarray): Array of detected bad time windows.</p>
+<section id="parameters">
+<h3>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>chTraces (ndarray):</dt><dd><p>EEG/LFP data array.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>chGoodInds (array):</dt><dd><p>Array of good channel indices.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>tetInds (list):</dt><dd><p>List of tetrode indices.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>chRegs (list):</dt><dd><p>Array mapping channels to regions.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>SR (int):</dt><dd><p>Sampling rate (default=20000 Hz).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>lowcut_detPeaks (int):</dt><dd><p>Low cut-off frequency for peak detection.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>highcut_detPeaks (int):</dt><dd><p>High cut-off frequency for peak detection.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>order_detPeaks (int):</dt><dd><p>Filter order.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>thresh_dt1 (float):</dt><dd><p>Z-score threshold for the first detector.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>nContacts_dt1 (int):</dt><dd><p>Minimum number of contacts required for detection in first detector.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>nTetrodes_dt1 (int):</dt><dd><p>Minimum number of tetrodes required for first detector.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>extend_final_ms_dt1 (int):</dt><dd><p>Extension window for first detector (ms).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>thresh_peakDetect (float):</dt><dd><p>Peak detection threshold.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>window_ms_dt2 (int):</dt><dd><p>Window size for second detector (ms).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>thresh_dt2 (float):</dt><dd><p>Threshold for spike count in the second detector.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>nContacts_dt2 (int):</dt><dd><p>Minimum number of contacts required for second detector.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>nTetrodes_dt2 (int):</dt><dd><p>Minimum number of tetrodes required for second detector.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>extend_final_ms_dt2 (int):</dt><dd><p>Extension window for second detector (ms).</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="returns">
+<h3>Returns:<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>badWins_final (ndarray):</dt><dd><p>Array of detected bad time windows.</p>
+</dd>
+</dl>
+</li>
+</ul>
 <p>Steps:
 - Filters signals in a high-frequency range (300-7000 Hz).
 - Identifies peaks crossing amplitude and gradient thresholds.
 - Uses channel and tetrode-level consensus to refine detection.</p>
+</section>
 </dd></dl>
 
 <dl class="py function">

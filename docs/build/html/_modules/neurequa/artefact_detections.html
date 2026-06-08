@@ -3,9 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
+        <link rel="prefetch" href="../../_static/logo.png" as="image">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>neurequa.artefact_detections - NEUREQUA 0.1 documentation</title>
+        <title>NEUREQUA.artefact_detections - NEUREQUA 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -181,6 +182,9 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.png" alt="Logo"/>
+  </div>
   
   <span class="sidebar-brand-text">NEUREQUA 0.1 documentation</span>
   
@@ -194,11 +198,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../autoapi/index.html">API Reference</a><input aria-label="Toggle navigation of API Reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../autoapi/neurequa/index.html">neurequa</a><input aria-label="Toggle navigation of neurequa" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/artefact_detections/index.html">neurequa.artefact_detections</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/cognitive_module/index.html">neurequa.cognitive_module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/neuralynx_io/index.html">neurequa.neuralynx_io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/neurequa/quality_module/index.html">neurequa.quality_module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../autoapi/NEUREQUA/index.html">NEUREQUA</a><input aria-label="Toggle navigation of NEUREQUA" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/NEUREQUA/artefact_detections/index.html">NEUREQUA.artefact_detections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/NEUREQUA/cognitive_module/index.html">NEUREQUA.cognitive_module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/NEUREQUA/neuralynx_io/index.html">NEUREQUA.neuralynx_io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/NEUREQUA/quality_module/index.html">NEUREQUA.quality_module</a></li>
 </ul>
 </li>
 </ul>
@@ -235,7 +239,7 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for neurequa.artefact_detections</h1><div class="highlight"><pre>
+          <h1>Source code for NEUREQUA.artefact_detections</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
 <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
@@ -357,7 +361,7 @@
 <span class="sd">extend_final_com_ms	int	Window merge threshold (ms)</span>
 
 
-<span class="sd">Made by Adrien Causse</span>
+<span class="sd">Made by Adrien A. Causse</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
@@ -365,7 +369,7 @@
 <span class="c1"># ------------------------------------------------------------ HOUSEKEEPING ----------------------------------------------------</span>
 <span class="c1"># ------------------------------------------------------------------------------------------------------------------------------</span>
 <div class="viewcode-block" id="detectPeaks">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.detectPeaks">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.detectPeaks">[docs]</a>
 <span class="k">def</span> <span class="nf">detectPeaks</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mph</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mpd</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">edge</span><span class="o">=</span><span class="s1">&#39;rising&#39;</span><span class="p">,</span> <span class="n">kpsh</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">valley</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -465,42 +469,108 @@
 
 
 <div class="viewcode-block" id="bandpass_filter_bessel">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.bandpass_filter_bessel">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.bandpass_filter_bessel">[docs]</a>
 <span class="k">def</span> <span class="nf">bandpass_filter_bessel</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lowcut</span><span class="p">,</span> <span class="n">highcut</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Apply a band-pass filter on our raw LFPs</span>
+
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    data: numpy array</span>
+<span class="sd">        Numpy array containing the data to filter </span>
+
+<span class="sd">    lowcut: int</span>
+<span class="sd">        Low cut frequency to apply on band-pass filter</span>
+
+<span class="sd">    highcut: int</span>
+<span class="sd">        High cut frequency to apply on band-pass filter</span>
+
+<span class="sd">    sr: int</span>
+<span class="sd">        Sampling rate of the signal to filter</span>
+<span class="sd">    </span>
+<span class="sd">    order: int</span>
+<span class="sd">        default = 2 </span>
+<span class="sd">        Order of the filter to apply</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    y: numpy array</span>
+<span class="sd">        Matrices containing the filtered data between lowcut and highcut</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># Parameters of the filter</span>
     <span class="n">nyquist</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sr</span>
     <span class="n">low</span> <span class="o">=</span> <span class="n">lowcut</span> <span class="o">/</span> <span class="n">nyquist</span>
     <span class="n">high</span> <span class="o">=</span> <span class="n">highcut</span> <span class="o">/</span> <span class="n">nyquist</span>
 
+    <span class="c1"># Create the filter</span>
     <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">bessel</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">Wn</span><span class="o">=</span><span class="p">[</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">],</span> <span class="n">btype</span><span class="o">=</span><span class="s1">&#39;bandpass&#39;</span><span class="p">,</span> <span class="n">analog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;ba&#39;</span><span class="p">)</span>
     
+    <span class="c1"># Filter the data</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">filtfilt</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">y</span></div>
 
     
 <div class="viewcode-block" id="smooth_binary_array">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.smooth_binary_array">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.smooth_binary_array">[docs]</a>
 <span class="k">def</span> <span class="nf">smooth_binary_array</span><span class="p">(</span><span class="n">binary_array</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Function used to obtain time series data from binary ones</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    binary_array: array</span>
+<span class="sd">        Array composed of 0 or 1 only (e.g. spike data)</span>
+
+<span class="sd">    kernel_size: int</span>
+<span class="sd">        Size of the kernel to compute the convolution</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    convolve_signal: array</span>
+<span class="sd">        binary_array but transformed into time serie</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># Create the kernel used</span>
     <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">binary_array</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
+
+    <span class="c1"># Do the convolution of the signal with the kernel created</span>
+    <span class="n">convolve_signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">binary_array</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+
+    <span class="k">return</span> <span class="n">convolve_signal</span></div>
 
     
     
 <div class="viewcode-block" id="get_peri_stimulus_counts">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_peri_stimulus_counts">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.get_peri_stimulus_counts">[docs]</a>
 <span class="k">def</span> <span class="nf">get_peri_stimulus_counts</span><span class="p">(</span><span class="n">actVect</span><span class="p">,</span> <span class="n">window_ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="mi">1250</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute peri-stimulus histogram for each spike in a spike train using vectorized operations.</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters:</span>
-<span class="sd">    - actVect (np.array): Binary vector (1 for spike, 0 for no spike).</span>
-<span class="sd">    - window_ms (int): Window size in milliseconds around each spike.</span>
-<span class="sd">    - sampling_rate (int): Sampling rate in Hz.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    actVect: Numpy array </span>
+<span class="sd">        Binary vector (1 for spike, 0 for no spike).</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">    - peri_stimulus_counts (np.array): Array of the same length as spkTimes</span>
-<span class="sd">      with the sum of spikes in the ±window around each spike.</span>
+<span class="sd">    window_ms: int</span>
+<span class="sd">        Window size in milliseconds around each spike.</span>
+
+<span class="sd">    sampling_rate: int</span>
+<span class="sd">        Sampling rate in Hz.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    peri_stimulus_counts: Numpy array</span>
+<span class="sd">        Array of the same length as spkTimes with the sum of spikes in the ±window around each spike.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">spkTimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">actVect</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Get spike times (indices)</span>
+    <span class="c1"># Get spike times (indices)</span>
+    <span class="n">spkTimes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">actVect</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  
     
     <span class="c1"># Convert window from ms to samples</span>
     <span class="n">window_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">window_ms</span> <span class="o">*</span> <span class="n">sampling_rate</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>
@@ -520,15 +590,24 @@
 
 
 <div class="viewcode-block" id="get_timeWins4AdjacentPoints">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_timeWins4AdjacentPoints">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.get_timeWins4AdjacentPoints">[docs]</a>
 <span class="k">def</span> <span class="nf">get_timeWins4AdjacentPoints</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    return start_ends</span>
+<span class="sd">    Get the time (start,end) of each burst</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    arr: Numpy  array</span>
+<span class="sd">        Made of indices (np.where(bool))</span>
 <span class="sd">    </span>
-<span class="sd">    which is an array of shape (X, 2)</span>
-<span class="sd">    arr in input is made of indices (np.where(bool))</span>
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    start_ends: Numpy array</span>
+<span class="sd">        Array of shape (X, 2) with X corresponds to bursts</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Convert arr to array</span>
     <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+
     <span class="c1"># Find the indices where the difference between consecutive elements is not 1</span>
     <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
     <span class="n">breaks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">diff</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -538,25 +617,36 @@
     
     <span class="c1"># The end of each burst is the element at each break, plus the last element</span>
     <span class="n">ends</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">breaks</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">start_ends</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">starts</span><span class="p">,</span> <span class="n">ends</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
     
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">starts</span><span class="p">,</span> <span class="n">ends</span><span class="p">))</span><span class="o">.</span><span class="n">T</span></div>
+    <span class="k">return</span> <span class="n">start_ends</span></div>
 
 
 
 <div class="viewcode-block" id="get_timeWins_mergeIfNext">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_timeWins_mergeIfNext">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.get_timeWins_mergeIfNext">[docs]</a>
 <span class="k">def</span> <span class="nf">get_timeWins_mergeIfNext</span><span class="p">(</span><span class="n">timeWins</span><span class="p">,</span> <span class="n">nbPointsToMerge</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Merges overlapping or close windows where gaps are &lt; nbPointsToMerge points, and returns the indices of the merged windows.</span>
 
-<span class="sd">    Parameters:</span>
-<span class="sd">    - timeWins (ndarray): Shape (n, 2), each row is [start, end].</span>
-<span class="sd">    - nbPointsToMerge (int): Max gap allowed between consecutive windows to merge.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    timeWins: ndarray</span>
+<span class="sd">        Shape (n, 2), each row is [start, end]</span>
+<span class="sd">    </span>
+<span class="sd">    nbPointsToMerge: int </span>
+<span class="sd">        Max gap allowed between consecutive windows to merge.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">    - merged_windows (ndarray): Shape (m, 2), merged windows.</span>
-<span class="sd">    - merged_indices (list of lists): Indices of the original windows contributing to each merged window.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    merged_windows: ndarray </span>
+<span class="sd">        Shape (m, 2), merged windows.</span>
+
+<span class="sd">    merged_indices: list of lists </span>
+<span class="sd">        Indices of the original windows contributing to each merged window.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If empty </span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timeWins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">[]</span>
 
@@ -581,24 +671,53 @@
 
 
 <div class="viewcode-block" id="get_timeWinsTemplatedSignal">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_timeWinsTemplatedSignal">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.get_timeWinsTemplatedSignal">[docs]</a>
 <span class="k">def</span> <span class="nf">get_timeWinsTemplatedSignal</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">timeWins</span><span class="p">,</span> <span class="n">nTimePoints</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">filling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    return templatedSignal</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    signal: 1-D array </span>
+<span class="sd">        Must be a &#39;pure&#39; np.array, VECTOR shape. If it is an array of lists of len 1, </span>
+<span class="sd">        please use: signal = np.ravel(signal) before passing signal into the function </span>
+
+<span class="sd">    timeWins: ndarray</span>
+<span class="sd">        Shape (n, 2), each row is [start, end]</span>
 <span class="sd">    </span>
-<span class="sd">    signal must be a &#39;pure&#39; np.array, VECTOR shape. If it is an array of lists of len 1, please use: signal = np.ravel(signal) before passing signal into the function </span>
-<span class="sd">    timeWins is a np.array of shape (nWins, 2) / 2 for start and for stop</span>
+<span class="sd">    nTimePoints: int or None</span>
+<span class="sd">        Default = None</span>
+<span class="sd">    </span>
+<span class="sd">    filling: nan</span>
+<span class="sd">        Numpy nan</span>
+
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    templatedSignal: array</span>
+<span class="sd">        Array containing the signal in time windows with burst artifact</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If not specified get the number of points in the signal</span>
     <span class="k">if</span> <span class="n">nTimePoints</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">nTimePoints</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Create an array with length nTimePoints filled with NaN</span>
     <span class="n">templatedSignal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">nTimePoints</span><span class="p">,</span> <span class="n">filling</span><span class="p">)</span>
+
+    <span class="c1"># Loop over the timeWins </span>
     <span class="k">for</span> <span class="n">timeWin</span> <span class="ow">in</span> <span class="n">timeWins</span><span class="p">:</span>
+
+        <span class="c1"># Extract the signal for each time window and store it</span>
         <span class="n">templatedSignal</span><span class="p">[</span><span class="n">timeWin</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">timeWin</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">signal</span><span class="p">[</span><span class="n">timeWin</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">timeWin</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+
     <span class="k">return</span> <span class="n">templatedSignal</span></div>
 
 
+
+
 <div class="viewcode-block" id="get_timeWinsIntersect">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_timeWinsIntersect">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.get_timeWinsIntersect">[docs]</a>
 <span class="k">def</span> <span class="nf">get_timeWinsIntersect</span><span class="p">(</span><span class="n">itwA</span><span class="p">,</span> <span class="n">itwB</span><span class="p">,</span> <span class="n">lastPoint</span><span class="p">,</span> <span class="n">firstPoint</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ifDisplay</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lfp</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    return itwTot</span>
@@ -647,7 +766,7 @@
 
 
 <div class="viewcode-block" id="get_timeWins4TimeVect">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_timeWins4TimeVect">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.get_timeWins4TimeVect">[docs]</a>
 <span class="k">def</span> <span class="nf">get_timeWins4TimeVect</span><span class="p">(</span><span class="n">timeVect</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    return timeWins</span>
@@ -663,22 +782,37 @@
 <span class="c1"># ------------------------------------------------------------ DETECT ----------------------------------------------------------</span>
 <span class="c1"># ------------------------------------------------------------------------------------------------------------------------------</span>
 <div class="viewcode-block" id="detect_movement_artifacts">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.detect_movement_artifacts">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.detect_movement_artifacts">[docs]</a>
 <span class="k">def</span> <span class="nf">detect_movement_artifacts</span><span class="p">(</span><span class="n">chTraces</span><span class="p">,</span> <span class="n">chGoodInds</span><span class="p">,</span> <span class="n">tetInds</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                               <span class="n">SR</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">thresh_mvA</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">extend_mvA_ms</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">threshCorr</span><span class="o">=</span><span class="mf">0.6</span> <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Detection of movement artifacts using vectorized operations.</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters:</span>
-<span class="sd">    - chTraces (ndarray): EEG/LFP data array (channels x time).</span>
-<span class="sd">    - chGoodInds (list): Indices of good channels.</span>
-<span class="sd">    - tetInds (list): List of tetrode indices.</span>
-<span class="sd">    - SR (int): Sampling rate (default=20000 Hz).</span>
-<span class="sd">    - thresh_mvA (float): Z-score threshold for movement artifacts.</span>
-<span class="sd">    - extend_mvA_ms (int): Extension of detected artifacts (ms).</span>
-<span class="sd">    - threshCorr (float): Correlation threshold for refinement.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    chTraces: ndarray </span>
+<span class="sd">        EEG/LFP data array (channels x time).</span>
+
+<span class="sd">    chGoodInds: list</span>
+<span class="sd">        Indices of good channels.</span>
+
+<span class="sd">    - tetInds (list): </span>
+<span class="sd">        List of tetrode indices.</span>
+
+<span class="sd">    - SR (int): </span>
+<span class="sd">        Sampling rate (default=20000 Hz).</span>
+
+<span class="sd">    - thresh_mvA (float): </span>
+<span class="sd">        Z-score threshold for movement artifacts.</span>
+
+<span class="sd">    - extend_mvA_ms (int): </span>
+<span class="sd">    Extension of detected artifacts (ms).</span>
+
+<span class="sd">    - threshCorr (float): </span>
+<span class="sd">        Correlation threshold for refinement.</span>
 <span class="sd">    </span>
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
 <span class="sd">    - badWins_refined (ndarray): Array of refined bad time windows.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Compute gradient for all channels in one step</span>
@@ -727,7 +861,7 @@
 
     
 <div class="viewcode-block" id="detect_subtle_artifacts">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.detect_subtle_artifacts">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.detect_subtle_artifacts">[docs]</a>
 <span class="k">def</span> <span class="nf">detect_subtle_artifacts</span><span class="p">(</span><span class="n">chTraces</span><span class="p">,</span> <span class="n">chGoodInds</span><span class="p">,</span> <span class="n">tetInds</span><span class="p">,</span> <span class="n">chRegs</span><span class="p">,</span> <span class="n">SR</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                             <span class="n">extend_final_com_ms</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">lowcut_detPeaks</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">highcut_detPeaks</span><span class="o">=</span><span class="mi">7000</span><span class="p">,</span> <span class="n">order_detPeaks</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
                             <span class="n">thresh_dt1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">nContacts_dt1</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nTetrodes_dt1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">extend_final_ms_dt1</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
@@ -737,27 +871,66 @@
 <span class="sd">    Detects subtle artifacts using bandpass filtering and peak detection.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters:</span>
-<span class="sd">    - chTraces (ndarray): EEG/LFP data array.</span>
-<span class="sd">    - chGoodInds (array): Array of good channel indices.</span>
-<span class="sd">    - tetInds (list): List of tetrode indices.</span>
-<span class="sd">    - chRegs (list): Array mapping channels to regions.</span>
-<span class="sd">    - SR (int): Sampling rate (default=20000 Hz).</span>
-<span class="sd">    - lowcut_detPeaks (int): Low cut-off frequency for peak detection.</span>
-<span class="sd">    - highcut_detPeaks (int): High cut-off frequency for peak detection.</span>
-<span class="sd">    - order_detPeaks (int): Filter order.</span>
-<span class="sd">    - thresh_dt1 (float): Z-score threshold for the first detector.</span>
-<span class="sd">    - nContacts_dt1 (int): Minimum number of contacts required for detection in first detector.</span>
-<span class="sd">    - nTetrodes_dt1 (int): Minimum number of tetrodes required for first detector.</span>
-<span class="sd">    - extend_final_ms_dt1 (int): Extension window for first detector (ms).</span>
-<span class="sd">    - thresh_peakDetect (float): Peak detection threshold.</span>
-<span class="sd">    - window_ms_dt2 (int): Window size for second detector (ms).</span>
-<span class="sd">    - thresh_dt2 (float): Threshold for spike count in the second detector.</span>
-<span class="sd">    - nContacts_dt2 (int): Minimum number of contacts required for second detector.</span>
-<span class="sd">    - nTetrodes_dt2 (int): Minimum number of tetrodes required for second detector.</span>
-<span class="sd">    - extend_final_ms_dt2 (int): Extension window for second detector (ms).</span>
+<span class="sd">    -----------</span>
+<span class="sd">    - chTraces (ndarray): </span>
+<span class="sd">        EEG/LFP data array.</span>
+
+<span class="sd">    - chGoodInds (array): </span>
+<span class="sd">        Array of good channel indices.</span>
+
+<span class="sd">    - tetInds (list): </span>
+<span class="sd">        List of tetrode indices.</span>
+
+<span class="sd">    - chRegs (list): </span>
+<span class="sd">        Array mapping channels to regions.</span>
+
+<span class="sd">    - SR (int): </span>
+<span class="sd">        Sampling rate (default=20000 Hz).</span>
+
+<span class="sd">    - lowcut_detPeaks (int): </span>
+<span class="sd">        Low cut-off frequency for peak detection.</span>
+
+<span class="sd">    - highcut_detPeaks (int): </span>
+<span class="sd">        High cut-off frequency for peak detection.</span>
+
+<span class="sd">    - order_detPeaks (int): </span>
+<span class="sd">        Filter order.</span>
+
+<span class="sd">    - thresh_dt1 (float): </span>
+<span class="sd">        Z-score threshold for the first detector.</span>
+
+<span class="sd">    - nContacts_dt1 (int): </span>
+<span class="sd">        Minimum number of contacts required for detection in first detector.</span>
+
+<span class="sd">    - nTetrodes_dt1 (int): </span>
+<span class="sd">        Minimum number of tetrodes required for first detector.</span>
+
+<span class="sd">    - extend_final_ms_dt1 (int): </span>
+<span class="sd">        Extension window for first detector (ms).</span>
+
+<span class="sd">    - thresh_peakDetect (float): </span>
+<span class="sd">        Peak detection threshold.</span>
+
+<span class="sd">    - window_ms_dt2 (int): </span>
+<span class="sd">        Window size for second detector (ms).</span>
+
+<span class="sd">    - thresh_dt2 (float): </span>
+<span class="sd">        Threshold for spike count in the second detector.</span>
+
+<span class="sd">    - nContacts_dt2 (int): </span>
+<span class="sd">        Minimum number of contacts required for second detector.</span>
+
+<span class="sd">    - nTetrodes_dt2 (int): </span>
+<span class="sd">        Minimum number of tetrodes required for second detector.</span>
+
+<span class="sd">    - extend_final_ms_dt2 (int): </span>
+<span class="sd">        Extension window for second detector (ms).</span>
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
-<span class="sd">    - bad_windows (ndarray): Array of detected bad time windows.</span>
+<span class="sd">    ----------</span>
+<span class="sd">    </span>
+<span class="sd">    - badWins_final (ndarray): </span>
+<span class="sd">        Array of detected bad time windows.</span>
 <span class="sd">    </span>
 <span class="sd">    Steps:</span>
 <span class="sd">    - Filters signals in a high-frequency range (300-7000 Hz).</span>
@@ -865,7 +1038,7 @@
 <span class="c1"># ------------------------------------------------------------ PLOT ------------------------------------------------------------</span>
 <span class="c1"># ------------------------------------------------------------------------------------------------------------------------------</span>
 <div class="viewcode-block" id="get_tickLocsNLabels_centered">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.get_tickLocsNLabels_centered">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.get_tickLocsNLabels_centered">[docs]</a>
 <span class="k">def</span> <span class="nf">get_tickLocsNLabels_centered</span><span class="p">(</span><span class="n">tickMin</span><span class="p">,</span> <span class="n">tickMax</span><span class="p">,</span> <span class="n">nTicks</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span> <span class="n">conversion</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    return tickLocs, tickLabels </span>
@@ -890,7 +1063,7 @@
 
 
 <div class="viewcode-block" id="plot_chTraces">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.plot_chTraces">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.plot_chTraces">[docs]</a>
 <span class="k">def</span> <span class="nf">plot_chTraces</span><span class="p">(</span><span class="n">chTraces</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">chInds</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">t_sample</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">chCols</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">win_s</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">hspace</span> <span class="o">=</span> <span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">legend</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">chLegend</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fontsize_legend</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nTicks</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">roundTickLabels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">locLegend</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">titleLegend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title_fontsizeLegend</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">lwLegend</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">xTickFS</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">labFS</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">yTickFS</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ignoreCh</span><span class="o">=</span><span class="p">[]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    chInds is a np.array</span>
@@ -963,8 +1136,11 @@
         
 
 <div class="viewcode-block" id="plot_detected_events">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.plot_detected_events">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.plot_detected_events">[docs]</a>
 <span class="k">def</span> <span class="nf">plot_detected_events</span><span class="p">(</span><span class="n">chTraces</span><span class="p">,</span> <span class="n">chRegs</span><span class="p">,</span> <span class="n">SR</span><span class="p">,</span> <span class="n">badWinArray</span><span class="p">,</span> <span class="n">badWini</span><span class="p">,</span> <span class="n">ignoreCh</span><span class="o">=</span><span class="p">[],</span> <span class="n">win_s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=-</span><span class="mi">7000</span><span class="p">,</span> <span class="n">extend_final_com_ms</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Functions used to plot the artifacts detected</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     
     <span class="n">tetWins</span><span class="o">=</span><span class="n">get_timeWins4TimeVect</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chRegs</span><span class="p">)</span><span class="o">+</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
     <span class="n">chCols_tet</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">([[</span><span class="n">col</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">sb</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;Dark2&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tetWins</span><span class="p">))])</span>
@@ -990,7 +1166,7 @@
     
     
 <div class="viewcode-block" id="ratio_artefact">
-<a class="viewcode-back" href="../../autoapi/neurequa/artefact_detections/index.html#neurequa.artefact_detections.ratio_artefact">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/NEUREQUA/artefact_detections/index.html#NEUREQUA.artefact_detections.ratio_artefact">[docs]</a>
 <span class="k">def</span> <span class="nf">ratio_artefact</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">badWins_final</span><span class="p">,</span><span class="n">path</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>

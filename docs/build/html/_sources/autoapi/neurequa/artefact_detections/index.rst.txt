@@ -194,27 +194,66 @@ Module Contents
    Detects subtle artifacts using bandpass filtering and peak detection.
 
    Parameters:
-   - chTraces (ndarray): EEG/LFP data array.
-   - chGoodInds (array): Array of good channel indices.
-   - tetInds (list): List of tetrode indices.
-   - chRegs (list): Array mapping channels to regions.
-   - SR (int): Sampling rate (default=20000 Hz).
-   - lowcut_detPeaks (int): Low cut-off frequency for peak detection.
-   - highcut_detPeaks (int): High cut-off frequency for peak detection.
-   - order_detPeaks (int): Filter order.
-   - thresh_dt1 (float): Z-score threshold for the first detector.
-   - nContacts_dt1 (int): Minimum number of contacts required for detection in first detector.
-   - nTetrodes_dt1 (int): Minimum number of tetrodes required for first detector.
-   - extend_final_ms_dt1 (int): Extension window for first detector (ms).
-   - thresh_peakDetect (float): Peak detection threshold.
-   - window_ms_dt2 (int): Window size for second detector (ms).
-   - thresh_dt2 (float): Threshold for spike count in the second detector.
-   - nContacts_dt2 (int): Minimum number of contacts required for second detector.
-   - nTetrodes_dt2 (int): Minimum number of tetrodes required for second detector.
-   - extend_final_ms_dt2 (int): Extension window for second detector (ms).
+   -----------
+   - chTraces (ndarray):
+       EEG/LFP data array.
+
+   - chGoodInds (array):
+       Array of good channel indices.
+
+   - tetInds (list):
+       List of tetrode indices.
+
+   - chRegs (list):
+       Array mapping channels to regions.
+
+   - SR (int):
+       Sampling rate (default=20000 Hz).
+
+   - lowcut_detPeaks (int):
+       Low cut-off frequency for peak detection.
+
+   - highcut_detPeaks (int):
+       High cut-off frequency for peak detection.
+
+   - order_detPeaks (int):
+       Filter order.
+
+   - thresh_dt1 (float):
+       Z-score threshold for the first detector.
+
+   - nContacts_dt1 (int):
+       Minimum number of contacts required for detection in first detector.
+
+   - nTetrodes_dt1 (int):
+       Minimum number of tetrodes required for first detector.
+
+   - extend_final_ms_dt1 (int):
+       Extension window for first detector (ms).
+
+   - thresh_peakDetect (float):
+       Peak detection threshold.
+
+   - window_ms_dt2 (int):
+       Window size for second detector (ms).
+
+   - thresh_dt2 (float):
+       Threshold for spike count in the second detector.
+
+   - nContacts_dt2 (int):
+       Minimum number of contacts required for second detector.
+
+   - nTetrodes_dt2 (int):
+       Minimum number of tetrodes required for second detector.
+
+   - extend_final_ms_dt2 (int):
+       Extension window for second detector (ms).
 
    Returns:
-   - bad_windows (ndarray): Array of detected bad time windows.
+   ----------
+
+   - badWins_final (ndarray):
+       Array of detected bad time windows.
 
    Steps:
    - Filters signals in a high-frequency range (300-7000 Hz).
