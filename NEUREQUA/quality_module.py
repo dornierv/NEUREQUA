@@ -39,37 +39,37 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
 
     Parameters
     ---------------------------
-    - path: string
+    path: string
         A string containing the path where your data are stored
 
-    - dtpe: string
+    dtype: string
         For Neuralynx data : 'ncs'
         For Blackrock data : 'nsX'
         For Dark Horse Neuro data : 'med'
         edf is also supported : 'edf'
 
-    - length: int or 'all'
+    length: int or 'all'
         If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal
         If you specify 'all' it will take the entire recording (can be slower, depends on your computational resources)
     
-    - pattern2exclude: string
+    pattern2exclude: string
         Pattern that enables us to not take into account the macrocontacts 
         (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be '_sub.ncs') 
         
-    - time: string or tuple (Default='Random')
+    time: string or tuple (Default='Random')
         By default take randomly portion of signal corresponding to length
         It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording
     
-    - analog: string (optional) (Default: False)
+    analog: string (optional) (Default: False)
         Reference channel used in blackrock recording system if it exists
     
     
     Returns
     ---------------------------
-    - raw_data : raw data in FIF format (see MNE)
+    raw_data: raw data in FIF format (see MNE)
         This object contains all informations about your data (channels name, sampling rate etc.)
     
-    - data_sig : np array
+    data_sig: np array
         Array containing raw values of the signal you want to load
         Will have a shape of nCh x nSamples
    """
@@ -241,15 +241,15 @@ def splitCharNum(string) :
 
     Parameters
     ---------------------------
-    string : string
+    string: string
         String containing characters and numbers (e.g., 'da1')
 
     Returns
     ---------------------------
-    char : string
+    char: string
         string containing only the characters from the input (e.g., 'da')
 
-    number : string
+    number: string
         string containing only the numbers from the input (e.g., '1')
     """
     import re
@@ -267,13 +267,13 @@ def get_unique_unsorted(array):
 
     Parameters
     ---------------------------
-    array : array of string
+    array: array of string
         Array of string containing the name of your channels (e.g. ['da','db'])
     
         
     Returns 
     ---------------------------
-    uniqueUnsorted : string
+    uniqueUnsorted: string
         array of string containing 
     """
     unique, uniqueInds=np.unique(array, return_index=True)
@@ -294,19 +294,19 @@ def reorder_data(Regions,data):
 
     Parameters
     ---------------------------
-    Regions : array of string
+    Regions: array of string
         Array of strings containing all the name of the regions implanted with your channels
     
-    data : array
+    data: array
         Matrix containing raw values with shape nChannels x nSamples
     
         
     Returns
     ---------------------------
-    Regions_ok : array of string
+    Regions_ok: array of string
         Array of strings containing the name in the right order (e.g., 'x1', 'x2', 'x3' ... 'x9', 'x10', 'x11', 'x12')
     
-    data_ok : array
+    data_ok: array
         Matrix with shape nChannels x nSamples but re-organize to match the order of channel labels
     '''
     # Extract the label of the electrode
@@ -337,15 +337,15 @@ def find_nearest(array, value):
 
     Parameters
     ---------------------------
-    array : np.array
+    array: np.array
         array containing data (e.g., [2, 7, 12])
 
-    value : int
+    value: int
         The value we want to find the closest (e.g. 11)
 
     Returns
     ---------------------------
-    idx : int
+    idx: int
         Will return the index  in array closest to value (e.g., 2)
     """
     # Make sure it is an array
@@ -367,7 +367,7 @@ def random_time(data,sampling_rate,length):
     ---------------------------
     data: The raw object of data (Raw object from MNE)
     
-    sampling rate : int
+    sampling rate: int
         The sampling rate of your recording (e.g., 32768)
     
     length: int
@@ -402,7 +402,7 @@ def p_welch(data,chRegions,sub,sess,sr,sr_down,fr_low,fr_high,saveFolder,probe_t
 
     Parameters
     ---------------------------
-    data : array
+    data: array
         Matrice containing data of all channels containing nSamples
 
     chRegions: Numpy array
@@ -414,16 +414,16 @@ def p_welch(data,chRegions,sub,sess,sr,sr_down,fr_low,fr_high,saveFolder,probe_t
     sess: string
         Name of the session you are analyzing
     
-    sr : int
+    sr: int
         Sampling rate of your recording (e.g., 32768)
     
-    sr_down : int
+    sr_down: int
         Sampling rate downsampled, so the one you want (e.g., 8192 Hz)
     
-    fr_low : int
+    fr_low: int
         The lowest frequency from which we compute the power spectrum
     
-    fr_high : int 
+    fr_high: int 
         The highest frequency from which we compute the power spectrum
     
     saveFolder: string
@@ -435,10 +435,10 @@ def p_welch(data,chRegions,sub,sess,sr,sr_down,fr_low,fr_high,saveFolder,probe_t
     
     Returns
     ---------------------------
-    pxx_log : array
+    pxx_log: array
         Array containing power spectrum values for the channel of interest
     
-    f_plot : array
+    f_plot: array
         Array containing the values of frequency associate with each power spectrum value (will be useful for the plot)
     """
 
@@ -489,26 +489,26 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
 
     Parameters 
     ---------------------------
-    f : array
+    f: array
         Array containing frequency values (it is the output of p_welch)
     
-    nCh : int
+    nCh: int
         Number of channels in your recording
     
-    chRegs : array of strings
+    chRegs: array of strings
         Array containing name of your channels
     
-    psd : array
+    psd: array
         Array of power spectrum values for each value of f, it is the output of p_welch
     
-    session : string
+    session: string
         Name of the session you analyze, specify at the beginning of the jupyter notebook
 
-    probe_type : string
+    probe_type: string
         String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
 
     
-    saveFolder : string
+    saveFolder: string
         String containing the path of the folder where you want to save figure
 
     Returns
@@ -616,26 +616,26 @@ def plot_noise(data,sr,chRegions,path,save=1,limit='auto',fr_low=300,fr_high=300
     data: array
         Matrix with your data with shape nChannels x nSamples
 
-    sr : int
+    sr: int
         sampling rate of the signal
     
-    chRegions : string
+    chRegions: string
         Array of string containing name of each channels
     
-    path : string
+    path: string
         String containing the path where you want to save the figures
     
-    save : int, default = 1
+    save: int, default = 1
         If you don't want to save figure put save = 0
 
     limit: string
         Default value is 'auto' so matplotlib handes the limit but otherwise it is the min and max of your data
         Could be useful to better see the level of noise in your recording
     
-    fr_low : int, default = 300
+    fr_low: int, default = 300
         The lowest frequency for your band pass filter 
     
-    fr_high : int, default = 3000
+    fr_high: int, default = 3000
         The highest frequency for your band pass filter
     
     Returns
@@ -709,19 +709,19 @@ def plot_raw(data,sr,num_channel,path,save=1):
 
     Parameters 
     ---------------------------
-    data : array
+    data: array
         data from one particular channel
 
-    sr : int
+    sr: int
         sampling rate of the signal
     
-    num_channel : int
+    num_channel: int
         Number of the channel in your recording
     
-    path : string
+    path: string
         Path where you want to store your figure in output
     
-    save : Boolean 
+    save: Boolean 
         Default = 1 else put save = 0
 
     Returns
@@ -991,19 +991,20 @@ def correlation_coefficient(data,chRegions,path,pathtbl,sub,sess,probe_type,save
     path: string
         Path where you want to save the figure obtained
     
-    pathtbl : string
+    pathtbl: string
         Path where you store the excel file containing all values for the patient you analyze
     
-    sub : string
+    sub: string
         String like 'sub-XX' with XX being the number of the subject in your database
     
-    sess : string
+    sess: string
         String containing the name of the session you are analyzing (specified at the beginning of the jupyter notebook)
 
-    probe_type : string
+    probe_type: string
         String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
 
-    save=1 (default) to save the figure, put save = 0 if you don't want to save the figure
+    save: int (default=1) 
+        To save the figure, put save = 0 if you don't want to save the figure
 
     Returns
     ---------------------------
@@ -1115,21 +1116,22 @@ def variance_normalized(data,chRegions,path,pathtbl,sub,sess,probe_type,save=1):
     path: string
         Path where you want to save output figure
     
-    pathtbl : string
+    pathtbl: string
         Path where the excel file of this patient is stored
     
-    sub : string
+    sub: string
         String containing the number or the ID of the patient in your database
     
-    sess : string
+    sess: string
         String containing the name of the session you are analyzing
     
-    probe_type : string
+    probe_type: string
         String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
 
 
 
-    save: Default=1 to save figure 
+    save: int (Default=1) 
+        To save figure or not (put = 0 to not save)
 
     Returns
     ---------------------------
@@ -1273,13 +1275,13 @@ def deviation(data,chRegions,path,pathtbl,sub,sess,probe_type, save=1):
     paththbl : string
         Path where to store values in excel
 
-    sub : string
+    sub: string
         IDs of the patient
     
-    sess : string
+    sess: string
         Name of the session
     
-    probe_type : string
+    probe_type: string
         String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
 
     
@@ -1428,16 +1430,17 @@ def variance(data,chRegions,path,pathtbl,sub,sess,save=1):
     path: string
         Path where you want to save output figure
     
-    paththbl : string
+    paththbl: string
         Path to the excel file where to store informations
     
-    sub : string
+    sub: string
         IDs of the patient
     
-    sess : string
+    sess: string
         Name of the session
 
-    save: Default=1 to save figure 
+    save: int (Default=1) 
+        To save figure 
 
     
     Returns 
@@ -1513,17 +1516,19 @@ def signaltonoise(a,chRegions,path,pathtbl,sub,sess, save=1, axis=1, ddof=0):
 
     Parameters
     ---------------------------
-    a : array_like
+    a: array_like
         An array_like object containing the sample data.
-    axis : int or None, optional
+
+    axis: int or None, optional
         If axis is equal to None, the array is first ravel'd. If axis is an
         integer, this is the axis over which to operate. Default is 0.
-    ddof : int, optional
+
+    ddof: int, optional
         Degrees of freedom correction for standard deviation. Default is 0.
 
     Returns
     ---------------------------
-    s2n : ndarray
+    s2n: ndarray
         The mean to standard deviation ratio(s) along `axis`, or 0 where the
         standard deviation is 0.
 
@@ -1578,25 +1583,25 @@ def kurtosis(data,chRegions,path,pathtbl,sub,sess,save=1):
 
     Parameters
     ---------------------------
-    data : array
+    data: array
         Matrix containing your data with shape nChannels x nSamples
     
-    chRegions : array of strings
+    chRegions: array of strings
         Vector containing name of your channels
     
-    path : string
+    path: string
         String of the path where you want to store figures
     
-    pathtbl : string
+    pathtbl: string
         Path where the excel file is stored
     
-    sub : string
+    sub: string
         IDs of the patient you are analyzing
     
-    sess : string
+    sess: string
         Name of the session 
     
-    save : Boolean, default=1
+    save: Boolean, default=1
         =1 if you want to save plot, put = 0 otherwise
     
     
@@ -1669,13 +1674,13 @@ def hurst_component(data,chRegions,path,pathtbl,sub,sess,save=1):
 
     Parameters
     ---------------------------
-    data : array
+    data: array
         Matrix containing your data with shape nChannels x nSamples
 
-    chRegions : array of strings
+    chRegions: array of strings
         Vectors containing the name of your channels
     
-    path : string
+    path: string
         Path where you want to store the plots
     
     pathtbl: string
