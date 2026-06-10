@@ -19,11 +19,13 @@ def ensure_dir(path: str) -> None:
 
     Parameters
     ---------------------------
-    path: str
+    path: string 
         Path-like where you want to create folder
     """
-
+    # Check if the path exists
     isExist = os.path.exists(path)
+
+    # If not create it
     if not isExist:
         os.makedirs(path)
 
@@ -31,6 +33,14 @@ def ensure_dir(path: str) -> None:
 def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,*args):
     """
     Load data from the raw files (e.g., .ncs for Neuralynx)
+
+    This function supports multiple file formats:
+    - .ncs for Neuralynx acquisition system
+    - .nsX for Blaclrock acquisition system
+    - .med for Darkhorseneuro acquisition system
+    - .edf
+
+    This function is based on MNE [1] and NEO [2] framework 
 
     Returns two objects :
         1) A raw-object from MNE (see https://mne.tools/stable/generated/mne.io.Raw.html#mne.io.Raw for documentation)
@@ -72,6 +82,19 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
     data_sig: np array
         Array containing raw values of the signal you want to load
         Will have a shape of nCh x nSamples
+    
+    References 
+    ----------
+    [1] Gramfort A, Luessi M, Larson E, Engemann DA, Strohmeier D, Brodbeck C, Parkkonen L, Hämäläinen MS. 
+    MNE software for processing MEG and EEG data. 
+    Neuroimage. 2014 Feb 1;86:446-60. 
+    doi: 10.1016/j.neuroimage.2013.10.027. 
+    Epub 2013 Oct 24. PMID: 24161808; PMCID: PMC3930851.
+
+    [2] Garcia S., Guarino D., Jaillet F., Jennings T.R., Pröpper R., Rautenberg P.L.,
+    Rodgers C., Sobolev A.,Wachtler T., Yger P. and Davison A.P. (2014)
+    Neo: an object model for handling electrophysiology data in multiple formats.
+    Frontiers in Neuroinformatics 8:10: doi:10.3389/fninf.2014.00010
    """
     
     # Load 'ncs' from Neuralynx
@@ -286,9 +309,7 @@ def get_unique_unsorted(array):
 def reorder_data(Regions,data):
     '''
     When there is 3 tetrodes on the same shaft order will be x1, x10, x11, x12, x2, x3 ... x9 on the raw file
-
     We want to re-organize it so the order is x1, x2, x3 ... x9, x10, x11, x12
-
     Will return the array of regions name and data in the right order
 
 
@@ -365,7 +386,8 @@ def random_time(data,sampling_rate,length):
     
     Parameters
     ---------------------------
-    data: The raw object of data (Raw object from MNE)
+    data: MNE-raw object
+        The structure of a RAW mne object containing metadata
     
     sampling rate: int
         The sampling rate of your recording (e.g., 32768)
@@ -398,7 +420,7 @@ def random_time(data,sampling_rate,length):
 def p_welch(data,chRegions,sub,sess,sr,sr_down,fr_low,fr_high,saveFolder,probe_type='Dixi'):
     """
     Compute the power spectrum of your signal in order to identify frequencies present in your signal
-    Here we use the welch's method to compute the power spectrum
+    Here we use the welch's method to compute the power spectrum.
 
     Parameters
     ---------------------------
