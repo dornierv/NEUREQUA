@@ -198,9 +198,8 @@ Module Contents
    :type session: string
    :param probe_type: String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
    :type probe_type: string
-
-   saveFolder: string
-       String containing the path of the folder where you want to save figure
+   :param saveFolder: String containing the path of the folder where you want to save figure
+   :type saveFolder: string
 
    :rtype: Matplotlib plot containing power spectrum of each channels and saved in the folder specified
 
