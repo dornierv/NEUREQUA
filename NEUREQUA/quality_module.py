@@ -507,7 +507,6 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
     probe_type: string
         String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
 
-    
     saveFolder: string
         String containing the path of the folder where you want to save figure
 
