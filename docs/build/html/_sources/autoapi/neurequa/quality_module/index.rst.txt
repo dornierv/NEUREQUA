@@ -54,27 +54,27 @@ Module Contents
 
        2) An array containing raw values of the signal you want to analyze
 
-   :param - path: A string containing the path where your data are stored
-   :type - path: string
-   :param - dtpe: For Neuralynx data : 'ncs'
-                  For Blackrock data : 'nsX'
-                  For Dark Horse Neuro data : 'med'
-                  edf is also supported : 'edf'
-   :type - dtpe: string
-   :param - length: If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal
-                    If you specify 'all' it will take the entire recording (can be slower, depends on your computational resources)
-   :type - length: int or 'all'
-   :param - pattern2exclude: Pattern that enables us to not take into account the macrocontacts
-                             (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be '_sub.ncs')
-   :type - pattern2exclude: string
-   :param - time: By default take randomly portion of signal corresponding to length
-                  It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording
-   :type - time: string or tuple (Default='Random')
-   :param - analog: Reference channel used in blackrock recording system if it exists
-   :type - analog: string (optional) (Default: False)
+   :param path: A string containing the path where your data are stored
+   :type path: string
+   :param dtype: For Neuralynx data : 'ncs'
+                 For Blackrock data : 'nsX'
+                 For Dark Horse Neuro data : 'med'
+                 edf is also supported : 'edf'
+   :type dtype: string
+   :param length: If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal
+                  If you specify 'all' it will take the entire recording (can be slower, depends on your computational resources)
+   :type length: int or 'all'
+   :param pattern2exclude: Pattern that enables us to not take into account the macrocontacts
+                           (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be '_sub.ncs')
+   :type pattern2exclude: string
+   :param time: By default take randomly portion of signal corresponding to length
+                It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording
+   :type time: string or tuple (Default='Random')
+   :param analog: Reference channel used in blackrock recording system if it exists
+   :type analog: string (optional) (Default: False)
 
-   :returns: * **- raw_data** (*raw data in FIF format (see MNE)*) -- This object contains all informations about your data (channels name, sampling rate etc.)
-             * **- data_sig** (*np array*) -- Array containing raw values of the signal you want to load
+   :returns: * **raw_data** (*raw data in FIF format (see MNE)*) -- This object contains all informations about your data (channels name, sampling rate etc.)
+             * **data_sig** (*np array*) -- Array containing raw values of the signal you want to load
                Will have a shape of nCh x nSamples
 
 
@@ -199,7 +199,7 @@ Module Contents
    :param probe_type: String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
    :type probe_type: string
 
-   saveFolder : string
+   saveFolder: string
        String containing the path of the folder where you want to save figure
 
    :rtype: Matplotlib plot containing power spectrum of each channels and saved in the folder specified
@@ -335,8 +335,8 @@ Module Contents
    :type sess: string
    :param probe_type: String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
    :type probe_type: string
-   :param save=1 (default) to save the figure:
-   :param put save = 0 if you don't want to save the figure:
+   :param save: To save the figure, put save = 0 if you don't want to save the figure
+   :type save: int (default=1)
 
    :returns: * *Matplotlib plot with correlation coefficient for each channel*
              * *Values of the correlation coefficient saved in an excel fil to get a report of the analyzes*
@@ -364,7 +364,8 @@ Module Contents
    :param probe_type: String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)
    :type probe_type: string
 
-   save: Default=1 to save figure
+   save: int (Default=1)
+       To save figure or not (put = 0 to not save)
 
    :returns: * *Matplotlib plot with values of variance normalized*
              * *Values are also stored in the excel file*
@@ -420,8 +421,8 @@ Module Contents
    :type sub: string
    :param sess: Name of the session
    :type sess: string
-   :param save:
-   :type save: Default=1 to save figure
+   :param save: To save figure
+   :type save: int (Default=1)
 
    :rtype: Matplotlib plot and value store in excel file
 

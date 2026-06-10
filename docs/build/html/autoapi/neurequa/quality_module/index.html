@@ -350,24 +350,24 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>-</em>) – A string containing the path where your data are stored</p></li>
-<li><p><strong>dtpe</strong> (<em>-</em>) – For Neuralynx data : ‘ncs’
+<li><p><strong>path</strong> (<em>string</em>) – A string containing the path where your data are stored</p></li>
+<li><p><strong>dtype</strong> (<em>string</em>) – For Neuralynx data : ‘ncs’
 For Blackrock data : ‘nsX’
 For Dark Horse Neuro data : ‘med’
 edf is also supported : ‘edf’</p></li>
-<li><p><strong>length</strong> (<em>-</em>) – If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal
+<li><p><strong>length</strong> (<em>int</em><em> or </em><em>'all'</em>) – If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal
 If you specify ‘all’ it will take the entire recording (can be slower, depends on your computational resources)</p></li>
-<li><p><strong>pattern2exclude</strong> (<em>-</em>) – Pattern that enables us to not take into account the macrocontacts
+<li><p><strong>pattern2exclude</strong> (<em>string</em>) – Pattern that enables us to not take into account the macrocontacts
 (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be ‘_sub.ncs’)</p></li>
-<li><p><strong>time</strong> (<em>-</em>) – By default take randomly portion of signal corresponding to length
+<li><p><strong>time</strong> (<em>string</em><em> or </em><em>tuple</em><em> (</em><em>Default='Random'</em><em>)</em>) – By default take randomly portion of signal corresponding to length
 It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording</p></li>
-<li><p><strong>analog</strong> (<em>-</em>) – Reference channel used in blackrock recording system if it exists</p></li>
+<li><p><strong>analog</strong> (<em>string</em><em> (</em><em>optional</em><em>) </em><em>(</em><em>Default: False</em><em>)</em>) – Reference channel used in blackrock recording system if it exists</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>- raw_data</strong> (<em>raw data in FIF format (see MNE)</em>) – This object contains all informations about your data (channels name, sampling rate etc.)</p></li>
-<li><p><strong>- data_sig</strong> (<em>np array</em>) – Array containing raw values of the signal you want to load
+<li><p><strong>raw_data</strong> (<em>raw data in FIF format (see MNE)</em>) – This object contains all informations about your data (channels name, sampling rate etc.)</p></li>
+<li><p><strong>data_sig</strong> (<em>np array</em>) – Array containing raw values of the signal you want to load
 Will have a shape of nCh x nSamples</p></li>
 </ul>
 </p>
@@ -524,7 +524,7 @@ Here we use the welch’s method to compute the power spectrum</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt>saveFolder<span class="classifier">string</span></dt><dd><p>String containing the path of the folder where you want to save figure</p>
+<dt>saveFolder: string</dt><dd><p>String containing the path of the folder where you want to save figure</p>
 </dd>
 </dl>
 <dl class="field-list simple">
@@ -658,8 +658,7 @@ Clinical Neurophysiology, 129(3), 548‑554. <a class="reference external" href=
 <li><p><strong>sub</strong> (<em>string</em>) – String like ‘sub-XX’ with XX being the number of the subject in your database</p></li>
 <li><p><strong>sess</strong> (<em>string</em>) – String containing the name of the session you are analyzing (specified at the beginning of the jupyter notebook)</p></li>
 <li><p><strong>probe_type</strong> (<em>string</em>) – String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</p></li>
-<li><p><strong>figure</strong> (<em>put save = 0 if you don't want to save the</em>)</p></li>
-<li><p><strong>figure</strong></p></li>
+<li><p><strong>save</strong> (<em>int</em><em> (</em><em>default=1</em><em>)</em>) – To save the figure, put save = 0 if you don’t want to save the figure</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -691,7 +690,10 @@ is broken or there is a problem with the plugging on your recording system</p>
 </ul>
 </dd>
 </dl>
-<p>save: Default=1 to save figure</p>
+<dl class="simple">
+<dt>save: int (Default=1)</dt><dd><p>To save figure or not (put = 0 to not save)</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><ul class="simple">
@@ -746,7 +748,7 @@ Clinical Neurophysiology, 129(3), 548‑554. <a class="reference external" href=
 <li><p><strong>paththbl</strong> (<em>string</em>) – Path to the excel file where to store informations</p></li>
 <li><p><strong>sub</strong> (<em>string</em>) – IDs of the patient</p></li>
 <li><p><strong>sess</strong> (<em>string</em>) – Name of the session</p></li>
-<li><p><strong>save</strong> (<em>Default=1 to save figure</em>)</p></li>
+<li><p><strong>save</strong> (<em>int</em><em> (</em><em>Default=1</em><em>)</em>) – To save figure</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

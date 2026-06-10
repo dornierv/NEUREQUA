@@ -286,37 +286,37 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    - path: string</span>
+<span class="sd">    path: string</span>
 <span class="sd">        A string containing the path where your data are stored</span>
 
-<span class="sd">    - dtpe: string</span>
+<span class="sd">    dtype: string</span>
 <span class="sd">        For Neuralynx data : &#39;ncs&#39;</span>
 <span class="sd">        For Blackrock data : &#39;nsX&#39;</span>
 <span class="sd">        For Dark Horse Neuro data : &#39;med&#39;</span>
 <span class="sd">        edf is also supported : &#39;edf&#39;</span>
 
-<span class="sd">    - length: int or &#39;all&#39;</span>
+<span class="sd">    length: int or &#39;all&#39;</span>
 <span class="sd">        If you specify length with a int (e.g., 5) it will select randomly 5 minute of signal</span>
 <span class="sd">        If you specify &#39;all&#39; it will take the entire recording (can be slower, depends on your computational resources)</span>
 <span class="sd">    </span>
-<span class="sd">    - pattern2exclude: string</span>
+<span class="sd">    pattern2exclude: string</span>
 <span class="sd">        Pattern that enables us to not take into account the macrocontacts </span>
 <span class="sd">        (e.g., in Toulouse all macro contacts have the suffix _sub so the argument will be &#39;_sub.ncs&#39;) </span>
 <span class="sd">        </span>
-<span class="sd">    - time: string or tuple (Default=&#39;Random&#39;)</span>
+<span class="sd">    time: string or tuple (Default=&#39;Random&#39;)</span>
 <span class="sd">        By default take randomly portion of signal corresponding to length</span>
 <span class="sd">        It can be a tuple (2,7) for example to take signal from 2 minutes to 7 minutes of the recording</span>
 <span class="sd">    </span>
-<span class="sd">    - analog: string (optional) (Default: False)</span>
+<span class="sd">    analog: string (optional) (Default: False)</span>
 <span class="sd">        Reference channel used in blackrock recording system if it exists</span>
 <span class="sd">    </span>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    - raw_data : raw data in FIF format (see MNE)</span>
+<span class="sd">    raw_data: raw data in FIF format (see MNE)</span>
 <span class="sd">        This object contains all informations about your data (channels name, sampling rate etc.)</span>
 <span class="sd">    </span>
-<span class="sd">    - data_sig : np array</span>
+<span class="sd">    data_sig: np array</span>
 <span class="sd">        Array containing raw values of the signal you want to load</span>
 <span class="sd">        Will have a shape of nCh x nSamples</span>
 <span class="sd">   &quot;&quot;&quot;</span>
@@ -491,15 +491,15 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    string : string</span>
+<span class="sd">    string: string</span>
 <span class="sd">        String containing characters and numbers (e.g., &#39;da1&#39;)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    char : string</span>
+<span class="sd">    char: string</span>
 <span class="sd">        string containing only the characters from the input (e.g., &#39;da&#39;)</span>
 
-<span class="sd">    number : string</span>
+<span class="sd">    number: string</span>
 <span class="sd">        string containing only the numbers from the input (e.g., &#39;1&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">re</span>
@@ -520,13 +520,13 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    array : array of string</span>
+<span class="sd">    array: array of string</span>
 <span class="sd">        Array of string containing the name of your channels (e.g. [&#39;da&#39;,&#39;db&#39;])</span>
 <span class="sd">    </span>
 <span class="sd">        </span>
 <span class="sd">    Returns </span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    uniqueUnsorted : string</span>
+<span class="sd">    uniqueUnsorted: string</span>
 <span class="sd">        array of string containing </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">unique</span><span class="p">,</span> <span class="n">uniqueInds</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -550,19 +550,19 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    Regions : array of string</span>
+<span class="sd">    Regions: array of string</span>
 <span class="sd">        Array of strings containing all the name of the regions implanted with your channels</span>
 <span class="sd">    </span>
-<span class="sd">    data : array</span>
+<span class="sd">    data: array</span>
 <span class="sd">        Matrix containing raw values with shape nChannels x nSamples</span>
 <span class="sd">    </span>
 <span class="sd">        </span>
 <span class="sd">    Returns</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    Regions_ok : array of string</span>
+<span class="sd">    Regions_ok: array of string</span>
 <span class="sd">        Array of strings containing the name in the right order (e.g., &#39;x1&#39;, &#39;x2&#39;, &#39;x3&#39; ... &#39;x9&#39;, &#39;x10&#39;, &#39;x11&#39;, &#39;x12&#39;)</span>
 <span class="sd">    </span>
-<span class="sd">    data_ok : array</span>
+<span class="sd">    data_ok: array</span>
 <span class="sd">        Matrix with shape nChannels x nSamples but re-organize to match the order of channel labels</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="c1"># Extract the label of the electrode</span>
@@ -596,15 +596,15 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    array : np.array</span>
+<span class="sd">    array: np.array</span>
 <span class="sd">        array containing data (e.g., [2, 7, 12])</span>
 
-<span class="sd">    value : int</span>
+<span class="sd">    value: int</span>
 <span class="sd">        The value we want to find the closest (e.g. 11)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    idx : int</span>
+<span class="sd">    idx: int</span>
 <span class="sd">        Will return the index  in array closest to value (e.g., 2)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Make sure it is an array</span>
@@ -629,7 +629,7 @@
 <span class="sd">    ---------------------------</span>
 <span class="sd">    data: The raw object of data (Raw object from MNE)</span>
 <span class="sd">    </span>
-<span class="sd">    sampling rate : int</span>
+<span class="sd">    sampling rate: int</span>
 <span class="sd">        The sampling rate of your recording (e.g., 32768)</span>
 <span class="sd">    </span>
 <span class="sd">    length: int</span>
@@ -667,7 +667,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    data : array</span>
+<span class="sd">    data: array</span>
 <span class="sd">        Matrice containing data of all channels containing nSamples</span>
 
 <span class="sd">    chRegions: Numpy array</span>
@@ -679,16 +679,16 @@
 <span class="sd">    sess: string</span>
 <span class="sd">        Name of the session you are analyzing</span>
 <span class="sd">    </span>
-<span class="sd">    sr : int</span>
+<span class="sd">    sr: int</span>
 <span class="sd">        Sampling rate of your recording (e.g., 32768)</span>
 <span class="sd">    </span>
-<span class="sd">    sr_down : int</span>
+<span class="sd">    sr_down: int</span>
 <span class="sd">        Sampling rate downsampled, so the one you want (e.g., 8192 Hz)</span>
 <span class="sd">    </span>
-<span class="sd">    fr_low : int</span>
+<span class="sd">    fr_low: int</span>
 <span class="sd">        The lowest frequency from which we compute the power spectrum</span>
 <span class="sd">    </span>
-<span class="sd">    fr_high : int </span>
+<span class="sd">    fr_high: int </span>
 <span class="sd">        The highest frequency from which we compute the power spectrum</span>
 <span class="sd">    </span>
 <span class="sd">    saveFolder: string</span>
@@ -700,10 +700,10 @@
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    pxx_log : array</span>
+<span class="sd">    pxx_log: array</span>
 <span class="sd">        Array containing power spectrum values for the channel of interest</span>
 <span class="sd">    </span>
-<span class="sd">    f_plot : array</span>
+<span class="sd">    f_plot: array</span>
 <span class="sd">        Array containing the values of frequency associate with each power spectrum value (will be useful for the plot)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -757,26 +757,26 @@
 
 <span class="sd">    Parameters </span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    f : array</span>
+<span class="sd">    f: array</span>
 <span class="sd">        Array containing frequency values (it is the output of p_welch)</span>
 <span class="sd">    </span>
-<span class="sd">    nCh : int</span>
+<span class="sd">    nCh: int</span>
 <span class="sd">        Number of channels in your recording</span>
 <span class="sd">    </span>
-<span class="sd">    chRegs : array of strings</span>
+<span class="sd">    chRegs: array of strings</span>
 <span class="sd">        Array containing name of your channels</span>
 <span class="sd">    </span>
-<span class="sd">    psd : array</span>
+<span class="sd">    psd: array</span>
 <span class="sd">        Array of power spectrum values for each value of f, it is the output of p_welch</span>
 <span class="sd">    </span>
-<span class="sd">    session : string</span>
+<span class="sd">    session: string</span>
 <span class="sd">        Name of the session you analyze, specify at the beginning of the jupyter notebook</span>
 
-<span class="sd">    probe_type : string</span>
+<span class="sd">    probe_type: string</span>
 <span class="sd">        String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</span>
 
 <span class="sd">    </span>
-<span class="sd">    saveFolder : string</span>
+<span class="sd">    saveFolder: string</span>
 <span class="sd">        String containing the path of the folder where you want to save figure</span>
 
 <span class="sd">    Returns</span>
@@ -890,26 +890,26 @@
 <span class="sd">    data: array</span>
 <span class="sd">        Matrix with your data with shape nChannels x nSamples</span>
 
-<span class="sd">    sr : int</span>
+<span class="sd">    sr: int</span>
 <span class="sd">        sampling rate of the signal</span>
 <span class="sd">    </span>
-<span class="sd">    chRegions : string</span>
+<span class="sd">    chRegions: string</span>
 <span class="sd">        Array of string containing name of each channels</span>
 <span class="sd">    </span>
-<span class="sd">    path : string</span>
+<span class="sd">    path: string</span>
 <span class="sd">        String containing the path where you want to save the figures</span>
 <span class="sd">    </span>
-<span class="sd">    save : int, default = 1</span>
+<span class="sd">    save: int, default = 1</span>
 <span class="sd">        If you don&#39;t want to save figure put save = 0</span>
 
 <span class="sd">    limit: string</span>
 <span class="sd">        Default value is &#39;auto&#39; so matplotlib handes the limit but otherwise it is the min and max of your data</span>
 <span class="sd">        Could be useful to better see the level of noise in your recording</span>
 <span class="sd">    </span>
-<span class="sd">    fr_low : int, default = 300</span>
+<span class="sd">    fr_low: int, default = 300</span>
 <span class="sd">        The lowest frequency for your band pass filter </span>
 <span class="sd">    </span>
-<span class="sd">    fr_high : int, default = 3000</span>
+<span class="sd">    fr_high: int, default = 3000</span>
 <span class="sd">        The highest frequency for your band pass filter</span>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
@@ -986,19 +986,19 @@
 
 <span class="sd">    Parameters </span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    data : array</span>
+<span class="sd">    data: array</span>
 <span class="sd">        data from one particular channel</span>
 
-<span class="sd">    sr : int</span>
+<span class="sd">    sr: int</span>
 <span class="sd">        sampling rate of the signal</span>
 <span class="sd">    </span>
-<span class="sd">    num_channel : int</span>
+<span class="sd">    num_channel: int</span>
 <span class="sd">        Number of the channel in your recording</span>
 <span class="sd">    </span>
-<span class="sd">    path : string</span>
+<span class="sd">    path: string</span>
 <span class="sd">        Path where you want to store your figure in output</span>
 <span class="sd">    </span>
-<span class="sd">    save : Boolean </span>
+<span class="sd">    save: Boolean </span>
 <span class="sd">        Default = 1 else put save = 0</span>
 
 <span class="sd">    Returns</span>
@@ -1280,19 +1280,20 @@
 <span class="sd">    path: string</span>
 <span class="sd">        Path where you want to save the figure obtained</span>
 <span class="sd">    </span>
-<span class="sd">    pathtbl : string</span>
+<span class="sd">    pathtbl: string</span>
 <span class="sd">        Path where you store the excel file containing all values for the patient you analyze</span>
 <span class="sd">    </span>
-<span class="sd">    sub : string</span>
+<span class="sd">    sub: string</span>
 <span class="sd">        String like &#39;sub-XX&#39; with XX being the number of the subject in your database</span>
 <span class="sd">    </span>
-<span class="sd">    sess : string</span>
+<span class="sd">    sess: string</span>
 <span class="sd">        String containing the name of the session you are analyzing (specified at the beginning of the jupyter notebook)</span>
 
-<span class="sd">    probe_type : string</span>
+<span class="sd">    probe_type: string</span>
 <span class="sd">        String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</span>
 
-<span class="sd">    save=1 (default) to save the figure, put save = 0 if you don&#39;t want to save the figure</span>
+<span class="sd">    save: int (default=1) </span>
+<span class="sd">        To save the figure, put save = 0 if you don&#39;t want to save the figure</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    ---------------------------</span>
@@ -1407,21 +1408,22 @@
 <span class="sd">    path: string</span>
 <span class="sd">        Path where you want to save output figure</span>
 <span class="sd">    </span>
-<span class="sd">    pathtbl : string</span>
+<span class="sd">    pathtbl: string</span>
 <span class="sd">        Path where the excel file of this patient is stored</span>
 <span class="sd">    </span>
-<span class="sd">    sub : string</span>
+<span class="sd">    sub: string</span>
 <span class="sd">        String containing the number or the ID of the patient in your database</span>
 <span class="sd">    </span>
-<span class="sd">    sess : string</span>
+<span class="sd">    sess: string</span>
 <span class="sd">        String containing the name of the session you are analyzing</span>
 <span class="sd">    </span>
-<span class="sd">    probe_type : string</span>
+<span class="sd">    probe_type: string</span>
 <span class="sd">        String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</span>
 
 
 
-<span class="sd">    save: Default=1 to save figure </span>
+<span class="sd">    save: int (Default=1) </span>
+<span class="sd">        To save figure or not (put = 0 to not save)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    ---------------------------</span>
@@ -1568,13 +1570,13 @@
 <span class="sd">    paththbl : string</span>
 <span class="sd">        Path where to store values in excel</span>
 
-<span class="sd">    sub : string</span>
+<span class="sd">    sub: string</span>
 <span class="sd">        IDs of the patient</span>
 <span class="sd">    </span>
-<span class="sd">    sess : string</span>
+<span class="sd">    sess: string</span>
 <span class="sd">        Name of the session</span>
 <span class="sd">    </span>
-<span class="sd">    probe_type : string</span>
+<span class="sd">    probe_type: string</span>
 <span class="sd">        String containing the model of micro-electrodes you have in your dataset (for now: Dixi or Ad-tech only)</span>
 
 <span class="sd">    </span>
@@ -1726,16 +1728,17 @@
 <span class="sd">    path: string</span>
 <span class="sd">        Path where you want to save output figure</span>
 <span class="sd">    </span>
-<span class="sd">    paththbl : string</span>
+<span class="sd">    paththbl: string</span>
 <span class="sd">        Path to the excel file where to store informations</span>
 <span class="sd">    </span>
-<span class="sd">    sub : string</span>
+<span class="sd">    sub: string</span>
 <span class="sd">        IDs of the patient</span>
 <span class="sd">    </span>
-<span class="sd">    sess : string</span>
+<span class="sd">    sess: string</span>
 <span class="sd">        Name of the session</span>
 
-<span class="sd">    save: Default=1 to save figure </span>
+<span class="sd">    save: int (Default=1) </span>
+<span class="sd">        To save figure </span>
 
 <span class="sd">    </span>
 <span class="sd">    Returns </span>
@@ -1814,17 +1817,19 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    a : array_like</span>
+<span class="sd">    a: array_like</span>
 <span class="sd">        An array_like object containing the sample data.</span>
-<span class="sd">    axis : int or None, optional</span>
+
+<span class="sd">    axis: int or None, optional</span>
 <span class="sd">        If axis is equal to None, the array is first ravel&#39;d. If axis is an</span>
 <span class="sd">        integer, this is the axis over which to operate. Default is 0.</span>
-<span class="sd">    ddof : int, optional</span>
+
+<span class="sd">    ddof: int, optional</span>
 <span class="sd">        Degrees of freedom correction for standard deviation. Default is 0.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    s2n : ndarray</span>
+<span class="sd">    s2n: ndarray</span>
 <span class="sd">        The mean to standard deviation ratio(s) along `axis`, or 0 where the</span>
 <span class="sd">        standard deviation is 0.</span>
 
@@ -1882,25 +1887,25 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    data : array</span>
+<span class="sd">    data: array</span>
 <span class="sd">        Matrix containing your data with shape nChannels x nSamples</span>
 <span class="sd">    </span>
-<span class="sd">    chRegions : array of strings</span>
+<span class="sd">    chRegions: array of strings</span>
 <span class="sd">        Vector containing name of your channels</span>
 <span class="sd">    </span>
-<span class="sd">    path : string</span>
+<span class="sd">    path: string</span>
 <span class="sd">        String of the path where you want to store figures</span>
 <span class="sd">    </span>
-<span class="sd">    pathtbl : string</span>
+<span class="sd">    pathtbl: string</span>
 <span class="sd">        Path where the excel file is stored</span>
 <span class="sd">    </span>
-<span class="sd">    sub : string</span>
+<span class="sd">    sub: string</span>
 <span class="sd">        IDs of the patient you are analyzing</span>
 <span class="sd">    </span>
-<span class="sd">    sess : string</span>
+<span class="sd">    sess: string</span>
 <span class="sd">        Name of the session </span>
 <span class="sd">    </span>
-<span class="sd">    save : Boolean, default=1</span>
+<span class="sd">    save: Boolean, default=1</span>
 <span class="sd">        =1 if you want to save plot, put = 0 otherwise</span>
 <span class="sd">    </span>
 <span class="sd">    </span>
@@ -1976,13 +1981,13 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    data : array</span>
+<span class="sd">    data: array</span>
 <span class="sd">        Matrix containing your data with shape nChannels x nSamples</span>
 
-<span class="sd">    chRegions : array of strings</span>
+<span class="sd">    chRegions: array of strings</span>
 <span class="sd">        Vectors containing the name of your channels</span>
 <span class="sd">    </span>
-<span class="sd">    path : string</span>
+<span class="sd">    path: string</span>
 <span class="sd">        Path where you want to store the plots</span>
 <span class="sd">    </span>
 <span class="sd">    pathtbl: string</span>
