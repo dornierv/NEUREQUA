@@ -79,7 +79,7 @@ def ensure_dir(path: str) -> None:
 
 
     Parameters
-    ---------------------------
+    ----------
     path: str
         Path-like where you want to create folder
     """
@@ -89,7 +89,20 @@ def ensure_dir(path: str) -> None:
         os.makedirs(path)
 
 def read_header(fid):
-    # Read the raw header data (16 kb) from the file object fid. Restores the position in the file object after reading.
+    '''
+    Read the raw header data (16 kb) from the file object fid. Restores the position in the file object after reading.
+    
+    Parameters
+    ----------
+    fid: file object
+        File object to .ncs file recorded with Neuralynx
+
+    Returns
+    -------
+    raw_hdr: string
+        Informations about the recording extracted from the Neuralynx header
+    '''
+    # 
     pos = fid.tell()
     fid.seek(0)
     raw_hdr = fid.read(HEADER_LENGTH).strip(b'\0')
@@ -99,6 +112,19 @@ def read_header(fid):
 
 
 def parse_header(raw_hdr):
+    '''
+    Parse the header string into a dictionnary of name value pairs
+
+    Parameters
+    ----------
+    raw_hdr: string
+        Informations about the recording extracted from the Neuralynx header (obtained with read_header)
+
+    Returns
+    -------
+    hdr: dict
+        Informations about the recording but stored in a dictionnary
+    '''
     # Parse the header string into a dictionary of name value pairs
     hdr = dict()
 
@@ -137,6 +163,33 @@ def parse_header(raw_hdr):
 
 
 def read_records(fid, record_dtype, record_skip=0, count=None):
+    '''
+    Read count records (default all) from the file object fid skipping the first record_skip records. 
+    Restores the position of the file object after reading.
+
+    When multiple recordings segment in the .ncs file
+
+    Parameters
+    ----------
+    fid: file object
+        File object of the recording files
+    
+    record_dtype: np.dtype
+        Data type of all objects in the .nev file
+    
+    record_skip: int (Default=0)
+        Record object to skip, if zero it means we include all recordings in the files
+        If = 1 then skip the first one
+    
+    count: int (Default=None)
+        Number of items to read. If None then means -1 and means all items
+
+    Returns
+    -------
+    rec: np.array
+        Numpy array extracted from data in text or binary file 
+        see https://numpy.org/doc/stable/reference/generated/numpy.fromfile.html
+    '''
     # Read count records (default all) from the file object fid skipping the first record_skip records. Restores the
     # position of the file object after reading.
     if count is None:
@@ -151,18 +204,24 @@ def read_records(fid, record_dtype, record_skip=0, count=None):
     return rec
 
 
-def estimate_record_count(file_path, record_dtype):
-    # Estimate the number of records from the file size
-    file_size = os.path.getsize(file_path)
-    file_size -= HEADER_LENGTH
 
-    if file_size % record_dtype.itemsize != 0:
-        warnings.warn('File size is not divisible by record size (some bytes unaccounted for)')
-
-    return file_size / record_dtype.itemsize
 
 
 def parse_neuralynx_time_string(time_string):
+    '''
+    Parse a datetime object from the idiosyncratic time string Neuralynx file headers
+
+    Parameters
+    ----------
+    time_string: string
+        String containing time from Neuralynx file headers
+
+    Returns
+    -------
+    datetime.datetime: datetime object
+        A datetime object is a single object containing all the information from a date object and a time object.
+        see https://docs.python.org/3/library/datetime.html#datetime-objects
+    '''
     # Parse a datetime object from the idiosyncratic time string in Neuralynx file headers
     try:
         tmp_date = [int(x) for x in time_string.split()[4].split('/')]
@@ -184,6 +243,19 @@ def parse_neuralynx_time_string(time_string):
 
 
 def load_nev(file_path):
+    '''
+    Load Events.nev file from Neuralynx acquisition system
+
+    Parameters
+    ----------
+    file_path: string or path-like
+        Path where the file .nev is stored
+
+    Returns
+    -------
+    nev: dict
+        Dictionnary containing events informations (as TimeStamp, id, ttl values)
+    '''
     # Load the given file as a Neuralynx .nev event file and extract the contents
     file_path = os.path.abspath(file_path)
     with open(file_path, 'rb') as fid:
@@ -225,6 +297,11 @@ def create_epoch(lfps,Folder,t_min=1,t_max=1,ds_factor=1):
     
     t_max : float
         Time to include after the onset of the event
+
+    Returns
+    -------
+    epoch_data: np.array
+        Array containing the data of each epoch with 3-D shape (nEpoch x nChannels x nSamples)
     """
     
     
@@ -274,6 +351,26 @@ def create_epoch(lfps,Folder,t_min=1,t_max=1,ds_factor=1):
 
 
 def ensure_raw(path,sub,sess):
+    '''
+    Look if data were already created on the disk or not (.npy file).
+    If they were created then load them as a memory mapped object.
+
+    Parameters
+    ----------
+    path: string or path-like
+        Path of the folder where your data are stored
+    
+    sub: str
+        Id of the patient to analyze according to your dataset
+
+    sess: str
+        Name of the experimental session to analyze
+    
+    Returns
+    -------
+    lfps: np.memmap
+        Memory mapped object of the raw data stored on your file (.npy file)
+    '''
     # Try to load the raw data
     try:
         lfps = np.squeeze(np.lib.format.open_memmap(path+'/raw_data_'+sub+'_'+sess+'.npy',mode='r+',dtype=np.int16))
@@ -363,6 +460,18 @@ def plot_artefact_map(path,sub,sess):
 
 
 def to_json(dictionary, filename):
+    '''
+    Save a dictionnary to a .json file on your disk.
+
+    Parameters
+    ----------
+    dictionary: dict
+        The dictionnary you want to save
+    
+    filename: str or path-like
+        Path and name of the .json file you want to create with the informations
+        contained in dictionary
+    '''
     with open(filename,'w') as fp:
         json.dump(dictionary, fp,sort_keys=True, indent=4,ensure_ascii=False)
  
@@ -540,8 +649,8 @@ def load_neuralynx_micro(
         
 
 
-
-        to_json(metadata,path+'metadata.json')
+    # Save dictionnary to disk
+    to_json(metadata,path+'metadata.json')
         
 
  
@@ -550,11 +659,29 @@ def load_neuralynx_micro(
 
 
 def plot_erp(path,metadata,sub,sess):
+    '''
+    Plot Event-related potentials in response to all events loaded from your recording.
+    Plot the ERPs for each channel that you had.
+
+    Parameters
+    ----------
+    path: str or path-like
+        Path where the .npy file containing your raw data is stored
+
+    metadata: dict
+        Dictionnary created when loading your data containing informations about the recordings
+    
+    sub: str
+        Id of the patient to analyze 
+    
+    sess: str
+        Name of the experimental session to analyze
+    '''
 
     # Check whether the specified path exists or not
     ensure_dir(path)
 
-
+    # Check if .npy file with data exists
     lfps = ensure_raw(path,sub,sess)
         
     # Then create epoch
@@ -566,32 +693,46 @@ def plot_erp(path,metadata,sub,sess):
     # Get error standard
     sem_channels = stats.sem(epoch_data,axis=0)
 
+    # Create a time array to get time associated with each sample
     time = np.linspace(-1,1,mean_channels.shape[1])
-
+    
+    # Extract number of channels
     nChannels = mean_channels.shape[0]
 
+    # Loop over each channel in your recording
     for iChannels in range(nChannels):
 
+        # Crate the figure for plotting
         fig, ax = plt.subplots(1,1,layout='constrained')
+        
 
+        # Plot mean lfps
         ax.plot(time,mean_channels[iChannels],color='black')
+
+        # Add standard error around mean lfps
         ax.fill_between(time,mean_channels[iChannels]-sem_channels[iChannels],
                         mean_channels[iChannels]+sem_channels[iChannels],
                         color='slategrey',alpha=0.4)
 
+        # Add a vertical line at the onset of stimuli
         ax.vlines(0,ymin=ax.get_ylim()[0],ymax=ax.get_ylim()[1],
                 linewidth=3,linestyle='--',color='darkorange')
         
+        # Axes titles and labels
         ax.set_title(metadata['ch_names'][iChannels])
         ax.set_ylabel('LFPs - Microvolts')
         ax.set_xlabel('Time (s)')
-        
+
+        # Path where to store the results 
         path2save = path+'ERPs/'
 
+        # Make sure it exists
         ensure_dir(path2save)
 
+        # Save the plot with ERP
         plt.savefig(path2save+'ERP_'+metadata['ch_names'][iChannels]+'.jpg')
-
+        
+        # Close figure object
         plt.close()
     
 
