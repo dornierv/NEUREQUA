@@ -263,11 +263,13 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    path: str</span>
+<span class="sd">    path: string </span>
 <span class="sd">        Path-like where you want to create folder</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
+    <span class="c1"># Check if the path exists</span>
     <span class="n">isExist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="c1"># If not create it</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">isExist</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
@@ -278,6 +280,14 @@
 <span class="k">def</span> <span class="nf">load_raw_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">dtype</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">pattern2exclude</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s1">&#39;Random&#39;</span><span class="p">,</span><span class="n">analog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load data from the raw files (e.g., .ncs for Neuralynx)</span>
+
+<span class="sd">    This function supports multiple file formats:</span>
+<span class="sd">    - .ncs for Neuralynx acquisition system</span>
+<span class="sd">    - .nsX for Blaclrock acquisition system</span>
+<span class="sd">    - .med for Darkhorseneuro acquisition system</span>
+<span class="sd">    - .edf</span>
+
+<span class="sd">    This function is based on MNE [1] and NEO [2] framework </span>
 
 <span class="sd">    Returns two objects :</span>
 <span class="sd">        1) A raw-object from MNE (see https://mne.tools/stable/generated/mne.io.Raw.html#mne.io.Raw for documentation)</span>
@@ -319,6 +329,19 @@
 <span class="sd">    data_sig: np array</span>
 <span class="sd">        Array containing raw values of the signal you want to load</span>
 <span class="sd">        Will have a shape of nCh x nSamples</span>
+<span class="sd">    </span>
+<span class="sd">    References </span>
+<span class="sd">    ----------</span>
+<span class="sd">    [1] Gramfort A, Luessi M, Larson E, Engemann DA, Strohmeier D, Brodbeck C, Parkkonen L, Hämäläinen MS. </span>
+<span class="sd">    MNE software for processing MEG and EEG data. </span>
+<span class="sd">    Neuroimage. 2014 Feb 1;86:446-60. </span>
+<span class="sd">    doi: 10.1016/j.neuroimage.2013.10.027. </span>
+<span class="sd">    Epub 2013 Oct 24. PMID: 24161808; PMCID: PMC3930851.</span>
+
+<span class="sd">    [2] Garcia S., Guarino D., Jaillet F., Jennings T.R., Pröpper R., Rautenberg P.L.,</span>
+<span class="sd">    Rodgers C., Sobolev A.,Wachtler T., Yger P. and Davison A.P. (2014)</span>
+<span class="sd">    Neo: an object model for handling electrophysiology data in multiple formats.</span>
+<span class="sd">    Frontiers in Neuroinformatics 8:10: doi:10.3389/fninf.2014.00010</span>
 <span class="sd">   &quot;&quot;&quot;</span>
     
     <span class="c1"># Load &#39;ncs&#39; from Neuralynx</span>
@@ -542,9 +565,7 @@
 <span class="k">def</span> <span class="nf">reorder_data</span><span class="p">(</span><span class="n">Regions</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    When there is 3 tetrodes on the same shaft order will be x1, x10, x11, x12, x2, x3 ... x9 on the raw file</span>
-
 <span class="sd">    We want to re-organize it so the order is x1, x2, x3 ... x9, x10, x11, x12</span>
-
 <span class="sd">    Will return the array of regions name and data in the right order</span>
 
 
@@ -627,7 +648,8 @@
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
-<span class="sd">    data: The raw object of data (Raw object from MNE)</span>
+<span class="sd">    data: MNE-raw object</span>
+<span class="sd">        The structure of a RAW mne object containing metadata</span>
 <span class="sd">    </span>
 <span class="sd">    sampling rate: int</span>
 <span class="sd">        The sampling rate of your recording (e.g., 32768)</span>
@@ -663,7 +685,7 @@
 <span class="k">def</span> <span class="nf">p_welch</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">chRegions</span><span class="p">,</span><span class="n">sub</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span><span class="n">sr</span><span class="p">,</span><span class="n">sr_down</span><span class="p">,</span><span class="n">fr_low</span><span class="p">,</span><span class="n">fr_high</span><span class="p">,</span><span class="n">saveFolder</span><span class="p">,</span><span class="n">probe_type</span><span class="o">=</span><span class="s1">&#39;Dixi&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the power spectrum of your signal in order to identify frequencies present in your signal</span>
-<span class="sd">    Here we use the welch&#39;s method to compute the power spectrum</span>
+<span class="sd">    Here we use the welch&#39;s method to compute the power spectrum.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>

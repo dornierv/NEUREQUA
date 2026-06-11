@@ -331,7 +331,7 @@
 <dd><p>Create the directory if it does not exist</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path-like where you want to create folder</p>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – Path-like where you want to create folder</p>
 </dd>
 </dl>
 </dd></dl>
@@ -340,6 +340,12 @@
 <dt class="sig sig-object py" id="NEUREQUA.quality_module.load_raw_data">
 <span class="sig-prename descclassname"><span class="pre">NEUREQUA.quality_module.</span></span><span class="sig-name descname"><span class="pre">load_raw_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern2exclude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Random'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/NEUREQUA/quality_module.html#load_raw_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NEUREQUA.quality_module.load_raw_data" title="Link to this definition">¶</a></dt>
 <dd><p>Load data from the raw files (e.g., .ncs for Neuralynx)</p>
+<p>This function supports multiple file formats:
+- .ncs for Neuralynx acquisition system
+- .nsX for Blaclrock acquisition system
+- .med for Darkhorseneuro acquisition system
+- .edf</p>
+<p>This function is based on MNE [1] and NEO [2] framework</p>
 <dl class="simple">
 <dt>Returns two objects :</dt><dd><ol class="arabic simple">
 <li><p>A raw-object from MNE (see <a class="reference external" href="https://mne.tools/stable/generated/mne.io.Raw.html#mne.io.Raw">https://mne.tools/stable/generated/mne.io.Raw.html#mne.io.Raw</a> for documentation)</p></li>
@@ -373,6 +379,16 @@ Will have a shape of nCh x nSamples</p></li>
 </p>
 </dd>
 </dl>
+<p class="rubric">References</p>
+<p>[1] Gramfort A, Luessi M, Larson E, Engemann DA, Strohmeier D, Brodbeck C, Parkkonen L, Hämäläinen MS.
+MNE software for processing MEG and EEG data.
+Neuroimage. 2014 Feb 1;86:446-60.
+doi: 10.1016/j.neuroimage.2013.10.027.
+Epub 2013 Oct 24. PMID: 24161808; PMCID: PMC3930851.</p>
+<p>[2] Garcia S., Guarino D., Jaillet F., Jennings T.R., Pröpper R., Rautenberg P.L.,
+Rodgers C., Sobolev A.,Wachtler T., Yger P. and Davison A.P. (2014)
+Neo: an object model for handling electrophysiology data in multiple formats.
+Frontiers in Neuroinformatics 8:10: doi:10.3389/fninf.2014.00010</p>
 </dd></dl>
 
 <dl class="py function">
@@ -415,9 +431,9 @@ Does not sort by ascending order (figures) or alphabetic order (characters)</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="NEUREQUA.quality_module.reorder_data">
 <span class="sig-prename descclassname"><span class="pre">NEUREQUA.quality_module.</span></span><span class="sig-name descname"><span class="pre">reorder_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Regions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/NEUREQUA/quality_module.html#reorder_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NEUREQUA.quality_module.reorder_data" title="Link to this definition">¶</a></dt>
-<dd><p>When there is 3 tetrodes on the same shaft order will be x1, x10, x11, x12, x2, x3 … x9 on the raw file</p>
-<p>We want to re-organize it so the order is x1, x2, x3 … x9, x10, x11, x12</p>
-<p>Will return the array of regions name and data in the right order</p>
+<dd><p>When there is 3 tetrodes on the same shaft order will be x1, x10, x11, x12, x2, x3 … x9 on the raw file
+We want to re-organize it so the order is x1, x2, x3 … x9, x10, x11, x12
+Will return the array of regions name and data in the right order</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -462,7 +478,7 @@ Does not sort by ascending order (figures) or alphabetic order (characters)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>The raw object</em><em> of </em><em>data</em><em> (</em><em>Raw object from MNE</em><em>)</em>)</p></li>
+<li><p><strong>data</strong> (<em>MNE-raw object</em>) – The structure of a RAW mne object containing metadata</p></li>
 <li><p><strong>rate</strong> (<em>sampling</em>) – The sampling rate of your recording (e.g., 32768)</p></li>
 <li><p><strong>length</strong> (<em>int</em>) – Length in minute of the signal you want to analyze</p></li>
 </ul>
@@ -481,7 +497,7 @@ to analyze</p>
 <dt class="sig sig-object py" id="NEUREQUA.quality_module.p_welch">
 <span class="sig-prename descclassname"><span class="pre">NEUREQUA.quality_module.</span></span><span class="sig-name descname"><span class="pre">p_welch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chRegions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr_down</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr_low</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fr_high</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveFolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Dixi'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/NEUREQUA/quality_module.html#p_welch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NEUREQUA.quality_module.p_welch" title="Link to this definition">¶</a></dt>
 <dd><p>Compute the power spectrum of your signal in order to identify frequencies present in your signal
-Here we use the welch’s method to compute the power spectrum</p>
+Here we use the welch’s method to compute the power spectrum.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
