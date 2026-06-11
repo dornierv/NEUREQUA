@@ -660,7 +660,7 @@
 <span class="sd">    Enables us to quickly see the channels that are artefacted (e.g., by epileptic activities)</span>
 <span class="sd">    and also trials contaminated</span>
 
-<span class="sd">    Just like the figure9.B of Mercier et al. (2022)</span>
+<span class="sd">    Just like the figure 9.B of Mercier et al. (2022)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ---------------------------</span>
@@ -750,13 +750,7 @@
  
 <div class="viewcode-block" id="load_neuralynx_micro">
 <a class="viewcode-back" href="../../autoapi/NEUREQUA/cognitive_module/index.html#NEUREQUA.cognitive_module.load_neuralynx_micro">[docs]</a>
-<span class="k">def</span> <span class="nf">load_neuralynx_micro</span><span class="p">(</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">sub</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">sess</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">macro_pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_sub&#39;</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">Raw</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">load_neuralynx_micro</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">sess</span><span class="p">,</span> <span class="n">macro_pattern</span><span class="o">=</span><span class="s1">&#39;_sub&#39;</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load intracranial EEG microwire recordings acquired with Neuralynx</span>
 <span class="sd">    in .ncs format into memory, excluding macrocontact channels.</span>

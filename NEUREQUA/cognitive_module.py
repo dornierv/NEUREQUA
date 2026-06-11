@@ -392,7 +392,7 @@ def plot_artefact_map(path,sub,sess):
     Enables us to quickly see the channels that are artefacted (e.g., by epileptic activities)
     and also trials contaminated
 
-    Just like the figure9.B of Mercier et al. (2022)
+    Just like the figure 9.B of Mercier et al. (2022)
 
     Parameters
     ---------------------------
@@ -476,13 +476,7 @@ def to_json(dictionary, filename):
         json.dump(dictionary, fp,sort_keys=True, indent=4,ensure_ascii=False)
  
  
-def load_neuralynx_micro(
-    path: str,
-    sub: str,
-    sess: str,
-    macro_pattern: str = '_sub',
-    verbose: bool = True
-    ) -> tuple[mne.io.Raw, np.ndarray, dict]:
+def load_neuralynx_micro(path, sub, sess, macro_pattern='_sub',verbose=True):
     """
     Load intracranial EEG microwire recordings acquired with Neuralynx
     in .ncs format into memory, excluding macrocontact channels.

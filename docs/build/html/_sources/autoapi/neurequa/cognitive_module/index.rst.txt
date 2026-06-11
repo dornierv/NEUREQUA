@@ -180,7 +180,7 @@ Module Contents
    Enables us to quickly see the channels that are artefacted (e.g., by epileptic activities)
    and also trials contaminated
 
-   Just like the figure9.B of Mercier et al. (2022)
+   Just like the figure 9.B of Mercier et al. (2022)
 
    :param epoch_data: Matrice with the following shape (nTrials, nChannels, nSamples)
    :type epoch_data: array
@@ -201,7 +201,7 @@ Module Contents
    :type filename: str or path-like
 
 
-.. py:function:: load_neuralynx_micro(path: str, sub: str, sess: str, macro_pattern: str = '_sub', verbose: bool = True) -> tuple[mne.io.Raw, numpy.ndarray, dict]
+.. py:function:: load_neuralynx_micro(path, sub, sess, macro_pattern='_sub', verbose=True)
 
    Load intracranial EEG microwire recordings acquired with Neuralynx
    in .ncs format into memory, excluding macrocontact channels.
