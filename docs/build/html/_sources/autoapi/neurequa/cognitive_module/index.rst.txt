@@ -27,7 +27,6 @@ Functions
    NEUREQUA.cognitive_module.read_header
    NEUREQUA.cognitive_module.parse_header
    NEUREQUA.cognitive_module.read_records
-   NEUREQUA.cognitive_module.estimate_record_count
    NEUREQUA.cognitive_module.parse_neuralynx_time_string
    NEUREQUA.cognitive_module.load_nev
    NEUREQUA.cognitive_module.create_epoch
@@ -76,15 +75,70 @@ Module Contents
 
 .. py:function:: read_header(fid)
 
+   Read the raw header data (16 kb) from the file object fid. Restores the position in the file object after reading.
+
+   :param fid: File object to .ncs file recorded with Neuralynx
+   :type fid: file object
+
+   :returns: **raw_hdr** -- Informations about the recording extracted from the Neuralynx header
+   :rtype: string
+
+
 .. py:function:: parse_header(raw_hdr)
+
+   Parse the header string into a dictionnary of name value pairs
+
+   :param raw_hdr: Informations about the recording extracted from the Neuralynx header (obtained with read_header)
+   :type raw_hdr: string
+
+   :returns: **hdr** -- Informations about the recording but stored in a dictionnary
+   :rtype: dict
+
 
 .. py:function:: read_records(fid, record_dtype, record_skip=0, count=None)
 
-.. py:function:: estimate_record_count(file_path, record_dtype)
+   Read count records (default all) from the file object fid skipping the first record_skip records.
+   Restores the position of the file object after reading.
+
+   When multiple recordings segment in the .ncs file
+
+   :param fid: File object of the recording files
+   :type fid: file object
+   :param record_dtype: Data type of all objects in the .nev file
+   :type record_dtype: np.dtype
+   :param record_skip: Record object to skip, if zero it means we include all recordings in the files
+                       If = 1 then skip the first one
+   :type record_skip: int (Default=0)
+   :param count: Number of items to read. If None then means -1 and means all items
+   :type count: int (Default=None)
+
+   :returns: **rec** -- Numpy array extracted from data in text or binary file
+             see https://numpy.org/doc/stable/reference/generated/numpy.fromfile.html
+   :rtype: np.array
+
 
 .. py:function:: parse_neuralynx_time_string(time_string)
 
+   Parse a datetime object from the idiosyncratic time string Neuralynx file headers
+
+   :param time_string: String containing time from Neuralynx file headers
+   :type time_string: string
+
+   :returns: **datetime.datetime** -- A datetime object is a single object containing all the information from a date object and a time object.
+             see https://docs.python.org/3/library/datetime.html#datetime-objects
+   :rtype: datetime object
+
+
 .. py:function:: load_nev(file_path)
+
+   Load Events.nev file from Neuralynx acquisition system
+
+   :param file_path: Path where the file .nev is stored
+   :type file_path: string or path-like
+
+   :returns: **nev** -- Dictionnary containing events informations (as TimeStamp, id, ttl values)
+   :rtype: dict
+
 
 .. py:function:: create_epoch(lfps, Folder, t_min=1, t_max=1, ds_factor=1)
 
@@ -100,8 +154,25 @@ Module Contents
    :param t_max: Time to include after the onset of the event
    :type t_max: float
 
+   :returns: **epoch_data** -- Array containing the data of each epoch with 3-D shape (nEpoch x nChannels x nSamples)
+   :rtype: np.array
+
 
 .. py:function:: ensure_raw(path, sub, sess)
+
+   Look if data were already created on the disk or not (.npy file).
+   If they were created then load them as a memory mapped object.
+
+   :param path: Path of the folder where your data are stored
+   :type path: string or path-like
+   :param sub: Id of the patient to analyze according to your dataset
+   :type sub: str
+   :param sess: Name of the experimental session to analyze
+   :type sess: str
+
+   :returns: **lfps** -- Memory mapped object of the raw data stored on your file (.npy file)
+   :rtype: np.memmap
+
 
 .. py:function:: plot_artefact_map(path, sub, sess)
 
@@ -120,6 +191,15 @@ Module Contents
 
 
 .. py:function:: to_json(dictionary, filename)
+
+   Save a dictionnary to a .json file on your disk.
+
+   :param dictionary: The dictionnary you want to save
+   :type dictionary: dict
+   :param filename: Path and name of the .json file you want to create with the informations
+                    contained in dictionary
+   :type filename: str or path-like
+
 
 .. py:function:: load_neuralynx_micro(path: str, sub: str, sess: str, macro_pattern: str = '_sub', verbose: bool = True) -> tuple[mne.io.Raw, numpy.ndarray, dict]
 
@@ -163,4 +243,17 @@ Module Contents
 
 
 .. py:function:: plot_erp(path, metadata, sub, sess)
+
+   Plot Event-related potentials in response to all events loaded from your recording.
+   Plot the ERPs for each channel that you had.
+
+   :param path: Path where the .npy file containing your raw data is stored
+   :type path: str or path-like
+   :param metadata: Dictionnary created when loading your data containing informations about the recordings
+   :type metadata: dict
+   :param sub: Id of the patient to analyze
+   :type sub: str
+   :param sess: Name of the experimental session to analyze
+   :type sess: str
+
 
