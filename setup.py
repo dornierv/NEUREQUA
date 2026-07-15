@@ -23,8 +23,7 @@ setup(
 
     classifiers=[
         'Development Status :: 1 - Planning',
-        'Intended Audience :: Science/Research',
-        'MIT',  
+        'Intended Audience :: Science/Research',  
         'Programming Language :: Python :: 3.12',
     ],
 )
