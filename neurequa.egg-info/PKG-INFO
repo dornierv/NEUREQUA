@@ -8,6 +8,5 @@ Author-email: vincent.dornier@cnrs.fr
 License: MIT
 Classifier: Development Status :: 1 - Planning
 Classifier: Intended Audience :: Science/Research
-Classifier: MIT
 Classifier: Programming Language :: Python :: 3.12
 License-File: LICENSE
