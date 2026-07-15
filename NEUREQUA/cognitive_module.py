@@ -438,6 +438,9 @@ def load_neuralynx_micro(path, sub, sess, macro_pattern='_sub',verbose=True):
     # ------------------------------------------------------------------ #
     # 2. Load microwire channels (exclude macrocontacts)
     # ------------------------------------------------------------------ #
+    if verbose:
+        print(f"Loading raw data structure")
+        
     raw = mne.io.read_raw_neuralynx(
         path,
         exclude_fname_patterns=[f'*{macro_pattern}'],
@@ -466,7 +469,7 @@ def load_neuralynx_micro(path, sub, sess, macro_pattern='_sub',verbose=True):
     my_file = Path(path+'raw_data_'+sub+'_'+sess+'.npy')
     if my_file.is_file():
         data = np.squeeze(np.lib.format.open_memmap(path+'/raw_data_'+sub+'_'+sess+'.npy',mode='r+',dtype=np.int16))
-        print("File already exist")
+        print("File already exist - Loaded")
     else:
 
         if verbose:
