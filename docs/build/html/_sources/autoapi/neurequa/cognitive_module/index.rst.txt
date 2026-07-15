@@ -30,12 +30,12 @@ Functions
    NEUREQUA.cognitive_module.read_records
    NEUREQUA.cognitive_module.parse_neuralynx_time_string
    NEUREQUA.cognitive_module.load_nev
+   NEUREQUA.cognitive_module.to_json
+   NEUREQUA.cognitive_module.ensure_raw
+   NEUREQUA.cognitive_module.load_neuralynx_micro
    NEUREQUA.cognitive_module.create_epoch
    NEUREQUA.cognitive_module.filt_butter
-   NEUREQUA.cognitive_module.ensure_raw
    NEUREQUA.cognitive_module.plot_artefact_map
-   NEUREQUA.cognitive_module.to_json
-   NEUREQUA.cognitive_module.load_neuralynx_micro
    NEUREQUA.cognitive_module.plot_erp
 
 
@@ -71,7 +71,7 @@ Module Contents
    Create the directory if it does not exist
 
 
-   :param path: Path-like where you want to create folder
+   :param path: Path where you want to create folder
    :type path: str
 
 
@@ -155,44 +155,15 @@ Module Contents
    :rtype: dict
 
 
-.. py:function:: create_epoch(lfps, Folder, t_min=1, t_max=1, ds_factor=1)
+.. py:function:: to_json(dictionary, filename)
 
-   Create an Epoch structure in MNE based on the Events registered in the .nev of Neuralynx acquisition system
-   To load the data from the .nev file I used the following library:
-   https://github.com/alafuzof/NeuralynxIO
+   Save a dictionnary to a .json file on your disk.
 
-
-   :param Folder: Path where your ncs files and the Events.nev files are stored
-   :type Folder: string
-   :param t_min: Time to include in the baseline (before the onset of event)
-   :type t_min: float
-   :param t_max: Time to include after the onset of the event
-   :type t_max: float
-
-   :returns: **epoch_data** -- Array containing the data of each epoch with 3-D shape (nEpoch x nChannels x nSamples)
-   :rtype: np.array
-
-
-.. py:function:: filt_butter(data, lowcut=300, highcut=3000, btype='bandpass', sr=32768, order=2)
-
-   Apply a butterworth band-pass filter
-
-   :param data: A 1-D array containing your LFPs activity
-   :type data: ND-array
-   :param lowcut: Lower frequency of your bandpass filter
-   :type lowcut: int
-   :param highcut: Higher frequency of your bandpass filter
-   :type highcut: int
-   :param btype: Type of filter to use.
-                 Can be either 'bandpass' (default), 'lowpass' or 'highpass'.
-   :type btype: string, default = 'bandpass'
-   :param sr: Sampling frequency of your recording system
-   :type sr: int; default = 32768
-   :param order: Order of the butterworth filter
-   :type order: int, default = 2
-
-   :returns: **filt_data** -- 1-D array containing the LFPs filter between frequencies specified
-   :rtype: ND-array
+   :param dictionary: The dictionnary you want to save
+   :type dictionary: dict
+   :param filename: Path and name of the .json file you want to create with the informations
+                    contained in dictionary
+   :type filename: str or path-like
 
 
 .. py:function:: ensure_raw(path, sub, sess)
@@ -209,33 +180,6 @@ Module Contents
 
    :returns: **lfps** -- Memory mapped object of the raw data stored on your file (.npy file)
    :rtype: np.memmap
-
-
-.. py:function:: plot_artefact_map(path, sub, sess)
-
-   Plot figure to show the variance of each trial and each channel
-   Enables us to quickly see the channels that are artefacted (e.g., by epileptic activities)
-   and also trials contaminated
-
-   Just like the figure 9.B of Mercier et al. (2022)
-
-   :param epoch_data: Matrice with the following shape (nTrials, nChannels, nSamples)
-   :type epoch_data: array
-   :param path: Path where you want to store results of this analyses
-   :type path: String
-
-   :rtype: Matplotlib plot containing heatmap and variance of each channels for each trials
-
-
-.. py:function:: to_json(dictionary, filename)
-
-   Save a dictionnary to a .json file on your disk.
-
-   :param dictionary: The dictionnary you want to save
-   :type dictionary: dict
-   :param filename: Path and name of the .json file you want to create with the informations
-                    contained in dictionary
-   :type filename: str or path-like
 
 
 .. py:function:: load_neuralynx_micro(path, sub, sess, macro_pattern='_sub', verbose=True)
@@ -279,7 +223,63 @@ Module Contents
        pattern (i.e., all channels matched the macro_pattern).
 
 
-.. py:function:: plot_erp(path, metadata, sub, sess, mua=True)
+.. py:function:: create_epoch(lfps, Folder, t_min=1, t_max=1, ds_factor=1)
+
+   Create an Epoch structure in MNE based on the Events registered in the .nev of Neuralynx acquisition system
+   To load the data from the .nev file I used the following library:
+   https://github.com/alafuzof/NeuralynxIO
+
+
+   :param Folder: Path where your ncs files and the Events.nev files are stored
+   :type Folder: string
+   :param t_min: Time to include in the baseline (before the onset of event)
+   :type t_min: float
+   :param t_max: Time to include after the onset of the event
+   :type t_max: float
+
+   :returns: **epoch_data** -- Array containing the data of each epoch with 3-D shape (nEpoch x nChannels x nSamples)
+   :rtype: np.array
+
+
+.. py:function:: filt_butter(data, lowcut=300, highcut=3000, btype='bandpass', sr=32768, order=2)
+
+   Apply a butterworth band-pass filter
+
+   :param data: A 1-D array containing your LFPs activity
+   :type data: ND-array
+   :param lowcut: Lower frequency of your bandpass filter
+   :type lowcut: int
+   :param highcut: Higher frequency of your bandpass filter
+   :type highcut: int
+   :param btype: Type of filter to use.
+                 Can be either 'bandpass' (default), 'lowpass' or 'highpass'.
+   :type btype: string, default = 'bandpass'
+   :param sr: Sampling frequency of your recording system
+   :type sr: int; default = 32768
+   :param order: Order of the butterworth filter
+   :type order: int, default = 2
+
+   :returns: **filt_data** -- 1-D array containing the LFPs filter between frequencies specified
+   :rtype: ND-array
+
+
+.. py:function:: plot_artefact_map(path, sub, sess)
+
+   Plot figure to show the variance of each trial and each channel
+   Enables us to quickly see the channels that are artefacted (e.g., by epileptic activities)
+   and also trials contaminated
+
+   Just like the figure 9.B of Mercier et al. (2022)
+
+   :param epoch_data: Matrice with the following shape (nTrials, nChannels, nSamples)
+   :type epoch_data: array
+   :param path: Path where you want to store results of this analyses
+   :type path: String
+
+   :rtype: Matplotlib plot containing heatmap and variance of each channels for each trials
+
+
+.. py:function:: plot_erp(path, metadata, sub, sess, tmin, tmax, mua=True)
 
    Plot Event-related potentials in response to all events loaded from your recording.
    Plot the ERPs for each channel that you had. It also plot the MUA activity estimated firing rate.
@@ -292,6 +292,10 @@ Module Contents
    :type sub: str
    :param sess: Name of the experimental session to analyze
    :type sess: str
+   :param tmin: Time to include before events (must be positive)
+   :type tmin: float
+   :param tmax: Time to include after events (must be positive)
+   :type tmax: float
    :param mua: Either to plot or not the MUA activity alonged ERP
    :type mua: Boolean, default = True
 
