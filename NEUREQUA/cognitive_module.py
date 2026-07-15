@@ -6,21 +6,14 @@ import os
 import warnings
 import numpy as np
 import datetime
-import random
-import neo.rawio
 import numpy as np
 import scipy.signal as sig
 import matplotlib.pyplot as plt
 import seaborn as sb
 import os
-import neo
 import mne
-import pandas as pd
 import scipy.stats as stats
-import matplotlib
-from typing import Optional
 import json
-import h5py
 
 
 
@@ -32,8 +25,6 @@ This function included in NeuReQua is from @alafuzof
 
 https://github.com/alafuzof/NeuralynxIO
 '''
-# General parameters for plotting
-plt.rcParams["svg.fonttype"] = 'none'
 
 HEADER_LENGTH = 16 * 1024  # 16 kilobytes of header
 
@@ -73,6 +64,9 @@ VOLT_SCALING = (1, u'V')
 MILLIVOLT_SCALING = (1000, u'mV')
 MICROVOLT_SCALING = (1000000, u'µV')
 
+#############
+### UTILS ###
+#############
 
 def ensure_dir(path: str) -> None:
     """
@@ -82,12 +76,17 @@ def ensure_dir(path: str) -> None:
     Parameters
     ----------
     path: str
-        Path-like where you want to create folder
+        Path where you want to create folder
     """
 
+    # Check if the path exists
     isExist = os.path.exists(path)
+
+    # It is doesn't create it
     if not isExist:
         os.makedirs(path)
+
+
 
 def find_nearest(array, value):
     '''
@@ -106,8 +105,13 @@ def find_nearest(array, value):
     idx: int
         Index in the array closest to value
     '''
+    # Make sure that array is an array and not a list
     array = np.asarray(array)
+
+    # Find where the difference between value and elements of array is min
     idx = (np.abs(array - value)).argmin()
+
+    # Returns
     return idx
 
 def read_header(fid):
@@ -124,9 +128,13 @@ def read_header(fid):
     raw_hdr: string
         Informations about the recording extracted from the Neuralynx header
     '''
-    # 
+    # Get the current position in the file stream
     pos = fid.tell()
+
+    # Set reference point to beginning of file
     fid.seek(0)
+
+    # Read the header
     raw_hdr = fid.read(HEADER_LENGTH).strip(b'\0')
     fid.seek(pos)
 
@@ -301,125 +309,22 @@ def load_nev(file_path):
     return nev
 
 
-
-def create_epoch(lfps,Folder,t_min=1,t_max=1,ds_factor=1):
-    """
-    Create an Epoch structure in MNE based on the Events registered in the .nev of Neuralynx acquisition system
-    To load the data from the .nev file I used the following library:
-    https://github.com/alafuzof/NeuralynxIO
-
+def to_json(dictionary, filename):
+    '''
+    Save a dictionnary to a .json file on your disk.
 
     Parameters
-    ---------------------------
-    Folder : string
-        Path where your ncs files and the Events.nev files are stored
+    ----------
+    dictionary: dict
+        The dictionnary you want to save
     
-    t_min : float
-        Time to include in the baseline (before the onset of event)
-    
-    t_max : float
-        Time to include after the onset of the event
-
-    Returns
-    -------
-    epoch_data: np.array
-        Array containing the data of each epoch with 3-D shape (nEpoch x nChannels x nSamples)
-    """
-    
-    
-    lfps = np.squeeze(lfps)
-
-    # Load the events.nev
-    nev = load_nev(Folder+'./Events.nev')  # Load event data into a dictionary
-
-
-    # Only keep events that are not fixation cross
-    idx_trials = np.nonzero(nev['events']['ttl'])
-
-
-
-    # Get the timestamps of each trials
-    ts_trials = nev['events']['TimeStamp'][idx_trials]
-
-
-    # Get the timestamps relative to the onset of the recording
-    ts_relatif = ts_trials - nev['events']['TimeStamp'][0]
-
-
-    # Timestamps are expressed in micro-seconds in Neuralynx so divide by 10^6
-    ts_second = ts_relatif / 10**6
-
-
-    # Transform into samples
-    onset_sample = ts_second*32768
-
-    # Transfrom into int (because samples are index)
-    onset_sample = onset_sample.astype(int)
-
-    # Initialize list to store each epoch
-    epoch_data = list()
-
-    # Loop over all events 
-    for iEvent in range(len(onset_sample)):
-
-        epoch = lfps[:,onset_sample[iEvent]-int(t_min*32768):onset_sample[iEvent]+int(t_max*32768)]
-
-        epoch_data.append(epoch)
-    
-
-
-    return np.array(epoch_data)
-
-
-def filt_butter(data, lowcut=300, highcut=3000, btype='bandpass', sr=32768, order=2):
-    """
-    Apply a butterworth band-pass filter
-
-    Parameters
-    ---------------------------
-    data: ND-array
-        A 1-D array containing your LFPs activity
-
-    lowcut: int
-        Lower frequency of your bandpass filter
-    
-    highcut: int
-        Higher frequency of your bandpass filter
-
-    btype: string, default = 'bandpass'
-        Type of filter to use.
-        Can be either 'bandpass' (default), 'lowpass' or 'highpass'.
-
-    sr: int; default = 32768
-        Sampling frequency of your recording system
-    
-    order: int, default = 2
-        Order of the butterworth filter
-    
-    Returns
-    ---------------------------
-    filt_data: ND-array
-        1-D array containing the LFPs filter between frequencies specified
-    """
-    from scipy.signal import butter, sosfilt
-    
-    def butter_(lowcut, highcut, btype, sr, order=order):
-        nyq = 0.5 * sr
-        low = lowcut / nyq
-        high = highcut / nyq
-        if btype == 'highpass':
-            sos = butter(order, high, btype=btype, output='sos')
-        elif btype == 'lowpass':
-            sos = butter(order, low, btype=btype, output='sos')
-        elif btype == 'bandpass':
-            sos = butter(order, [low, high], btype=btype, output='sos')
-        return sos
-    
-    sos = butter_(lowcut, highcut, btype, sr, order=order)
-    filt_data = sosfilt(sos, data)
-    
-    return filt_data
-
+    filename: str or path-like
+        Path and name of the .json file you want to create with the informations
+        contained in dictionary
+    '''
+    with open(filename,'w') as fp:
+        json.dump(dictionary, fp,sort_keys=True, indent=4,ensure_ascii=False)
+ 
 
 
 def ensure_raw(path,sub,sess):
@@ -453,102 +358,9 @@ def ensure_raw(path,sub,sess):
         raise FileNotFoundError(
             f"Raw data do not exist, launch load_neuralynx_micro first"
         )
-
     
 
 
-
-def plot_artefact_map(path,sub,sess):
-    """
-    Plot figure to show the variance of each trial and each channel
-    Enables us to quickly see the channels that are artefacted (e.g., by epileptic activities)
-    and also trials contaminated
-
-    Just like the figure 9.B of Mercier et al. (2022)
-
-    Parameters
-    ---------------------------
-    epoch_data : array
-        Matrice with the following shape (nTrials, nChannels, nSamples)
-
-    path : String
-        Path where you want to store results of this analyses
-
-    Returns
-    ---------------------------
-    Matplotlib plot containing heatmap and variance of each channels for each trials
-    """
-    # Check whether the specified path exists or not
-    ensure_dir(path)
-
-
-    lfps = ensure_raw(path,sub,sess)
-    
-    # Then create epoch
-    epoch_data = create_epoch(lfps,path,t_min=1, t_max=1)
-    
-    var_ch = list()
-
-    nCh = epoch_data.shape[1]
-
-    for iCh in range(epoch_data.shape[1]):
-        data_channel = epoch_data[:,iCh,:]
-
-        # Compute the variance for each trial
-        variance_trial = np.var(data_channel,1)
-    
-        var_ch.append(variance_trial)
-   
-
-    # Set up the axes with gridspec
-    fig = plt.figure(figsize=(12, 4),layout='constrained')
-    grid = plt.GridSpec(4,4, hspace=0.2, wspace=0.2)
-    main_ax = fig.add_subplot(grid[:-1, :3])
-    y_hist = fig.add_subplot(grid[:-1:, 3:], xticklabels=[], sharey=main_ax)
-    x_hist = fig.add_subplot(grid[-1, :3], yticklabels=[], sharex=main_ax)
-
-    # scatter points on the main axes
-    sb.heatmap(var_ch,ax=main_ax,cbar=False,cmap="rocket_r") # pour l'instant rocket_r est la mieux
-    main_ax.axes.get_xaxis().set_visible(False)
-    main_ax.locator_params(axis='y',nbins=int(nCh/4+1)) 
-    main_ax.set_ylabel('# Channels',size=15)
-
-    # histogram on the attached axes
-    x_hist.plot(np.mean(var_ch,0),'.',color='coral')
-    # Setting the number of ticks 
-    x_hist.locator_params(axis='x',nbins=10) 
-    x_hist.set_xlabel('# Trials',loc='center',size=15)
-
-    y = np.arange(len(var_ch))
-    y_hist.plot(np.mean(var_ch,1),y,'.',color='coral')
-    y_hist.axes.get_yaxis().set_visible(False)
-    y_hist.set_title('# Channels',loc='center',size=15)
-
-
-    plt.savefig(path+'Artefact_Map.jpg',dpi=800)
-
-    plt.show()
-
-    plt.close()
-
-
-def to_json(dictionary, filename):
-    '''
-    Save a dictionnary to a .json file on your disk.
-
-    Parameters
-    ----------
-    dictionary: dict
-        The dictionnary you want to save
-    
-    filename: str or path-like
-        Path and name of the .json file you want to create with the informations
-        contained in dictionary
-    '''
-    with open(filename,'w') as fp:
-        json.dump(dictionary, fp,sort_keys=True, indent=4,ensure_ascii=False)
- 
- 
 def load_neuralynx_micro(path, sub, sess, macro_pattern='_sub',verbose=True):
     """
     Load intracranial EEG microwire recordings acquired with Neuralynx
@@ -726,7 +538,216 @@ def load_neuralynx_micro(path, sub, sess, macro_pattern='_sub',verbose=True):
 
 
 
-def plot_erp(path,metadata,sub,sess,mua=True):
+#####################
+### Preprocessing ###
+#####################
+
+def create_epoch(lfps,Folder,t_min=1,t_max=1,ds_factor=1):
+    """
+    Create an Epoch structure in MNE based on the Events registered in the .nev of Neuralynx acquisition system
+    To load the data from the .nev file I used the following library:
+    https://github.com/alafuzof/NeuralynxIO
+
+
+    Parameters
+    ---------------------------
+    Folder : string
+        Path where your ncs files and the Events.nev files are stored
+    
+    t_min : float
+        Time to include in the baseline (before the onset of event)
+    
+    t_max : float
+        Time to include after the onset of the event
+
+    Returns
+    -------
+    epoch_data: np.array
+        Array containing the data of each epoch with 3-D shape (nEpoch x nChannels x nSamples)
+    """
+    
+    
+    lfps = np.squeeze(lfps)
+
+    # Load the events.nev
+    nev = load_nev(Folder+'./Events.nev')  # Load event data into a dictionary
+
+
+    # Only keep events that are not fixation cross
+    idx_trials = np.nonzero(nev['events']['ttl'])
+
+
+
+    # Get the timestamps of each trials
+    ts_trials = nev['events']['TimeStamp'][idx_trials]
+
+
+    # Get the timestamps relative to the onset of the recording
+    ts_relatif = ts_trials - nev['events']['TimeStamp'][0]
+
+
+    # Timestamps are expressed in micro-seconds in Neuralynx so divide by 10^6
+    ts_second = ts_relatif / 10**6
+
+
+    # Transform into samples
+    onset_sample = ts_second*32768
+
+    # Transfrom into int (because samples are index)
+    onset_sample = onset_sample.astype(int)
+
+    # Initialize list to store each epoch
+    epoch_data = list()
+
+    # Loop over all events 
+    for iEvent in range(len(onset_sample)):
+
+        epoch = lfps[:,onset_sample[iEvent]-int(t_min*32768):onset_sample[iEvent]+int(t_max*32768)]
+
+        epoch_data.append(epoch)
+    
+
+
+    return np.array(epoch_data)
+
+
+def filt_butter(data, lowcut=300, highcut=3000, btype='bandpass', sr=32768, order=2):
+    """
+    Apply a butterworth band-pass filter
+
+    Parameters
+    ---------------------------
+    data: ND-array
+        A 1-D array containing your LFPs activity
+
+    lowcut: int
+        Lower frequency of your bandpass filter
+    
+    highcut: int
+        Higher frequency of your bandpass filter
+
+    btype: string, default = 'bandpass'
+        Type of filter to use.
+        Can be either 'bandpass' (default), 'lowpass' or 'highpass'.
+
+    sr: int; default = 32768
+        Sampling frequency of your recording system
+    
+    order: int, default = 2
+        Order of the butterworth filter
+    
+    Returns
+    ---------------------------
+    filt_data: ND-array
+        1-D array containing the LFPs filter between frequencies specified
+    """
+    from scipy.signal import butter, sosfilt
+    
+    def butter_(lowcut, highcut, btype, sr, order=order):
+        nyq = 0.5 * sr
+        low = lowcut / nyq
+        high = highcut / nyq
+        if btype == 'highpass':
+            sos = butter(order, high, btype=btype, output='sos')
+        elif btype == 'lowpass':
+            sos = butter(order, low, btype=btype, output='sos')
+        elif btype == 'bandpass':
+            sos = butter(order, [low, high], btype=btype, output='sos')
+        return sos
+    
+    sos = butter_(lowcut, highcut, btype, sr, order=order)
+    filt_data = sosfilt(sos, data)
+    
+    return filt_data
+
+
+
+
+
+###################################    
+### Cognitive module - Plotting ###
+###################################
+
+def plot_artefact_map(path,sub,sess):
+    """
+    Plot figure to show the variance of each trial and each channel
+    Enables us to quickly see the channels that are artefacted (e.g., by epileptic activities)
+    and also trials contaminated
+
+    Just like the figure 9.B of Mercier et al. (2022)
+
+    Parameters
+    ---------------------------
+    epoch_data : array
+        Matrice with the following shape (nTrials, nChannels, nSamples)
+
+    path : String
+        Path where you want to store results of this analyses
+
+    Returns
+    ---------------------------
+    Matplotlib plot containing heatmap and variance of each channels for each trials
+    """
+    # Check whether the specified path exists or not
+    ensure_dir(path)
+
+
+    lfps = ensure_raw(path,sub,sess)
+    
+    # Then create epoch
+    epoch_data = create_epoch(lfps,path,t_min=1, t_max=1)
+    
+    var_ch = list()
+
+    nCh = epoch_data.shape[1]
+
+    for iCh in range(epoch_data.shape[1]):
+        data_channel = epoch_data[:,iCh,:]
+
+        # Compute the variance for each trial
+        variance_trial = np.var(data_channel,1)
+    
+        var_ch.append(variance_trial)
+   
+
+    # Set up the axes with gridspec
+    fig = plt.figure(figsize=(12, 4),layout='constrained')
+    grid = plt.GridSpec(4,4, hspace=0.2, wspace=0.2)
+    main_ax = fig.add_subplot(grid[:-1, :3])
+    y_hist = fig.add_subplot(grid[:-1:, 3:], xticklabels=[], sharey=main_ax)
+    x_hist = fig.add_subplot(grid[-1, :3], yticklabels=[], sharex=main_ax)
+
+    # scatter points on the main axes
+    sb.heatmap(var_ch,ax=main_ax,cbar=False,cmap="rocket_r") # pour l'instant rocket_r est la mieux
+    main_ax.axes.get_xaxis().set_visible(False)
+    main_ax.locator_params(axis='y',nbins=int(nCh/4+1)) 
+    main_ax.set_ylabel('# Channels',size=15)
+
+    # histogram on the attached axes
+    x_hist.plot(np.mean(var_ch,0),'.',color='coral')
+    # Setting the number of ticks 
+    x_hist.locator_params(axis='x',nbins=10) 
+    x_hist.set_xlabel('# Trials',loc='center',size=15)
+
+    y = np.arange(len(var_ch))
+    y_hist.plot(np.mean(var_ch,1),y,'.',color='coral')
+    y_hist.axes.get_yaxis().set_visible(False)
+    y_hist.set_title('# Channels',loc='center',size=15)
+
+
+    plt.savefig(path+'Artefact_Map.jpg',dpi=800)
+
+    plt.show()
+
+    plt.close()
+
+
+
+ 
+
+
+
+def plot_erp(path,metadata,sub,sess,tmin,tmax,mua=True):
     '''
     Plot Event-related potentials in response to all events loaded from your recording.
     Plot the ERPs for each channel that you had. It also plot the MUA activity estimated firing rate.
@@ -745,6 +766,12 @@ def plot_erp(path,metadata,sub,sess,mua=True):
     sess: str
         Name of the experimental session to analyze
 
+    tmin: float
+        Time to include before events (must be positive)
+
+    tmax: float
+        Time to include after events (must be positive)
+
     mua: Boolean, default = True
         Either to plot or not the MUA activity alonged ERP
     '''
@@ -760,9 +787,9 @@ def plot_erp(path,metadata,sub,sess,mua=True):
         
     # Then create epoch
     if mua:
-        epoch_data = create_epoch(lfps,path,t_min=1.1, t_max=1.1)
+        epoch_data = create_epoch(lfps,path,t_min=tmin+0.1, t_max=tmax+.1)
     else:
-        epoch_data = create_epoch(lfps,path,t_min=1, t_max=1)
+        epoch_data = create_epoch(lfps,path,t_min=tmin, t_max=tmax)
 
     # Get the mean activity across trials for each channels
     mean_channels = np.mean(epoch_data,axis=0)
@@ -771,7 +798,7 @@ def plot_erp(path,metadata,sub,sess,mua=True):
     sem_channels = stats.sem(epoch_data,axis=0)
 
     # Create a time array to get time associated with each sample
-    time = np.linspace(-1,1,epoch_data.shape[2])
+    time = np.linspace(-tmin,tmax,epoch_data.shape[2])
     
     # Extract number of channels
     nChannels = mean_channels.shape[0]
@@ -810,11 +837,11 @@ def plot_erp(path,metadata,sub,sess,mua=True):
                 # Apply convolution with gaussian filter
                 spikes_smooth.append(np.convolve(spikes[iTrials], kernel,mode='same'))
 
-            # Adjuste to keep only between -1s to 1s
-            times = np.linspace(-1.1,1.1,epoch_data.shape[2])
+            # Adjuste to keep only between -tmin and tmax
+            times = np.linspace(-tmin+0.1,tmax+0.1,epoch_data.shape[2])
 
-            idx_debut = find_nearest(times,-1)
-            idx_fin = find_nearest(times,1)
+            idx_debut = find_nearest(times,-tmin)
+            idx_fin = find_nearest(times,tmax)
 
             time_ok = times[idx_debut:idx_fin]
             fr_ok = np.array(spikes_smooth)[:,idx_debut:idx_fin]
