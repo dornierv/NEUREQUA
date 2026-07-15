@@ -9,7 +9,7 @@ setup(
     url='https://github.com/dornierv/NEUREQUA',
     author='Vincent Dornier',
     author_email='vincent.dornier@cnrs.fr',
-    license='MIT',
+    license="MIT",
     packages=find_packages(),
     install_requires=['neo',
                       'numpy',  

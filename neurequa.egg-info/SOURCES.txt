@@ -11,3 +11,8 @@ NEUREQUA.egg-info/SOURCES.txt
 NEUREQUA.egg-info/dependency_links.txt
 NEUREQUA.egg-info/requires.txt
 NEUREQUA.egg-info/top_level.txt
+neurequa.egg-info/PKG-INFO
+neurequa.egg-info/SOURCES.txt
+neurequa.egg-info/dependency_links.txt
+neurequa.egg-info/requires.txt
+neurequa.egg-info/top_level.txt

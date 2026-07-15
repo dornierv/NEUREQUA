@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
-Name: NEUREQUA
-Version: 0.1.1.19
+Name: neurequa
+Version: 0.1.1.20
 Summary: Python package to monitor micro-recording quality in humans
 Home-page: https://github.com/dornierv/NEUREQUA
 Author: Vincent Dornier
@@ -8,14 +8,6 @@ Author-email: vincent.dornier@cnrs.fr
 License: MIT
 Classifier: Development Status :: 1 - Planning
 Classifier: Intended Audience :: Science/Research
-Classifier: License :: OSI Approved :: MIT License
+Classifier: MIT
 Classifier: Programming Language :: Python :: 3.12
 License-File: LICENSE
-Requires-Dist: neo
-Requires-Dist: numpy
-Requires-Dist: scipy
-Requires-Dist: matplotlib
-Requires-Dist: seaborn
-Requires-Dist: mne
-Requires-Dist: pandas
-Requires-Dist: openpyxl

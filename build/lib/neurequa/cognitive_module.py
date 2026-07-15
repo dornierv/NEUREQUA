@@ -32,7 +32,8 @@ This function included in NeuReQua is from @alafuzof
 
 https://github.com/alafuzof/NeuralynxIO
 '''
-
+# General parameters for plotting
+plt.rcParams["svg.fonttype"] = 'none'
 
 HEADER_LENGTH = 16 * 1024  # 16 kilobytes of header
 
@@ -79,7 +80,7 @@ def ensure_dir(path: str) -> None:
 
 
     Parameters
-    ---------------------------
+    ----------
     path: str
         Path-like where you want to create folder
     """
@@ -88,8 +89,42 @@ def ensure_dir(path: str) -> None:
     if not isExist:
         os.makedirs(path)
 
+def find_nearest(array, value):
+    '''
+    Find the index in the array closest to a desired value.
+
+    Parameters
+    ----------
+    array: Numpy array
+        A 1-D array containing numerical values
+    
+    value: float
+        Value you want to find in array
+
+    Returns
+    ----------
+    idx: int
+        Index in the array closest to value
+    '''
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return idx
+
 def read_header(fid):
-    # Read the raw header data (16 kb) from the file object fid. Restores the position in the file object after reading.
+    '''
+    Read the raw header data (16 kb) from the file object fid. Restores the position in the file object after reading.
+    
+    Parameters
+    ----------
+    fid: file object
+        File object to .ncs file recorded with Neuralynx
+
+    Returns
+    -------
+    raw_hdr: string
+        Informations about the recording extracted from the Neuralynx header
+    '''
+    # 
     pos = fid.tell()
     fid.seek(0)
     raw_hdr = fid.read(HEADER_LENGTH).strip(b'\0')
@@ -99,6 +134,19 @@ def read_header(fid):
 
 
 def parse_header(raw_hdr):
+    '''
+    Parse the header string into a dictionnary of name value pairs
+
+    Parameters
+    ----------
+    raw_hdr: string
+        Informations about the recording extracted from the Neuralynx header (obtained with read_header)
+
+    Returns
+    -------
+    hdr: dict
+        Informations about the recording but stored in a dictionnary
+    '''
     # Parse the header string into a dictionary of name value pairs
     hdr = dict()
 
@@ -137,6 +185,33 @@ def parse_header(raw_hdr):
 
 
 def read_records(fid, record_dtype, record_skip=0, count=None):
+    '''
+    Read count records (default all) from the file object fid skipping the first record_skip records. 
+    Restores the position of the file object after reading.
+
+    When multiple recordings segment in the .ncs file
+
+    Parameters
+    ----------
+    fid: file object
+        File object of the recording files
+    
+    record_dtype: np.dtype
+        Data type of all objects in the .nev file
+    
+    record_skip: int (Default=0)
+        Record object to skip, if zero it means we include all recordings in the files
+        If = 1 then skip the first one
+    
+    count: int (Default=None)
+        Number of items to read. If None then means -1 and means all items
+
+    Returns
+    -------
+    rec: np.array
+        Numpy array extracted from data in text or binary file 
+        see https://numpy.org/doc/stable/reference/generated/numpy.fromfile.html
+    '''
     # Read count records (default all) from the file object fid skipping the first record_skip records. Restores the
     # position of the file object after reading.
     if count is None:
@@ -151,18 +226,24 @@ def read_records(fid, record_dtype, record_skip=0, count=None):
     return rec
 
 
-def estimate_record_count(file_path, record_dtype):
-    # Estimate the number of records from the file size
-    file_size = os.path.getsize(file_path)
-    file_size -= HEADER_LENGTH
 
-    if file_size % record_dtype.itemsize != 0:
-        warnings.warn('File size is not divisible by record size (some bytes unaccounted for)')
-
-    return file_size / record_dtype.itemsize
 
 
 def parse_neuralynx_time_string(time_string):
+    '''
+    Parse a datetime object from the idiosyncratic time string Neuralynx file headers
+
+    Parameters
+    ----------
+    time_string: string
+        String containing time from Neuralynx file headers
+
+    Returns
+    -------
+    datetime.datetime: datetime object
+        A datetime object is a single object containing all the information from a date object and a time object.
+        see https://docs.python.org/3/library/datetime.html#datetime-objects
+    '''
     # Parse a datetime object from the idiosyncratic time string in Neuralynx file headers
     try:
         tmp_date = [int(x) for x in time_string.split()[4].split('/')]
@@ -184,6 +265,19 @@ def parse_neuralynx_time_string(time_string):
 
 
 def load_nev(file_path):
+    '''
+    Load Events.nev file from Neuralynx acquisition system
+
+    Parameters
+    ----------
+    file_path: string or path-like
+        Path where the file .nev is stored
+
+    Returns
+    -------
+    nev: dict
+        Dictionnary containing events informations (as TimeStamp, id, ttl values)
+    '''
     # Load the given file as a Neuralynx .nev event file and extract the contents
     file_path = os.path.abspath(file_path)
     with open(file_path, 'rb') as fid:
@@ -225,6 +319,11 @@ def create_epoch(lfps,Folder,t_min=1,t_max=1,ds_factor=1):
     
     t_max : float
         Time to include after the onset of the event
+
+    Returns
+    -------
+    epoch_data: np.array
+        Array containing the data of each epoch with 3-D shape (nEpoch x nChannels x nSamples)
     """
     
     
@@ -263,7 +362,7 @@ def create_epoch(lfps,Folder,t_min=1,t_max=1,ds_factor=1):
     # Loop over all events 
     for iEvent in range(len(onset_sample)):
 
-        epoch = lfps[:,onset_sample[iEvent]-t_min*32768:onset_sample[iEvent]+t_max*32768]
+        epoch = lfps[:,onset_sample[iEvent]-int(t_min*32768):onset_sample[iEvent]+int(t_max*32768)]
 
         epoch_data.append(epoch)
     
@@ -272,8 +371,78 @@ def create_epoch(lfps,Folder,t_min=1,t_max=1,ds_factor=1):
     return np.array(epoch_data)
 
 
+def filt_butter(data, lowcut=300, highcut=3000, btype='bandpass', sr=32768, order=2):
+    """
+    Apply a butterworth band-pass filter
+
+    Parameters
+    ---------------------------
+    data: ND-array
+        A 1-D array containing your LFPs activity
+
+    lowcut: int
+        Lower frequency of your bandpass filter
+    
+    highcut: int
+        Higher frequency of your bandpass filter
+
+    btype: string, default = 'bandpass'
+        Type of filter to use.
+        Can be either 'bandpass' (default), 'lowpass' or 'highpass'.
+
+    sr: int; default = 32768
+        Sampling frequency of your recording system
+    
+    order: int, default = 2
+        Order of the butterworth filter
+    
+    Returns
+    ---------------------------
+    filt_data: ND-array
+        1-D array containing the LFPs filter between frequencies specified
+    """
+    from scipy.signal import butter, sosfilt
+    
+    def butter_(lowcut, highcut, btype, sr, order=order):
+        nyq = 0.5 * sr
+        low = lowcut / nyq
+        high = highcut / nyq
+        if btype == 'highpass':
+            sos = butter(order, high, btype=btype, output='sos')
+        elif btype == 'lowpass':
+            sos = butter(order, low, btype=btype, output='sos')
+        elif btype == 'bandpass':
+            sos = butter(order, [low, high], btype=btype, output='sos')
+        return sos
+    
+    sos = butter_(lowcut, highcut, btype, sr, order=order)
+    filt_data = sosfilt(sos, data)
+    
+    return filt_data
+
+
 
 def ensure_raw(path,sub,sess):
+    '''
+    Look if data were already created on the disk or not (.npy file).
+    If they were created then load them as a memory mapped object.
+
+    Parameters
+    ----------
+    path: string or path-like
+        Path of the folder where your data are stored
+    
+    sub: str
+        Id of the patient to analyze according to your dataset
+
+    sess: str
+        Name of the experimental session to analyze
+    
+    Returns
+    -------
+    lfps: np.memmap
+        Memory mapped object of the raw data stored on your file (.npy file)
+    '''
     # Try to load the raw data
     try:
         lfps = np.squeeze(np.lib.format.open_memmap(path+'/raw_data_'+sub+'_'+sess+'.npy',mode='r+',dtype=np.int16))
@@ -295,7 +464,7 @@ def plot_artefact_map(path,sub,sess):
     Enables us to quickly see the channels that are artefacted (e.g., by epileptic activities)
     and also trials contaminated
 
-    Just like the figure9.B of Mercier et al. (2022)
+    Just like the figure 9.B of Mercier et al. (2022)
 
     Parameters
     ---------------------------
@@ -332,7 +501,7 @@ def plot_artefact_map(path,sub,sess):
    
 
     # Set up the axes with gridspec
-    fig = plt.figure(figsize=(12, 4))
+    fig = plt.figure(figsize=(12, 4),layout='constrained')
     grid = plt.GridSpec(4,4, hspace=0.2, wspace=0.2)
     main_ax = fig.add_subplot(grid[:-1, :3])
     y_hist = fig.add_subplot(grid[:-1:, 3:], xticklabels=[], sharey=main_ax)
@@ -342,20 +511,21 @@ def plot_artefact_map(path,sub,sess):
     sb.heatmap(var_ch,ax=main_ax,cbar=False,cmap="rocket_r") # pour l'instant rocket_r est la mieux
     main_ax.axes.get_xaxis().set_visible(False)
     main_ax.locator_params(axis='y',nbins=int(nCh/4+1)) 
+    main_ax.set_ylabel('# Channels',size=15)
 
     # histogram on the attached axes
     x_hist.plot(np.mean(var_ch,0),'.',color='coral')
     # Setting the number of ticks 
     x_hist.locator_params(axis='x',nbins=10) 
-    x_hist.set_title('# Trials',loc='center')
+    x_hist.set_xlabel('# Trials',loc='center',size=15)
 
     y = np.arange(len(var_ch))
     y_hist.plot(np.mean(var_ch,1),y,'.',color='coral')
     y_hist.axes.get_yaxis().set_visible(False)
-    y_hist.set_title('# Channels',loc='center')
+    y_hist.set_title('# Channels',loc='center',size=15)
 
 
-    plt.savefig(path+'Artefact_Map.png',transparent=True)
+    plt.savefig(path+'Artefact_Map.jpg',dpi=800)
 
     plt.show()
 
@@ -363,17 +533,23 @@ def plot_artefact_map(path,sub,sess):
 
 
 def to_json(dictionary, filename):
+    '''
+    Save a dictionnary to a .json file on your disk.
+
+    Parameters
+    ----------
+    dictionary: dict
+        The dictionnary you want to save
+    
+    filename: str or path-like
+        Path and name of the .json file you want to create with the informations
+        contained in dictionary
+    '''
     with open(filename,'w') as fp:
         json.dump(dictionary, fp,sort_keys=True, indent=4,ensure_ascii=False)
  
  
-def load_neuralynx_micro(
-    path: str,
-    sub: str,
-    sess: str,
-    macro_pattern: str = '_sub',
-    verbose: bool = True
-    ) -> tuple[mne.io.Raw, np.ndarray, dict]:
+def load_neuralynx_micro(path, sub, sess, macro_pattern='_sub',verbose=True):
     """
     Load intracranial EEG microwire recordings acquired with Neuralynx
     in .ncs format into memory, excluding macrocontact channels.
@@ -503,9 +679,10 @@ def load_neuralynx_micro(
 
         data = np.array(data1)
 
-        np.save(path+'raw_data_'+sub+'_'+sess+'.npy',data1)
-    # raw.load_data(verbose=False)
-    # data = raw.get_data()   # shape: (n_channels, n_samples)
+        del data1
+
+        np.save(path+'raw_data_'+sub+'_'+sess+'.npy',data)
+
  
     # ------------------------------------------------------------------ #
     # 4. Build metadata dictionary
@@ -540,8 +717,8 @@ def load_neuralynx_micro(
         
 
 
-
-        to_json(metadata,path+'metadata.json')
+    # Save dictionnary to disk
+    to_json(metadata,path+'metadata.json')
         
 
  
@@ -549,16 +726,43 @@ def load_neuralynx_micro(
 
 
 
-def plot_erp(path,metadata,sub,sess):
+def plot_erp(path,metadata,sub,sess,mua=True):
+    '''
+    Plot Event-related potentials in response to all events loaded from your recording.
+    Plot the ERPs for each channel that you had. It also plot the MUA activity estimated firing rate.
+
+    Parameters
+    ----------
+    path: str or path-like
+        Path where the .npy file containing your raw data is stored
+
+    metadata: dict
+        Dictionnary created when loading your data containing informations about the recordings
+    
+    sub: str
+        Id of the patient to analyze 
+    
+    sess: str
+        Name of the experimental session to analyze
+
+    mua: Boolean, default = True
+        Either to plot or not the MUA activity alonged ERP
+    '''
 
     # Check whether the specified path exists or not
     ensure_dir(path)
 
+    # Extract the sampling frequency from metadata object
+    sr = int(metadata['sfreq'])
 
+    # Check if .npy file with data exists
     lfps = ensure_raw(path,sub,sess)
         
     # Then create epoch
-    epoch_data = create_epoch(lfps,path,t_min=1, t_max=1)
+    if mua:
+        epoch_data = create_epoch(lfps,path,t_min=1.1, t_max=1.1)
+    else:
+        epoch_data = create_epoch(lfps,path,t_min=1, t_max=1)
 
     # Get the mean activity across trials for each channels
     mean_channels = np.mean(epoch_data,axis=0)
@@ -566,34 +770,145 @@ def plot_erp(path,metadata,sub,sess):
     # Get error standard
     sem_channels = stats.sem(epoch_data,axis=0)
 
-    time = np.linspace(-1,1,mean_channels.shape[1])
-
+    # Create a time array to get time associated with each sample
+    time = np.linspace(-1,1,epoch_data.shape[2])
+    
+    # Extract number of channels
     nChannels = mean_channels.shape[0]
 
+    # Loop over each channel in your recording
     for iChannels in range(nChannels):
 
-        fig, ax = plt.subplots(1,1,layout='constrained')
+        # If you want to plot MUA with ERPs
+        if mua:
 
-        ax.plot(time,mean_channels[iChannels],color='black')
-        ax.fill_between(time,mean_channels[iChannels]-sem_channels[iChannels],
-                        mean_channels[iChannels]+sem_channels[iChannels],
-                        color='slategrey',alpha=0.4)
+            # Parameters for gaussian window
+            N_s = 0.05 # 50 ms time window
+            sigma_s = 0.01 # 10 ms std
 
-        ax.vlines(0,ymin=ax.get_ylim()[0],ymax=ax.get_ylim()[1],
-                linewidth=3,linestyle='--',color='darkorange')
+            kernel = sig.windows.gaussian(int(N_s*sr),int(sigma_s*sr))
+
+            # Automatic threshold to detect spikes (from Quiroga et al., 2004)
+            threshold = 4 * (np.median((np.absolute(filt_butter(lfps[iChannels,:],sr=sr))/0.6745)))
+
+            # Initialize lists
+            spikes_smooth = list()
+            spikes = np.zeros((epoch_data.shape[0],epoch_data.shape[2]))
+
+            # Loop over all trials
+            for iTrials in range(epoch_data.shape[0]):
+
+                # Apply band-pass filter on epochs
+                epoch_filt = filt_butter(epoch_data[iTrials,iChannels,:],sr=32768)
+
+                # Detect where above the threshold
+                tEvents = np.where(epoch_filt> threshold)
+
+                # Replace zeros by ones
+                spikes[iTrials,tEvents] = 1
+
+                # Apply convolution with gaussian filter
+                spikes_smooth.append(np.convolve(spikes[iTrials], kernel,mode='same'))
+
+            # Adjuste to keep only between -1s to 1s
+            times = np.linspace(-1.1,1.1,epoch_data.shape[2])
+
+            idx_debut = find_nearest(times,-1)
+            idx_fin = find_nearest(times,1)
+
+            time_ok = times[idx_debut:idx_fin]
+            fr_ok = np.array(spikes_smooth)[:,idx_debut:idx_fin]
+            
+            # Get the mean firing rate across time
+            mean_fr = np.mean(fr_ok,axis=0)
+            # Get error standard
+            sem_fr = stats.sem(fr_ok,axis=0)
+
+            # Crate the figure for plotting
+            fig, (ax1,ax2) = plt.subplots(2,1,sharex=True,layout='constrained')
+            
+
+            # Plot mean lfps
+            ax1.plot(time_ok,mean_channels[iChannels,idx_debut:idx_fin],color='black')
+
+            # Add standard error around mean lfps
+            ax1.fill_between(time_ok,mean_channels[iChannels,idx_debut:idx_fin]-sem_channels[iChannels,idx_debut:idx_fin],
+                            mean_channels[iChannels,idx_debut:idx_fin]+sem_channels[iChannels,idx_debut:idx_fin],
+                            color='slategrey',alpha=0.4)
+
+            # Add a vertical line at the onset of stimuli
+            ax1.vlines(0,ymin=ax1.get_ylim()[0],ymax=ax1.get_ylim()[1],
+                    linewidth=3,linestyle='--',color='darkorange')
+            
+            # Axes titles and labels
+            ax1.set_title(metadata['ch_names'][iChannels] + ' - ERPs')
+            ax1.set_ylabel('LFPs - Microvolts')
+
+
+            ax2.plot(time_ok,mean_fr,color='black')
+
+            # Add standard error around mean lfps
+            ax2.fill_between(time_ok,mean_fr-sem_fr,
+                            mean_fr+sem_fr,
+                            color='slategrey',alpha=0.4)
+
+            ax2.vlines(0,ymin=ax2.get_ylim()[0],ymax=ax2.get_ylim()[1],
+                    linewidth=3,linestyle='--',color='darkorange')
+            
+            ax2.set_title('MUA Activity')
+            ax2.set_ylabel('Firing rate (Hz)')
+            ax2.set_xlabel('Time (s)')
+            
+
+            # Path where to store the results 
+            path2save = path+'ERPs/'
+
+            # Make sure it exists
+            ensure_dir(path2save)
+
+            # Save the plot with ERP
+            plt.savefig(path2save+'ERP_MUA_'+metadata['ch_names'][iChannels]+'.jpg')
+            
+            # Close figure object
+            plt.close()
+
+
+        else:
+
+
+            # Crate the figure for plotting
+            fig, ax = plt.subplots(1,1,layout='constrained')
+            
+
+            # Plot mean lfps
+            ax.plot(time,mean_channels[iChannels],color='black')
+
+            # Add standard error around mean lfps
+            ax.fill_between(time,mean_channels[iChannels]-sem_channels[iChannels],
+                            mean_channels[iChannels]+sem_channels[iChannels],
+                            color='slategrey',alpha=0.4)
+
+            # Add a vertical line at the onset of stimuli
+            ax.vlines(0,ymin=ax.get_ylim()[0],ymax=ax.get_ylim()[1],
+                    linewidth=3,linestyle='--',color='darkorange')
+            
+            # Axes titles and labels
+            ax.set_title(metadata['ch_names'][iChannels])
+            ax.set_ylabel('LFPs - Microvolts')
+            ax.set_xlabel('Time (s)')
+
+            # Path where to store the results 
+            path2save = path+'ERPs/'
+
+            # Make sure it exists
+            ensure_dir(path2save)
+
+            # Save the plot with ERP
+            plt.savefig(path2save+'ERP_'+metadata['ch_names'][iChannels]+'.jpg')
+            
+            # Close figure object
+            plt.close()
         
-        ax.set_title(metadata['ch_names'][iChannels])
-        ax.set_ylabel('LFPs - Microvolts')
-        ax.set_xlabel('Time (s)')
-        
-        path2save = path+'ERPs/'
-
-        ensure_dir(path2save)
-
-        plt.savefig(path2save+'ERP_'+metadata['ch_names'][iChannels]+'.jpg')
-
-        plt.close()
-    
 
 
 
