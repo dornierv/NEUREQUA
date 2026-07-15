@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='neurequa',
 
-    version='0.1.1.19',    
+    version='0.1.1.20',    
 
     description='Python package to monitor micro-recording quality in humans',
     url='https://github.com/dornierv/NEUREQUA',
