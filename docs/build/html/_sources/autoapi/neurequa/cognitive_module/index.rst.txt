@@ -24,12 +24,14 @@ Functions
 .. autoapisummary::
 
    NEUREQUA.cognitive_module.ensure_dir
+   NEUREQUA.cognitive_module.find_nearest
    NEUREQUA.cognitive_module.read_header
    NEUREQUA.cognitive_module.parse_header
    NEUREQUA.cognitive_module.read_records
    NEUREQUA.cognitive_module.parse_neuralynx_time_string
    NEUREQUA.cognitive_module.load_nev
    NEUREQUA.cognitive_module.create_epoch
+   NEUREQUA.cognitive_module.filt_butter
    NEUREQUA.cognitive_module.ensure_raw
    NEUREQUA.cognitive_module.plot_artefact_map
    NEUREQUA.cognitive_module.to_json
@@ -71,6 +73,19 @@ Module Contents
 
    :param path: Path-like where you want to create folder
    :type path: str
+
+
+.. py:function:: find_nearest(array, value)
+
+   Find the index in the array closest to a desired value.
+
+   :param array: A 1-D array containing numerical values
+   :type array: Numpy array
+   :param value: Value you want to find in array
+   :type value: float
+
+   :returns: **idx** -- Index in the array closest to value
+   :rtype: int
 
 
 .. py:function:: read_header(fid)
@@ -158,6 +173,28 @@ Module Contents
    :rtype: np.array
 
 
+.. py:function:: filt_butter(data, lowcut=300, highcut=3000, btype='bandpass', sr=32768, order=2)
+
+   Apply a butterworth band-pass filter
+
+   :param data: A 1-D array containing your LFPs activity
+   :type data: ND-array
+   :param lowcut: Lower frequency of your bandpass filter
+   :type lowcut: int
+   :param highcut: Higher frequency of your bandpass filter
+   :type highcut: int
+   :param btype: Type of filter to use.
+                 Can be either 'bandpass' (default), 'lowpass' or 'highpass'.
+   :type btype: string, default = 'bandpass'
+   :param sr: Sampling frequency of your recording system
+   :type sr: int; default = 32768
+   :param order: Order of the butterworth filter
+   :type order: int, default = 2
+
+   :returns: **filt_data** -- 1-D array containing the LFPs filter between frequencies specified
+   :rtype: ND-array
+
+
 .. py:function:: ensure_raw(path, sub, sess)
 
    Look if data were already created on the disk or not (.npy file).
@@ -242,10 +279,10 @@ Module Contents
        pattern (i.e., all channels matched the macro_pattern).
 
 
-.. py:function:: plot_erp(path, metadata, sub, sess)
+.. py:function:: plot_erp(path, metadata, sub, sess, mua=True)
 
    Plot Event-related potentials in response to all events loaded from your recording.
-   Plot the ERPs for each channel that you had.
+   Plot the ERPs for each channel that you had. It also plot the MUA activity estimated firing rate.
 
    :param path: Path where the .npy file containing your raw data is stored
    :type path: str or path-like
@@ -255,5 +292,7 @@ Module Contents
    :type sub: str
    :param sess: Name of the experimental session to analyze
    :type sess: str
+   :param mua: Either to plot or not the MUA activity alonged ERP
+   :type mua: Boolean, default = True
 
 

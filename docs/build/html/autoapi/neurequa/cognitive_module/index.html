@@ -286,23 +286,29 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.ensure_dir" title="NEUREQUA.cognitive_module.ensure_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_dir</span></code></a>(→ None)</p></td>
 <td><p>Create the directory if it does not exist</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.read_header" title="NEUREQUA.cognitive_module.read_header"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_header</span></code></a>(fid)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.find_nearest" title="NEUREQUA.cognitive_module.find_nearest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_nearest</span></code></a>(array, value)</p></td>
+<td><p>Find the index in the array closest to a desired value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.read_header" title="NEUREQUA.cognitive_module.read_header"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_header</span></code></a>(fid)</p></td>
 <td><p>Read the raw header data (16 kb) from the file object fid. Restores the position in the file object after reading.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.parse_header" title="NEUREQUA.cognitive_module.parse_header"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_header</span></code></a>(raw_hdr)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.parse_header" title="NEUREQUA.cognitive_module.parse_header"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_header</span></code></a>(raw_hdr)</p></td>
 <td><p>Parse the header string into a dictionnary of name value pairs</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.read_records" title="NEUREQUA.cognitive_module.read_records"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_records</span></code></a>(fid, record_dtype[, record_skip, count])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.read_records" title="NEUREQUA.cognitive_module.read_records"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_records</span></code></a>(fid, record_dtype[, record_skip, count])</p></td>
 <td><p>Read count records (default all) from the file object fid skipping the first record_skip records.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.parse_neuralynx_time_string" title="NEUREQUA.cognitive_module.parse_neuralynx_time_string"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_neuralynx_time_string</span></code></a>(time_string)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.parse_neuralynx_time_string" title="NEUREQUA.cognitive_module.parse_neuralynx_time_string"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_neuralynx_time_string</span></code></a>(time_string)</p></td>
 <td><p>Parse a datetime object from the idiosyncratic time string Neuralynx file headers</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.load_nev" title="NEUREQUA.cognitive_module.load_nev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_nev</span></code></a>(file_path)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.load_nev" title="NEUREQUA.cognitive_module.load_nev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_nev</span></code></a>(file_path)</p></td>
 <td><p>Load Events.nev file from Neuralynx acquisition system</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.create_epoch" title="NEUREQUA.cognitive_module.create_epoch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_epoch</span></code></a>(lfps, Folder[, t_min, t_max, ds_factor])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.create_epoch" title="NEUREQUA.cognitive_module.create_epoch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_epoch</span></code></a>(lfps, Folder[, t_min, t_max, ds_factor])</p></td>
 <td><p>Create an Epoch structure in MNE based on the Events registered in the .nev of Neuralynx acquisition system</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.filt_butter" title="NEUREQUA.cognitive_module.filt_butter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filt_butter</span></code></a>(data[, lowcut, highcut, btype, sr, order])</p></td>
+<td><p>Apply a butterworth band-pass filter</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.ensure_raw" title="NEUREQUA.cognitive_module.ensure_raw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensure_raw</span></code></a>(path, sub, sess)</p></td>
 <td><p>Look if data were already created on the disk or not (.npy file).</p></td>
@@ -316,7 +322,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.load_neuralynx_micro" title="NEUREQUA.cognitive_module.load_neuralynx_micro"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_neuralynx_micro</span></code></a>(path, sub, sess[, macro_pattern, ...])</p></td>
 <td><p>Load intracranial EEG microwire recordings acquired with Neuralynx</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.plot_erp" title="NEUREQUA.cognitive_module.plot_erp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_erp</span></code></a>(path, metadata, sub, sess)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#NEUREQUA.cognitive_module.plot_erp" title="NEUREQUA.cognitive_module.plot_erp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_erp</span></code></a>(path, metadata, sub, sess[, mua])</p></td>
 <td><p>Plot Event-related potentials in response to all events loaded from your recording.</p></td>
 </tr>
 </tbody>
@@ -367,6 +373,26 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path-like where you want to create folder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NEUREQUA.cognitive_module.find_nearest">
+<span class="sig-prename descclassname"><span class="pre">NEUREQUA.cognitive_module.</span></span><span class="sig-name descname"><span class="pre">find_nearest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/NEUREQUA/cognitive_module.html#find_nearest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NEUREQUA.cognitive_module.find_nearest" title="Link to this definition">¶</a></dt>
+<dd><p>Find the index in the array closest to a desired value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>Numpy array</em>) – A 1-D array containing numerical values</p></li>
+<li><p><strong>value</strong> (<em>float</em>) – Value you want to find in array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>idx</strong> – Index in the array closest to value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -490,6 +516,31 @@ To load the data from the .nev file I used the following library:
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="NEUREQUA.cognitive_module.filt_butter">
+<span class="sig-prename descclassname"><span class="pre">NEUREQUA.cognitive_module.</span></span><span class="sig-name descname"><span class="pre">filt_butter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowcut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highcut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">btype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bandpass'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32768</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/NEUREQUA/cognitive_module.html#filt_butter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NEUREQUA.cognitive_module.filt_butter" title="Link to this definition">¶</a></dt>
+<dd><p>Apply a butterworth band-pass filter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>ND-array</em>) – A 1-D array containing your LFPs activity</p></li>
+<li><p><strong>lowcut</strong> (<em>int</em>) – Lower frequency of your bandpass filter</p></li>
+<li><p><strong>highcut</strong> (<em>int</em>) – Higher frequency of your bandpass filter</p></li>
+<li><p><strong>btype</strong> (<em>string</em><em>, </em><em>default = 'bandpass'</em>) – Type of filter to use.
+Can be either ‘bandpass’ (default), ‘lowpass’ or ‘highpass’.</p></li>
+<li><p><strong>sr</strong> (<em>int; default = 32768</em>) – Sampling frequency of your recording system</p></li>
+<li><p><strong>order</strong> (<em>int</em><em>, </em><em>default = 2</em>) – Order of the butterworth filter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>filt_data</strong> – 1-D array containing the LFPs filter between frequencies specified</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ND-array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="NEUREQUA.cognitive_module.ensure_raw">
 <span class="sig-prename descclassname"><span class="pre">NEUREQUA.cognitive_module.</span></span><span class="sig-name descname"><span class="pre">ensure_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/NEUREQUA/cognitive_module.html#ensure_raw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NEUREQUA.cognitive_module.ensure_raw" title="Link to this definition">¶</a></dt>
 <dd><p>Look if data were already created on the disk or not (.npy file).
@@ -602,9 +653,9 @@ pattern (i.e., all channels matched the macro_pattern).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="NEUREQUA.cognitive_module.plot_erp">
-<span class="sig-prename descclassname"><span class="pre">NEUREQUA.cognitive_module.</span></span><span class="sig-name descname"><span class="pre">plot_erp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/NEUREQUA/cognitive_module.html#plot_erp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NEUREQUA.cognitive_module.plot_erp" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">NEUREQUA.cognitive_module.</span></span><span class="sig-name descname"><span class="pre">plot_erp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sess</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mua</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/NEUREQUA/cognitive_module.html#plot_erp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NEUREQUA.cognitive_module.plot_erp" title="Link to this definition">¶</a></dt>
 <dd><p>Plot Event-related potentials in response to all events loaded from your recording.
-Plot the ERPs for each channel that you had.</p>
+Plot the ERPs for each channel that you had. It also plot the MUA activity estimated firing rate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -612,6 +663,7 @@ Plot the ERPs for each channel that you had.</p>
 <li><p><strong>metadata</strong> (<em>dict</em>) – Dictionnary created when loading your data containing informations about the recordings</p></li>
 <li><p><strong>sub</strong> (<em>str</em>) – Id of the patient to analyze</p></li>
 <li><p><strong>sess</strong> (<em>str</em>) – Name of the experimental session to analyze</p></li>
+<li><p><strong>mua</strong> (<em>Boolean</em><em>, </em><em>default = True</em>) – Either to plot or not the MUA activity alonged ERP</p></li>
 </ul>
 </dd>
 </dl>
@@ -687,12 +739,14 @@ Plot the ERPs for each channel that you had.</p>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.MILLIVOLT_SCALING"><code class="docutils literal notranslate"><span class="pre">MILLIVOLT_SCALING</span></code></a></li>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.MICROVOLT_SCALING"><code class="docutils literal notranslate"><span class="pre">MICROVOLT_SCALING</span></code></a></li>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.ensure_dir"><code class="docutils literal notranslate"><span class="pre">ensure_dir()</span></code></a></li>
+<li><a class="reference internal" href="#NEUREQUA.cognitive_module.find_nearest"><code class="docutils literal notranslate"><span class="pre">find_nearest()</span></code></a></li>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.read_header"><code class="docutils literal notranslate"><span class="pre">read_header()</span></code></a></li>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.parse_header"><code class="docutils literal notranslate"><span class="pre">parse_header()</span></code></a></li>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.read_records"><code class="docutils literal notranslate"><span class="pre">read_records()</span></code></a></li>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.parse_neuralynx_time_string"><code class="docutils literal notranslate"><span class="pre">parse_neuralynx_time_string()</span></code></a></li>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.load_nev"><code class="docutils literal notranslate"><span class="pre">load_nev()</span></code></a></li>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.create_epoch"><code class="docutils literal notranslate"><span class="pre">create_epoch()</span></code></a></li>
+<li><a class="reference internal" href="#NEUREQUA.cognitive_module.filt_butter"><code class="docutils literal notranslate"><span class="pre">filt_butter()</span></code></a></li>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.ensure_raw"><code class="docutils literal notranslate"><span class="pre">ensure_raw()</span></code></a></li>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.plot_artefact_map"><code class="docutils literal notranslate"><span class="pre">plot_artefact_map()</span></code></a></li>
 <li><a class="reference internal" href="#NEUREQUA.cognitive_module.to_json"><code class="docutils literal notranslate"><span class="pre">to_json()</span></code></a></li>

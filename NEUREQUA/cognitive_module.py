@@ -32,7 +32,8 @@ This function included in NeuReQua is from @alafuzof
 
 https://github.com/alafuzof/NeuralynxIO
 '''
-
+# General parameters for plotting
+plt.rcParams["svg.fonttype"] = 'none'
 
 HEADER_LENGTH = 16 * 1024  # 16 kilobytes of header
 
@@ -87,6 +88,27 @@ def ensure_dir(path: str) -> None:
     isExist = os.path.exists(path)
     if not isExist:
         os.makedirs(path)
+
+def find_nearest(array, value):
+    '''
+    Find the index in the array closest to a desired value.
+
+    Parameters
+    ----------
+    array: Numpy array
+        A 1-D array containing numerical values
+    
+    value: float
+        Value you want to find in array
+
+    Returns
+    ----------
+    idx: int
+        Index in the array closest to value
+    '''
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return idx
 
 def read_header(fid):
     '''
@@ -340,13 +362,63 @@ def create_epoch(lfps,Folder,t_min=1,t_max=1,ds_factor=1):
     # Loop over all events 
     for iEvent in range(len(onset_sample)):
 
-        epoch = lfps[:,onset_sample[iEvent]-t_min*32768:onset_sample[iEvent]+t_max*32768]
+        epoch = lfps[:,onset_sample[iEvent]-int(t_min*32768):onset_sample[iEvent]+int(t_max*32768)]
 
         epoch_data.append(epoch)
     
 
 
     return np.array(epoch_data)
+
+
+def filt_butter(data, lowcut=300, highcut=3000, btype='bandpass', sr=32768, order=2):
+    """
+    Apply a butterworth band-pass filter
+
+    Parameters
+    ---------------------------
+    data: ND-array
+        A 1-D array containing your LFPs activity
+
+    lowcut: int
+        Lower frequency of your bandpass filter
+    
+    highcut: int
+        Higher frequency of your bandpass filter
+
+    btype: string, default = 'bandpass'
+        Type of filter to use.
+        Can be either 'bandpass' (default), 'lowpass' or 'highpass'.
+
+    sr: int; default = 32768
+        Sampling frequency of your recording system
+    
+    order: int, default = 2
+        Order of the butterworth filter
+    
+    Returns
+    ---------------------------
+    filt_data: ND-array
+        1-D array containing the LFPs filter between frequencies specified
+    """
+    from scipy.signal import butter, sosfilt
+    
+    def butter_(lowcut, highcut, btype, sr, order=order):
+        nyq = 0.5 * sr
+        low = lowcut / nyq
+        high = highcut / nyq
+        if btype == 'highpass':
+            sos = butter(order, high, btype=btype, output='sos')
+        elif btype == 'lowpass':
+            sos = butter(order, low, btype=btype, output='sos')
+        elif btype == 'bandpass':
+            sos = butter(order, [low, high], btype=btype, output='sos')
+        return sos
+    
+    sos = butter_(lowcut, highcut, btype, sr, order=order)
+    filt_data = sosfilt(sos, data)
+    
+    return filt_data
 
 
 
@@ -429,7 +501,7 @@ def plot_artefact_map(path,sub,sess):
    
 
     # Set up the axes with gridspec
-    fig = plt.figure(figsize=(12, 4))
+    fig = plt.figure(figsize=(12, 4),layout='constrained')
     grid = plt.GridSpec(4,4, hspace=0.2, wspace=0.2)
     main_ax = fig.add_subplot(grid[:-1, :3])
     y_hist = fig.add_subplot(grid[:-1:, 3:], xticklabels=[], sharey=main_ax)
@@ -439,20 +511,21 @@ def plot_artefact_map(path,sub,sess):
     sb.heatmap(var_ch,ax=main_ax,cbar=False,cmap="rocket_r") # pour l'instant rocket_r est la mieux
     main_ax.axes.get_xaxis().set_visible(False)
     main_ax.locator_params(axis='y',nbins=int(nCh/4+1)) 
+    main_ax.set_ylabel('# Channels',size=15)
 
     # histogram on the attached axes
     x_hist.plot(np.mean(var_ch,0),'.',color='coral')
     # Setting the number of ticks 
     x_hist.locator_params(axis='x',nbins=10) 
-    x_hist.set_title('# Trials',loc='center')
+    x_hist.set_xlabel('# Trials',loc='center',size=15)
 
     y = np.arange(len(var_ch))
     y_hist.plot(np.mean(var_ch,1),y,'.',color='coral')
     y_hist.axes.get_yaxis().set_visible(False)
-    y_hist.set_title('# Channels',loc='center')
+    y_hist.set_title('# Channels',loc='center',size=15)
 
 
-    plt.savefig(path+'Artefact_Map.png',transparent=True)
+    plt.savefig(path+'Artefact_Map.jpg',dpi=800)
 
     plt.show()
 
@@ -606,9 +679,10 @@ def load_neuralynx_micro(path, sub, sess, macro_pattern='_sub',verbose=True):
 
         data = np.array(data1)
 
-        np.save(path+'raw_data_'+sub+'_'+sess+'.npy',data1)
-    # raw.load_data(verbose=False)
-    # data = raw.get_data()   # shape: (n_channels, n_samples)
+        del data1
+
+        np.save(path+'raw_data_'+sub+'_'+sess+'.npy',data)
+
  
     # ------------------------------------------------------------------ #
     # 4. Build metadata dictionary
@@ -652,10 +726,10 @@ def load_neuralynx_micro(path, sub, sess, macro_pattern='_sub',verbose=True):
 
 
 
-def plot_erp(path,metadata,sub,sess):
+def plot_erp(path,metadata,sub,sess,mua=True):
     '''
     Plot Event-related potentials in response to all events loaded from your recording.
-    Plot the ERPs for each channel that you had.
+    Plot the ERPs for each channel that you had. It also plot the MUA activity estimated firing rate.
 
     Parameters
     ----------
@@ -670,16 +744,25 @@ def plot_erp(path,metadata,sub,sess):
     
     sess: str
         Name of the experimental session to analyze
+
+    mua: Boolean, default = True
+        Either to plot or not the MUA activity alonged ERP
     '''
 
     # Check whether the specified path exists or not
     ensure_dir(path)
 
+    # Extract the sampling frequency from metadata object
+    sr = int(metadata['sfreq'])
+
     # Check if .npy file with data exists
     lfps = ensure_raw(path,sub,sess)
         
     # Then create epoch
-    epoch_data = create_epoch(lfps,path,t_min=1, t_max=1)
+    if mua:
+        epoch_data = create_epoch(lfps,path,t_min=1.1, t_max=1.1)
+    else:
+        epoch_data = create_epoch(lfps,path,t_min=1, t_max=1)
 
     # Get the mean activity across trials for each channels
     mean_channels = np.mean(epoch_data,axis=0)
@@ -688,7 +771,7 @@ def plot_erp(path,metadata,sub,sess):
     sem_channels = stats.sem(epoch_data,axis=0)
 
     # Create a time array to get time associated with each sample
-    time = np.linspace(-1,1,mean_channels.shape[1])
+    time = np.linspace(-1,1,epoch_data.shape[2])
     
     # Extract number of channels
     nChannels = mean_channels.shape[0]
@@ -696,39 +779,136 @@ def plot_erp(path,metadata,sub,sess):
     # Loop over each channel in your recording
     for iChannels in range(nChannels):
 
-        # Crate the figure for plotting
-        fig, ax = plt.subplots(1,1,layout='constrained')
+        # If you want to plot MUA with ERPs
+        if mua:
+
+            # Parameters for gaussian window
+            N_s = 0.05 # 50 ms time window
+            sigma_s = 0.01 # 10 ms std
+
+            kernel = sig.windows.gaussian(int(N_s*sr),int(sigma_s*sr))
+
+            # Automatic threshold to detect spikes (from Quiroga et al., 2004)
+            threshold = 4 * (np.median((np.absolute(filt_butter(lfps[iChannels,:],sr=sr))/0.6745)))
+
+            # Initialize lists
+            spikes_smooth = list()
+            spikes = np.zeros((epoch_data.shape[0],epoch_data.shape[2]))
+
+            # Loop over all trials
+            for iTrials in range(epoch_data.shape[0]):
+
+                # Apply band-pass filter on epochs
+                epoch_filt = filt_butter(epoch_data[iTrials,iChannels,:],sr=32768)
+
+                # Detect where above the threshold
+                tEvents = np.where(epoch_filt> threshold)
+
+                # Replace zeros by ones
+                spikes[iTrials,tEvents] = 1
+
+                # Apply convolution with gaussian filter
+                spikes_smooth.append(np.convolve(spikes[iTrials], kernel,mode='same'))
+
+            # Adjuste to keep only between -1s to 1s
+            times = np.linspace(-1.1,1.1,epoch_data.shape[2])
+
+            idx_debut = find_nearest(times,-1)
+            idx_fin = find_nearest(times,1)
+
+            time_ok = times[idx_debut:idx_fin]
+            fr_ok = np.array(spikes_smooth)[:,idx_debut:idx_fin]
+            
+            # Get the mean firing rate across time
+            mean_fr = np.mean(fr_ok,axis=0)
+            # Get error standard
+            sem_fr = stats.sem(fr_ok,axis=0)
+
+            # Crate the figure for plotting
+            fig, (ax1,ax2) = plt.subplots(2,1,sharex=True,layout='constrained')
+            
+
+            # Plot mean lfps
+            ax1.plot(time_ok,mean_channels[iChannels,idx_debut:idx_fin],color='black')
+
+            # Add standard error around mean lfps
+            ax1.fill_between(time_ok,mean_channels[iChannels,idx_debut:idx_fin]-sem_channels[iChannels,idx_debut:idx_fin],
+                            mean_channels[iChannels,idx_debut:idx_fin]+sem_channels[iChannels,idx_debut:idx_fin],
+                            color='slategrey',alpha=0.4)
+
+            # Add a vertical line at the onset of stimuli
+            ax1.vlines(0,ymin=ax1.get_ylim()[0],ymax=ax1.get_ylim()[1],
+                    linewidth=3,linestyle='--',color='darkorange')
+            
+            # Axes titles and labels
+            ax1.set_title(metadata['ch_names'][iChannels] + ' - ERPs')
+            ax1.set_ylabel('LFPs - Microvolts')
+
+
+            ax2.plot(time_ok,mean_fr,color='black')
+
+            # Add standard error around mean lfps
+            ax2.fill_between(time_ok,mean_fr-sem_fr,
+                            mean_fr+sem_fr,
+                            color='slategrey',alpha=0.4)
+
+            ax2.vlines(0,ymin=ax2.get_ylim()[0],ymax=ax2.get_ylim()[1],
+                    linewidth=3,linestyle='--',color='darkorange')
+            
+            ax2.set_title('MUA Activity')
+            ax2.set_ylabel('Firing rate (Hz)')
+            ax2.set_xlabel('Time (s)')
+            
+
+            # Path where to store the results 
+            path2save = path+'ERPs/'
+
+            # Make sure it exists
+            ensure_dir(path2save)
+
+            # Save the plot with ERP
+            plt.savefig(path2save+'ERP_MUA_'+metadata['ch_names'][iChannels]+'.jpg')
+            
+            # Close figure object
+            plt.close()
+
+
+        else:
+
+
+            # Crate the figure for plotting
+            fig, ax = plt.subplots(1,1,layout='constrained')
+            
+
+            # Plot mean lfps
+            ax.plot(time,mean_channels[iChannels],color='black')
+
+            # Add standard error around mean lfps
+            ax.fill_between(time,mean_channels[iChannels]-sem_channels[iChannels],
+                            mean_channels[iChannels]+sem_channels[iChannels],
+                            color='slategrey',alpha=0.4)
+
+            # Add a vertical line at the onset of stimuli
+            ax.vlines(0,ymin=ax.get_ylim()[0],ymax=ax.get_ylim()[1],
+                    linewidth=3,linestyle='--',color='darkorange')
+            
+            # Axes titles and labels
+            ax.set_title(metadata['ch_names'][iChannels])
+            ax.set_ylabel('LFPs - Microvolts')
+            ax.set_xlabel('Time (s)')
+
+            # Path where to store the results 
+            path2save = path+'ERPs/'
+
+            # Make sure it exists
+            ensure_dir(path2save)
+
+            # Save the plot with ERP
+            plt.savefig(path2save+'ERP_'+metadata['ch_names'][iChannels]+'.jpg')
+            
+            # Close figure object
+            plt.close()
         
-
-        # Plot mean lfps
-        ax.plot(time,mean_channels[iChannels],color='black')
-
-        # Add standard error around mean lfps
-        ax.fill_between(time,mean_channels[iChannels]-sem_channels[iChannels],
-                        mean_channels[iChannels]+sem_channels[iChannels],
-                        color='slategrey',alpha=0.4)
-
-        # Add a vertical line at the onset of stimuli
-        ax.vlines(0,ymin=ax.get_ylim()[0],ymax=ax.get_ylim()[1],
-                linewidth=3,linestyle='--',color='darkorange')
-        
-        # Axes titles and labels
-        ax.set_title(metadata['ch_names'][iChannels])
-        ax.set_ylabel('LFPs - Microvolts')
-        ax.set_xlabel('Time (s)')
-
-        # Path where to store the results 
-        path2save = path+'ERPs/'
-
-        # Make sure it exists
-        ensure_dir(path2save)
-
-        # Save the plot with ERP
-        plt.savefig(path2save+'ERP_'+metadata['ch_names'][iChannels]+'.jpg')
-        
-        # Close figure object
-        plt.close()
-    
 
 
 

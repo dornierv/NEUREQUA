@@ -104,6 +104,8 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
     # Load 'ns5' from Blackrock    
     elif dtype=='nsX':
         raw_data = mne.io.read_raw_nsx(path)
+
+        
         if analog:
             # Exclude the reference channel
             raw_data.drop_channels(analog)
@@ -152,7 +154,12 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
         segment = block.segments[0]
 
         # Get the signal from all channels
-        signals_proxy = segment.analogsignals[0]
+        try:
+            signals_proxy = segment.analogsignals[1] # 0 = macro channels so 1 = micro channels
+        except:
+            signals_proxy = segment.analogsignals[0]
+
+        
 
     
     else:
@@ -213,6 +220,7 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
             if time == 'Random':
                 idx_time = int(random.random()*idx_max_random)
 
+
                 signal_crop = signals_proxy.time_slice(t_start=idx_time/sampling_rate,t_stop=(idx_time/sampling_rate)+length*60)
             
             else:
@@ -224,7 +232,9 @@ def load_raw_data(path,dtype,length,pattern2exclude, time='Random',analog=False,
 
 
             # Get the name of the channels
-            ch_names = [f"{reader.header['signal_channels'][idx][0]}" for idx in range(signal_crop.shape[1])]
+            ch_names = [signals_proxy.array_annotations['channel_names'][i] for i in range(len(signals_proxy.array_annotations['channel_names']))]
+
+            
             # Attribute a type to channels (here eeg)
             ch_types = ["eeg"] * len(ch_names)  # if not specified, type 'misc' is assumed
 
@@ -276,7 +286,10 @@ def splitCharNum(string) :
         string containing only the numbers from the input (e.g., '1')
     """
     import re
-    char,number=re.findall(r'[A-Za-z-_\'\s]+|\d+', string)
+    try:
+        char,number=re.findall(r'[A-Za-z-_\'\s]+|\d+', string)
+    except:
+        char,number,suffix=re.findall(r'[A-Za-z-_\'\s]+|\d+', string)
     return char,number
 
 
@@ -593,8 +606,7 @@ def plot_all_chan(f,nCh,chRegs,psd,bsnm,session,probe_type,saveFolder):
     ax1.legend(loc='center left',labels=chRegs,bbox_to_anchor=(1.01,0.5),fontsize=4)
 
     # Save the figure in the right folder
-    plt.rcParams["svg.fonttype"] = 'none'
-    plt.savefig(saveFolder + 'PSD_All_Channels_'+bsnm+'_'+session+'.svg', dpi=300)
+    plt.savefig(saveFolder + 'PSD_All_Channels_'+bsnm+'_'+session+'.jpg', dpi=300)
 
     # Display the figure in the notebook
     plt.show()
@@ -808,10 +820,15 @@ def tblprep(path,electrodes,sub,sess) :
     
     #open the preexisting excel file
     import os.path as path_os
-    
+
+
+    ensure_dir(path)
+
+    path_excel = path+'tracking_table_v3.xlsx'
+
     # It is an existing excel load it
-    if path_os.exists(path):
-        tbl = pd.read_excel(path, header=0)
+    if path_os.exists(path_excel):
+        tbl = pd.read_excel(path_excel, header=0)
     else:
         # if empty, creat columns with named sub, session, and with electrode names
         tbl = pd.DataFrame()
@@ -846,7 +863,7 @@ def tblprep(path,electrodes,sub,sess) :
 
         
         #save and replace the old file
-        tbl.to_excel(path, index=False)
+        tbl.to_excel(path_excel, index=False)
 
   
 
@@ -942,6 +959,7 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFold
     plt.ylabel('RMS (300 - 3000 Hz) [Volts]',fontsize=15)
 
     if save==1:
+        ensure_dir(saveFolder)
         plt.savefig(saveFolder+'RMS_Filter_AllMicro.jpg')
     
     return rms
