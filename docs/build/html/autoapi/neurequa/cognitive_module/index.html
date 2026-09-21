@@ -592,6 +592,8 @@ To load the data from the .nev file I used the following library:
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>lfps</strong> (<em>ND-array</em>) – A 2-D matrice containing your data with nChannels x nSamples shape
+Also work with a 1-D array containing data of a single channel</p></li>
 <li><p><strong>Folder</strong> (<em>string</em>) – Path where your ncs files and the Events.nev files are stored</p></li>
 <li><p><strong>t_min</strong> (<em>float</em>) – Time to include in the baseline (before the onset of event)</p></li>
 <li><p><strong>t_max</strong> (<em>float</em>) – Time to include after the onset of the event</p></li>

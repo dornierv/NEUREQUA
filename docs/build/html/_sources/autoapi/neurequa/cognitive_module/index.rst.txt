@@ -230,6 +230,9 @@ Module Contents
    https://github.com/alafuzof/NeuralynxIO
 
 
+   :param lfps: A 2-D matrice containing your data with nChannels x nSamples shape
+                Also work with a 1-D array containing data of a single channel
+   :type lfps: ND-array
    :param Folder: Path where your ncs files and the Events.nev files are stored
    :type Folder: string
    :param t_min: Time to include in the baseline (before the onset of event)
