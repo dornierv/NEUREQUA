@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 project   = 'NEUREQUA'
 author    = 'Dornier V.'
-release   = '0.1'
+release   = '0.9'
 
 extensions = [
     'autoapi.extension',      # extraction auto des docstrings
