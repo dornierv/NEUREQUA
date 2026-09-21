@@ -554,6 +554,10 @@ def create_epoch(lfps,Folder,t_min=1,t_max=1,ds_factor=1):
 
     Parameters
     ---------------------------
+    lfps: ND-array
+        A 2-D matrice containing your data with nChannels x nSamples shape
+        Also work with a 1-D array containing data of a single channel
+
     Folder : string
         Path where your ncs files and the Events.nev files are stored
     
@@ -570,7 +574,6 @@ def create_epoch(lfps,Folder,t_min=1,t_max=1,ds_factor=1):
     """
     
     
-    lfps = np.squeeze(lfps)
 
     # Load the events.nev
     nev = load_nev(Folder+'./Events.nev')  # Load event data into a dictionary
@@ -604,8 +607,11 @@ def create_epoch(lfps,Folder,t_min=1,t_max=1,ds_factor=1):
 
     # Loop over all events 
     for iEvent in range(len(onset_sample)):
-
-        epoch = lfps[:,onset_sample[iEvent]-int(t_min*32768):onset_sample[iEvent]+int(t_max*32768)]
+        
+        try:
+            epoch = lfps[:,onset_sample[iEvent]-int(t_min*32768):onset_sample[iEvent]+int(t_max*32768)]
+        except:
+            epoch = lfps[onset_sample[iEvent]-int(t_min*32768):onset_sample[iEvent]+int(t_max*32768)]
 
         epoch_data.append(epoch)
     
@@ -714,7 +720,7 @@ def plot_artefact_map(path,sub,sess):
    
 
     # Set up the axes with gridspec
-    fig = plt.figure(figsize=(12, 4),layout='constrained')
+    fig = plt.figure(figsize=(12, 2),layout='constrained')
     grid = plt.GridSpec(4,4, hspace=0.2, wspace=0.2)
     main_ax = fig.add_subplot(grid[:-1, :3])
     y_hist = fig.add_subplot(grid[:-1:, 3:], xticklabels=[], sharey=main_ax)
@@ -790,7 +796,7 @@ def plot_erp(path,metadata,sub,sess,tmin,tmax,mua=True):
         
     # Then create epoch
     if mua:
-        epoch_data = create_epoch(lfps,path,t_min=tmin+0.1, t_max=tmax+.1)
+        epoch_data = create_epoch(lfps,path,t_min=tmin+0.1, t_max=tmax+0.1)
     else:
         epoch_data = create_epoch(lfps,path,t_min=tmin, t_max=tmax)
 
@@ -801,7 +807,11 @@ def plot_erp(path,metadata,sub,sess,tmin,tmax,mua=True):
     sem_channels = stats.sem(epoch_data,axis=0)
 
     # Create a time array to get time associated with each sample
-    time = np.linspace(-tmin,tmax,epoch_data.shape[2])
+    if mua:
+        time = np.linspace(-tmin-0.1,tmax+0.1,epoch_data.shape[2])
+    else:
+        time = np.linspace(-tmin,tmax,epoch_data.shape[2])
+
     
     # Extract number of channels
     nChannels = mean_channels.shape[0]
@@ -818,6 +828,8 @@ def plot_erp(path,metadata,sub,sess,tmin,tmax,mua=True):
 
             kernel = sig.windows.gaussian(int(N_s*sr),int(sigma_s*sr))
 
+
+
             # Automatic threshold to detect spikes (from Quiroga et al., 2004)
             threshold = 4 * (np.median((np.absolute(filt_butter(lfps[iChannels,:],sr=sr))/0.6745)))
 
@@ -831,6 +843,18 @@ def plot_erp(path,metadata,sub,sess,tmin,tmax,mua=True):
                 # Apply band-pass filter on epochs
                 epoch_filt = filt_butter(epoch_data[iTrials,iChannels,:],sr=32768)
 
+                fig,ax = plt.subplots(1,1)
+
+                ax.plot(epoch_filt)
+
+                path_test = 'F:/Neurequa/Database/sub-127/erp_ncs/ERPs/'+metadata['ch_names'][iChannels]+'/'
+
+                ensure_dir(path_test)
+
+                plt.savefig(path_test+'Trial_'+str(iTrials)+'.jpg')
+
+                plt.close()
+
                 # Detect where above the threshold
                 tEvents = np.where(epoch_filt> threshold)
 
@@ -841,7 +865,7 @@ def plot_erp(path,metadata,sub,sess,tmin,tmax,mua=True):
                 spikes_smooth.append(np.convolve(spikes[iTrials], kernel,mode='same'))
 
             # Adjuste to keep only between -tmin and tmax
-            times = np.linspace(-tmin+0.1,tmax+0.1,epoch_data.shape[2])
+            times = np.linspace(-tmin-0.1,tmax+0.1,epoch_data.shape[2])
 
             idx_debut = find_nearest(times,-tmin)
             idx_fin = find_nearest(times,tmax)
@@ -889,7 +913,7 @@ def plot_erp(path,metadata,sub,sess,tmin,tmax,mua=True):
             ax2.set_ylabel('Firing rate (Hz)')
             ax2.set_xlabel('Time (s)')
             
-
+            
             # Path where to store the results 
             path2save = path+'ERPs/'
 
@@ -938,6 +962,8 @@ def plot_erp(path,metadata,sub,sess,tmin,tmax,mua=True):
             
             # Close figure object
             plt.close()
+
+
         
 
 

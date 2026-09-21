@@ -824,11 +824,11 @@ def tblprep(path,electrodes,sub,sess) :
 
     ensure_dir(path)
 
-    path_excel = path+'tracking_table_v3.xlsx'
+    path_excel = path+'tracking_table_v3.csv'
 
     # It is an existing excel load it
     if path_os.exists(path_excel):
-        tbl = pd.read_excel(path_excel, header=0)
+        tbl = pd.read_excel(path_excel, sep=',',header=0)
     else:
         # if empty, creat columns with named sub, session, and with electrode names
         tbl = pd.DataFrame()
@@ -863,7 +863,7 @@ def tblprep(path,electrodes,sub,sess) :
 
         
         #save and replace the old file
-        tbl.to_excel(path_excel, index=False)
+        tbl.to_csv(path_excel, sep=',', index=False)
 
   
 
@@ -927,7 +927,7 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFold
         rms.append(np.sqrt(np.mean(data_filtered**2)))
     
     #open the table
-    tbl = pd.read_excel(path)
+    tbl = pd.read_csv(path,sep=',')
 
     #write in the table
     #write the correlation in the table
@@ -942,7 +942,7 @@ def rms_signal_filtered (data,path,chRegions,sub,sess,fr_low,fr_high,sr,saveFold
         
 
     #save the table
-    tbl.to_excel(path, index=False)
+    tbl.to_csv(path, sep=',', index=False)
     # Plot the results
     matplotlib.rcParams.update({'font.size': 11})
 
@@ -980,7 +980,7 @@ def plot_rms_filter(pathtbl,savingpath,sub,sess,save=1):
     
     
     '''
-    tbl = pd.read_excel(pathtbl)
+    tbl = pd.read_csv(pathtbl,sep=',')
     rmstbl = tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess), ['sub', 'run', 'electrodes', 'RMS_filter']]
         
     plt.rcParams.update({'font.size': 11})
@@ -1101,7 +1101,7 @@ def correlation_coefficient(data,chRegions,path,pathtbl,sub,sess,probe_type,save
                 mean_corr.append(np.nanmean(corr))    
 
     #open the excel table
-    tbl = pd.read_excel(pathtbl)
+    tbl = pd.read_csv(pathtbl,sep=',')
 
     #creat a datframe with electrode names and correlation 
     cor_df = pd.DataFrame()
@@ -1113,7 +1113,7 @@ def correlation_coefficient(data,chRegions,path,pathtbl,sub,sess,probe_type,save
         tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == cor_df.iloc[i, 0]), 'tetrode_cor'] = cor_df.iloc[i, 1]
     
     #save table
-    tbl.to_excel(pathtbl, index=False)
+    tbl.to_csv(pathtbl, sep=',',index=False)
 
     # Plot the results
     matplotlib.rcParams.update({'font.size': 11})
@@ -1256,7 +1256,7 @@ def variance_normalized(data,chRegions,path,pathtbl,sub,sess,probe_type,save=1):
 
 
       #open the excel table
-    tbl = pd.read_excel(pathtbl)
+    tbl = pd.read_csv(pathtbl, sep=',')
 
 
     #creat a datframe with electrode names and
@@ -1269,7 +1269,7 @@ def variance_normalized(data,chRegions,path,pathtbl,sub,sess,probe_type,save=1):
         tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == var_df.iloc[i, 0]), 'variance_norm'] = var_df.iloc[i, 1]
     
     #save table
-    tbl.to_excel(pathtbl, index=False)
+    tbl.to_csv(pathtbl, sep=',', index=False)
 
 
 
@@ -1414,7 +1414,7 @@ def deviation(data,chRegions,path,pathtbl,sub,sess,probe_type, save=1):
     deviation = stats.zscore(deviation)
 
     #open the excel table
-    tbl = pd.read_excel(pathtbl)
+    tbl = pd.read_csv(pathtbl,sep=',')
 
 
     #creat a datframe with electrode names and
@@ -1427,7 +1427,7 @@ def deviation(data,chRegions,path,pathtbl,sub,sess,probe_type, save=1):
         tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == dev_df.iloc[i, 0]), 'deviation'] = dev_df.iloc[i, 1]
   
     #save table
-    tbl.to_excel(pathtbl, index=False)
+    tbl.to_csv(pathtbl, sep=',',index=False)
 
 
     # Plot the results
@@ -1507,7 +1507,7 @@ def variance(data,chRegions,path,pathtbl,sub,sess,save=1):
         variance.append(var_i)
             
     #open the excel table
-    tbl = pd.read_excel(pathtbl)
+    tbl = pd.read_csv(pathtbl, sep=',')
 
 
     #creat a datframe with electrode names and
@@ -1520,7 +1520,7 @@ def variance(data,chRegions,path,pathtbl,sub,sess,save=1):
         tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == var_df.iloc[i, 0]), 'variance'] = var_df.iloc[i, 1]
   
     #save table
-    tbl.to_excel(pathtbl, index=False)
+    tbl.to_csv(pathtbl, sep=',', index=False)
 
 
 
@@ -1582,7 +1582,7 @@ def signaltonoise(a,chRegions,path,pathtbl,sub,sess, save=1, axis=1, ddof=0):
     signal2noise = np.where(sd == 0, 0, m/sd)
 
     #open the excel table
-    tbl = pd.read_excel(pathtbl)
+    tbl = pd.read_csv(pathtbl, sep=',')
 
 
     #creat a datframe with electrode names and
@@ -1595,7 +1595,7 @@ def signaltonoise(a,chRegions,path,pathtbl,sub,sess, save=1, axis=1, ddof=0):
         tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == var_df.iloc[i, 0]), 'SNR'] = var_df.iloc[i, 1]
   
     #save table
-    tbl.to_excel(pathtbl, index=False)
+    tbl.to_csv(pathtbl, sep=',', index=False)
 
 
     # Plot the results
@@ -1664,7 +1664,7 @@ def kurtosis(data,chRegions,path,pathtbl,sub,sess,save=1):
     
     
     #open the excel table
-    tbl = pd.read_excel(pathtbl)
+    tbl = pd.read_csv(pathtbl, sep=',')
 
 
     #creat a datframe with electrode names and
@@ -1676,7 +1676,7 @@ def kurtosis(data,chRegions,path,pathtbl,sub,sess,save=1):
         tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == kur_df.iloc[i, 0]), 'kurtosis'] = kur_df.iloc[i, 1]
   
     #save table
-    tbl.to_excel(pathtbl, index=False)
+    tbl.to_csv(pathtbl, sep=',', index=False)
 
 
     # Plot the results
@@ -1771,7 +1771,7 @@ def hurst_component(data,chRegions,path,pathtbl,sub,sess,save=1):
 
 
     #open the excel table
-    tbl = pd.read_excel(pathtbl)
+    tbl = pd.read_csv(pathtbl, sep=',')
 
 
     #creat a datframe with electrode names and
@@ -1783,7 +1783,7 @@ def hurst_component(data,chRegions,path,pathtbl,sub,sess,save=1):
         tbl.loc[(tbl['sub'] == sub) & (tbl['run'] == sess) & (tbl['electrodes'] == hurst_df.iloc[i, 0]), 'Hurst'] = hurst_df.iloc[i, 1]
   
     #save table
-    tbl.to_excel(pathtbl, index=False)
+    tbl.to_csv(pathtbl, sep=',', index=False)
     # Plot the results
     matplotlib.rcParams.update({'font.size': 11})
 
